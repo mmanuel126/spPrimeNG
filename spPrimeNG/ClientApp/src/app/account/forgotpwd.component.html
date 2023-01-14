@@ -1,0 +1,67 @@
+<body class="image-bg">
+  <form #forgotPwdForm='ngForm' (ngSubmit)="forgotPassword()">
+    <div class="h-50  bg-animation">
+      <div class="d-flex h-50 justify-content-center align-items-center">
+        <div class="mx-auto app-login-box col-md-8">
+          <br><br>
+          <div class="mx-auto mb-3 logo_text logo_popup_text"><img src="{{this.webSiteDomain}}/assets/images/logo3.jpg" width="350" height="70"> </div>
+          <div class="modal-dialog w-100 mx-auto">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="h5 modal-title text-left">
+                  <h5 class="mt-2">
+                    Forgot your password?
+                  </h5>
+                  <h6 class="mt-1 mb-0 opacity-8"><span>Use the form below to recover it.</span></h6>
+                  <div class="divider"></div>
+
+                  <div class="modal-body">
+                    <div>
+                      <div class="row">
+                        <div class="col-md-12">
+
+                          <div tabindex="-1">
+                            <label for="exampleEmail">Email</label>
+
+                            <div id="exampleInputGroup1" role="group"
+                                 aria-describedby="exampleInputGroup1__BV_description_" class="form-group">
+                              <div>
+                                <input autocomplete="off" name="txtEmail" id="txtEmail" type="email"
+                                       placeholder="Enter email..." required="required" email ngModel #txtEmail="ngModel"
+                                       [(ngModel)]="formData.email" aria-required="true" class="form-control"
+                                       aria-describedby="exampleInputGroup1__BV_description_">
+                                <span style="font-size:10pt;" class="errorMessage msg_color"
+                                      *ngIf="txtEmail.touched && !txtEmail.valid">
+                                  Valid email is
+                                  required.
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="divider"></div>
+                    <h6 class="mb-0"><a [routerLink]="['/']" class="text-primary">Sign in existing account</a></h6>
+                    <div class="modal-footer clearfix">
+                      <div class="float-right">
+                        <button type="submit" id="btnReset" [disabled]="!forgotPwdForm.valid || show"
+                          class="btn btn-primary btn-md">
+                          <i *ngIf="show" class='fa fa-spinner fa-spin'></i> {{(show==true) ? "Please wait..." : "Reset Password"}}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center text-black opacity-8 mt-3">
+              <app-nologin-footer></app-nologin-footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>
+

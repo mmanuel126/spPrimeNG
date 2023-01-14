@@ -1,0 +1,28 @@
+<div>
+  <form class="form-horizontal" name="asEmailForm" #asEmailForm='ngForm' (ngSubmit)="saveASEMail()">
+
+    <div>
+      <p>Every member must have a valid email address. Use this section to change your email address if needed.</p>
+    </div>
+
+    <div class="form-group" style="padding-bottom:15px">
+
+      <input name="txtEmail" placeholder="Enter email" type="email" id="txtEmail" class="form-control"
+        style=" width:300px;height:29px;padding-top:1px" email required ngModel #txtEmail="ngModel"
+        [(ngModel)]="asModel.email" />
+
+      <div *ngIf="txtEmail.errors && (txtEmail.dirty || txtEmail.touched)  && !txtEmail.valid">
+        <span class="help-bpx" style="color:red;" *ngIf="txtEmail.errors.required">Email is required.</span>
+        <span class="help-bpx" style="color:red;" *ngIf="!txtEmail.valid">Email must be valid.</span>
+      </div>
+    </div>
+
+    <div>
+      <button type="submit" id="saveEmail" [disabled]="!asEmailForm.valid || isSaving" class="btn btn-primary btn-md">
+        <i *ngIf="isSaving" class='fa fa-spinner fa-spin'></i> {{(isSaving==true) ? "Saving..." : "Save"}}</button>
+    </div>
+    <div style="padding-bottom:60px">
+      <span style="color:green">{{this.isEmailSuccess ? "Saved sucessfully." : ""}}</span>
+    </div>
+  </form>
+</div>

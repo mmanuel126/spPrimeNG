@@ -1,0 +1,44 @@
+<div>
+  <form class="form-horizontal" name="aboutInfoForm" #aboutInfoForm='ngForm' (ngSubmit)="saveAboutInfo()">
+
+    <div class="form-group" style="padding-bottom:15px">
+      <b>About Me:</b>
+      <br />
+      <textarea name="txtAboutMe" cols="8" rows="90" #txtAboutMe="ngModel" type="text" id="txtAboutMe"
+        [(ngModel)]="aboutInfo.aboutMe" class="form-control" style="padding-top:1px;  height:70px" ngModel></textarea>
+    </div>
+
+    <div class="form-group" style="padding-bottom:15px">
+      <b>Activities:</b>
+      <br />
+      <textarea name="txtActivities" #txtActivities="ngModel" type="text" id="txtActivities"
+        [(ngModel)]="aboutInfo.activities" class="form-control" style="padding-top:1px; height:70px"></textarea>
+    </div>
+
+    <div class="form-group" style="padding-bottom:15px">
+      <b>Hobbies:</b>
+      <br />
+      <textarea name="txtHobbies" #txtHobbies="ngModel" type="text" id="txtHobbies" [(ngModel)]="aboutInfo.hobbies"
+        class="form-control" style="padding-top:1px; height:70px" ngModel></textarea>
+    </div>
+
+    <div class="form-group" style="padding-bottom:15px">
+      <b>Special Skills:</b>
+      <br />
+      <textarea name="txtSpecialSkills" #txtSpecialSkills="ngModel" type="text" id="txtSpecialSkills"
+        [(ngModel)]="aboutInfo.specialSkills" placeholder="Enter Title" class="form-control"
+        style="padding-top:1px;  height:70px" ngModel></textarea>
+    </div>
+
+    <div style="padding-bottom:80px">
+      <button type="submit" id="saveAboutInfo" [disabled]="!aboutInfoForm.valid || isSaving"
+        class="btn btn-primary btn-md">
+        <i *ngIf="isSaving" class='fa fa-spinner fa-spin'></i> {{isSaving
+        ? "Saving..." : "Save"}}</button>
+
+    </div>
+
+    <div class="clearfix"></div>
+  </form>
+
+</div>

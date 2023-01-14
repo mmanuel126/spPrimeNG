@@ -1,0 +1,25 @@
+#gallerycontainer {
+  position: relative;
+  height: 200px;
+  width: 95%;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+.normalClass {
+  font-weight: normal;
+}
+
+#gallery {
+  width: 4520px;
+  position: absolute;
+  z-index: 1;
+}
+
+#gallery a {
+    float: left;
+    width: 419px;
+    height: 165px;
+    margin-right: 5px;
+    border: 1px solid #000;
+}

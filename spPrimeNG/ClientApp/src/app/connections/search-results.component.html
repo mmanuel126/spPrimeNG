@@ -1,0 +1,61 @@
+<div class="col-sm-14 col-md-12">
+  <div class="mb-3 card" style="padding:10px">
+
+    <div class="card-header-tab card-header">
+      <div class="card-header-title font-size-lg text-capitalize font-weight-bold">
+        <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"> </i>
+        Search result for text: <span style="color:navy">{{this.searchModel.key}}</span>
+      </div>
+    </div>
+    <br>
+
+    <div>
+      <hr style="color:darkgray; border:solid 1px #e7eadf">
+    </div>
+    <div *ngIf="spinner" style="padding-left:0px;padding-top:5px; font-size:8pt;display:block">
+      <i class="fas fa-spinner fa-spin"></i>&nbsp;Loading...
+    </div>
+
+    <div *ngIf="this.contactCnt==0;else showConnectionList_Content">
+      There are no connections to display.
+    </div>
+  </div>
+</div>
+
+<ng-template #showConnectionList_Content>
+  <div *ngIf="this.contactCnt>0" style="padding-left:0px;padding-top:7px; padding-bottom:5px;display:block">
+    {{this.contactCnt}}&nbsp;members(s) found.
+  </div>
+
+  <div id="tbMsgPartialDiv" style="background-color:white">
+    <table 
+      style="width: 600px; text-align: left; border-left: 1px none #e7eadf; border-right:1px none #e7eadf; border-collapse: collapse; font-size:11pt">
+      <tbody>
+        <tr *ngFor="let res of contactInfoList" style="border-bottom: solid 1px;border-bottom-color:#DBDBDB;">
+
+          <td
+            style="width: 40px; text-align: left; cursor:pointer;vertical-align:top; padding-top:6px;padding-right:4px"
+            class="textfonts8pt;">
+            <a href="" [routerLink]="['/members/show-profile']" [queryParams]="{memberID:res.entityID}"
+              style="border:none">
+              <img src="{{this.memberImagesUrlPath}}{{res.picturePath}}"
+                style="color:#596A7D;border-color:LightGrey;border-width:1px;border-style:None;height:40px;width:40px;border-radius:50%" />
+            </a>
+          </td>
+          <td style="vertical-align: top; text-align: left;vertical-align:top; padding-bottom:10px;"
+            >
+            <a id="lbSName" href="#" [routerLink]="['/members/show-profile']" style="width:400px"
+              [queryParams]="{memberID:res.entityID}">
+                        {{res.entityName}}</a>
+            <br />
+            <span id="lblTitle"
+              style="color:Gray;font-size:10pt;">{{(res.cityState=="") ? "Unknown Title" : res.cityState  }}</span>
+            <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+  </div>
+</ng-template>
+

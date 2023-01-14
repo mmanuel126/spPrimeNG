@@ -1,0 +1,29 @@
+.image-bg {
+  position: fixed;
+  min-width: 100%;
+  background-color: #f7f9fa;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.msg_color {
+  color: red;
+}
+
+.logo_text {
+  color: #4A6792;
+  font-size: 20pt;
+  font-weight: bolder;
+  text-align: center;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;
+}
+
+.logo_popup_text {
+  color: #4A6792;
+  font-size: 36pt;
+  font-weight: bolder;
+  font-family: "Brush Script MT";
+  text-align: center;
+}

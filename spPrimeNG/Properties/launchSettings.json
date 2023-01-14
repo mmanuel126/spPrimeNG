@@ -11,7 +11,7 @@
     "spPrimeNG": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5125",
+      "applicationUrl": "http://localhost:61343",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"

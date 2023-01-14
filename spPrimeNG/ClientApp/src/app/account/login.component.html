@@ -1,0 +1,130 @@
+<body class="image-bg">
+  <form #loginForm='ngForm' (ngSubmit)="loginUser()">
+    <div class="h-50  bg-animation">
+      <div class="d-flex h-50 justify-content-center align-items-center">
+        <div class="mx-auto app-login-box col-md-8">
+          <br><br>
+          <div class="mx-auto mb-3 logo_text logo_popup_text"><img src="{{this.webSiteDomain}}/assets/images/logo3.jpg" width="350" height="70"> </div>
+          <div class="modal-dialog w-100 mx-auto">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="h5 modal-title text-center">
+                  <h5 class="mt-2">
+                    Welcome!
+                  </h5>
+                  <h6><span>Please sign in to your account below.</span></h6>
+                </div>
+
+                <div class="h6 text-center" *ngIf="(this.result =='notfound')">
+                  <table>
+                    <tr>
+                      <td id="errMsgTD" class="incorrect_cred_header">
+                        <b>Incorrect Email/Password combination.</b>
+                        <br />
+                        <span class='incorrect_cred_msg'>
+                          The password and email address you entered don't
+                          match. Passwords are case sensitive, so remember to check your CAPS lock key.
+                        </span>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div id="exampleInputGroup1" role="group" aria-describedby="exampleInputGroup1__BV_description_"
+                     class="form-group">
+                  <div>
+                    <input autocomplete="off" name="txtEmail" id="txtEmail" type="email" placeholder="Enter email..."
+                           required="required" email ngModel #txtEmail="ngModel" [(ngModel)]="login.email"
+                           aria-required="true" class="form-control" aria-describedby="exampleInputGroup1__BV_description_">
+                    <span class="errorMessage msg_color" *ngIf="txtEmail.touched && !txtEmail.valid">
+                      Valid email is
+                      required.
+                    </span>
+                  </div>
+                </div>
+                <div id="exampleInputGroup2" role="group" class="form-group">
+                  <div>
+                    <input autocomplete="off" name="txtPassword" id="txtPassword" type="password"
+                           placeholder="Enter password..." required="required" ngModel #txtPassword="ngModel"
+                           [(ngModel)]="login.password" aria-required="true" class="form-control">
+                    <span class="errorMessage msg_color" *ngIf="txtPassword.touched && !txtPassword.valid">
+                      Password is
+                      required.
+                    </span>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <h6 class="mb-0">
+                  No account?
+                  <a [routerLink]="['/register']" class="text-primary">Sign up now (It's free!)</a>
+                </h6>
+              </div>
+              <div class="modal-footer clearfix">
+                <div class="float-left">
+                  <a href="#" data-toggle="modal" data-target="#aboutSP"
+                    title="What about&nbsp;{{this.appLogoText}}?">
+                    <i class='fa fa-info-circle text-success'></i>&nbsp;<span class="text-success">About</span>
+                  </a>
+                </div>
+                <div class="float-left">
+                  <h6 class="mb-0">
+                    <a [routerLink]="['/forgotpwd']" class="btn-md btn btn-link">
+                      Recover
+                      Password
+                    </a>
+                  </h6>
+                </div>
+                <div class="float-right">
+                  <button type="submit" id="login" [disabled]="!loginForm.valid || isLoading" class="btn btn-primary btn-md">
+                    <i *ngIf="isLoading" class='fa fa-spinner fa-spin'></i> {{(isLoading==true) ? "Logging. Please wait..." : "Login"}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center text-black opacity-8 mt-3">
+            <app-nologin-footer></app-nologin-footer>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>
+
+<!-- template for aboutSP popup -->
+<div class="modal fade" id="aboutSP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <span class="logo_popup_text"><img src="{{this.webSiteDomain}}/assets/images/logo3.jpg" width="350" height="70"> </span>
+        <br><br>
+        <p>
+          {{this.companyName}}&nbsp;is a social networking site for the athletes, sport agents, and of
+          course sports fans all over the world.
+        </p>
+        <p>
+          You can create an account, setup your profile, and connect with other members of the site to
+          share and showcase your skill sets.
+        </p>
+        <p>
+          If you are an amateur or professional athlete, you can reach out to agents to let them know
+          about your talent and availability. If you are an agent, you can reach out to athletes as
+          potential clients.
+        </p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,301 @@
+.labelstyle {
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    font-size: 8pt;
+    text-align: right;
+    width: 110px;
+    height: 23px;
+    font-weight: bold;
+    color: #596a7d; /*#484830;*/
+}
+
+.textstyle {
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    font-size: 8pt;
+    text-align: left;
+}
+
+.textFontChacoal {
+    font-size: 14pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    color: #484830;
+    text-align: left;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.textFontLightBlue {
+    font-size: 10pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    color: #596a7d;
+    font-weight: bold;
+    text-align: left;
+    vertical-align: top;
+}
+
+.textFontChacoalBold {
+    font-size: 8pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    color: #484830;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.textFontBlack {
+    font-size: 8pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    color: #484830;
+    vertical-align: top;
+}
+
+.textFontBlackBold {
+    font-size: 8pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    color: #484830;
+    font-weight: bold;
+}
+
+.textFontBlack596a7d {
+    width: 85px;
+    font-size: 8pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    color: #596a7d;
+    font-weight: normal;
+    text-align: right;
+    vertical-align: top;
+}
+
+.textDataValue
+{
+    font-size: 10.5pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    font-weight: normal;
+    vertical-align: top;
+    color:#484830;
+    /*color: #596a7d;*/
+}
+
+.textDataLabel {
+    width: 85px;
+    font-size: 10.5pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    color: #596a7d;
+    font-weight: normal;
+    text-align: right;
+    vertical-align: top;
+}
+
+
+.divfonts {
+    font-size: 8pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    font-weight: normal;
+}
+
+.composeMsg8pt {
+    font-size: 8pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+}
+
+.composeMsg10pt {
+    font-size: 10pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+    font-weight: bold;
+    text-align: left;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.composeMsgLabel {
+    text-align: right;
+    width: 40px;
+    color: #596a7d;
+    font-weight: normal;
+    vertical-align: middle;
+    font-size: 8pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+}
+
+.composeMsgLabelVerticalAlignMiddle {
+    text-align: right;
+    width: 40px;
+    color: #596a7d;
+    font-weight: normal;
+    vertical-align: top;
+    font-size: 8pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+}
+
+.composeMsgText {
+    text-align: left;
+    width: 400px;
+    font-size: 8pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+}
+
+.settingAct8pt {
+    font-size: 10pt;
+    font-family: 'Lucida Grande', tahoma, helvetica;
+}
+
+.containdiv {
+    width: 100%;
+    display: block;
+    border: 1px solid #000;
+    background: #afa;
+    }
+     
+    .col {
+    padding: 1em;
+    }
+     
+    .col1 {
+    float: left;
+    width: 200px;
+    }
+     
+    .col2 {
+    display: block;
+    top: 0;
+    margin-left: 220px;
+    margin-right: 230px;
+    }
+     
+    .col3 {
+    width: 200px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    }
+     
+    .ftr SPAN, .hdr SPAN {
+    display: block;
+    padding: 0.5em;
+    }
+     
+    .hdr {
+    border-left: 1px solid #000;
+    border-top: 1px solid #000;
+    background: #ffa;
+    }
+     
+    .ftr {
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-top: none;
+    clear: left;
+    background: #ffa;
+    }
+
+
+.separator-hr {
+    margin: 0 5px;
+    border-top-style: dashed;
+}
+
+.edit-separator-hr {
+    margin: 10px 5px;
+    border-top-style: dashed;
+}
+
+.last-separator-hr {
+    margin-top: 5px;
+}
+
+.edit-last-separator-hr {
+    margin-top: 15px;
+}
+
+.password-separator-hr {
+    margin: 5px;
+    border-style: none;
+}
+
+.form-group {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+input.form-control {
+    border-left-width: 5px;
+}
+
+
+.password-well {
+    margin-bottom: 0;
+}
+
+.hint-sm {
+    display: block;
+}
+
+.checkbox.user-enabled {
+    display: inline-block;
+}
+
+.unblock-user {
+    margin-left: 34px;
+}
+
+
+.separator-hr {
+    margin: 0 5px;
+    border-top-style: dashed;
+}
+
+.edit-separator-hr {
+    margin: 10px 5px;
+    border-top-style: dashed;
+}
+
+.last-separator-hr {
+    margin-top: 5px;
+}
+
+.edit-last-separator-hr {
+    margin-top: 15px;
+}
+
+.password-separator-hr {
+    margin: 5px;
+    border-style: none;
+}
+
+.form-group {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+input.form-control {
+    border-left-width: 5px;
+}
+
+.password-well {
+    margin-bottom: 0;
+}
+
+.hint-sm {
+    display: block;
+}
+
+.checkbox.user-enabled {
+    display: inline-block;
+}
+
+.unblock-user {
+    margin-left: 34px;
+}
+
+.textFontChacoal {
+    font-size: 14pt;       
+    color: #484830;
+    text-align: left;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.textFontChacoalBold {
+    font-size: 8pt;       
+    color: #484830;
+    font-weight: bold;
+    vertical-align: top;
+}

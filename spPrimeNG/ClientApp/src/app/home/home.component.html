@@ -1,14 +1,370 @@
-<h1>Hello, world!</h1>
-<p>Welcome to your new single-page application, built with:</p>
-<ul>
-  <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-  <li><a href='https://angular.io/'>Angular</a> and <a href='http://www.typescriptlang.org/'>TypeScript</a> for client-side code</li>
-  <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-</ul>
-<p>To help you get started, we've also set up:</p>
-<ul>
-  <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-  <li><strong>Angular CLI integration</strong>. In development mode, there's no need to run <code>ng serve</code>. It runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-  <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration automatically invokes <code>ng build</code> to produce minified, ahead-of-time compiled JavaScript files.</li>
-</ul>
-<p>The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p>
+<div class="row">
+  <div class="col-sm-14 col-md-12">
+    <div class="mb-3 card" style="padding:10px">
+
+      <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-sm text-capitalize font-weight-bold">
+          <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"> </i>
+          <img src="{{this.webSiteDomain}}/assets/images/newspapers.png" Width="15px" Height="15px" />&nbsp;Recent News
+        </div>
+      </div>
+
+      <div style="padding:10px; padding-bottom:0px">
+        <carousel [noPause]="false" [showIndicators]="false">
+          <slide *ngFor='let res of recentNews | async; let i = index'>
+            <div class="card mb-3">
+              <a href="{{res.newsUrl}}" target='_blank'>
+                <img class="card-img-top" src="{{this.webSiteDomain}}/assets/{{res.newsImgUrl}}" alt="">
+              </a>
+              <div class="card-body">
+                <span style="font-size:12pt;font-weight: normal;">
+                  <a href="{{res.newsUrl}}" target='_blank'>{{res.newsTitle}}</a>
+                </span><br>
+                <small>Posted Date:&nbsp;{{res.newsDatePosted}}</small><br>
+                <span style="color:Gray;font-size:10pt">
+                  {{res.newsDetail}}&hellip;
+                  <span style="font-size:8pt;">
+                    <a href="{{res.newsUrl}}" target='_blank'>Details</a>
+                  </span>
+                  <a href="http://www.{{res.newsUrl}}" target='_blank'>
+                    <span style="font-size:7pt;font-weight:bold">>></span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </slide>
+        </carousel>
+      </div>
+    </div>
+
+    <div class="col-sm-14 col-lg-25">
+      <div class="card-hover-shadow-2x mb-3 card" style="padding:10px">
+        <div class="card-header-tab card-header">
+          <div class="card-header-title font-size-sm text-capitalize font-weight-bold">
+            <img src="{{this.webSiteDomain}}/assets/images/newspapers.png" Width="15px" Height="15px" />&nbsp;Recent Posts
+            &nbsp;
+            <button (click)="refreshPosts()" class="mr-2 btn btn-link" style="font-size:10pt">
+              <i class="fa fa-refresh"></i>&nbsp;Refresh
+            </button><span style="color:gray">|</span>&nbsp;<button (click)="jumpToComment('0', newPostModal)" class="mr-2 btn btn-link btn-sm" style="font-size:10pt">
+              <i class="fa fa-plus"></i>&nbsp;Add New Post
+            </button>
+
+          </div>
+        </div>
+
+        <div class='row'>
+          <div class='col-md-offset-2 col-md-9'>
+            <!-- progress info to show posts refreshing -->
+            <div *ngIf="show" id="prgPost" style="padding-left:40px;padding-top:5px; font-size:8pt;display:block">
+              <i class="fa fa-spinner fa-spin"></i>&nbsp;Refreshing posts...
+            </div>
+            <!-- the posts area -->
+            <div style="padding-left:6px;padding-top:10px; width:2000px">
+
+              <table id="tbRecentPosts">
+                <tbody>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <tr *ngFor='let res of recentPosts | paginate: { itemsPerPage: 5, currentPage: p }; let i = index'>
+                    <td style="vertical-align: top; width: 12px; text-align: left; padding-top: -100px;">
+                      <input type="image" [routerLink]="['/members/show-profile']"
+                             [queryParams]="{memberID:res.memberID}" name="imgMbr" id="imgMbr"
+                             src="{{this.memberImageUrlpath}}{{(res.picturePath==null || res.picturePath=='') ? 'default.png' : res.picturePath }}"
+                             style="height:35px;width:35px;border-radius:50%" />
+                    </td>
+                    <td style="vertical-align: top; text-align: left;width:350px;padding-left:7px">
+                      <span>
+                        <span id="lblDesc"
+                              style="color:#36454f;font-size: 10pt; background-color: seashell; padding:5px; border-radius:10px 10px 10px 10px">
+                          <a id="lbMbrName" href="#" [routerLink]="['/members/show-profile']"
+                             [queryParams]="{memberID:res.memberID}" style="font-weight:bold;">{{res.memberName}}</a>
+                          &nbsp;{{res.description}}
+                        </span>
+                        <br />
+                        <span style="font-size:9pt;">
+                          <span id="lblPostDate" style="color:Gray;">{{res.datePosted}}</span>
+                          <span style="color: #596a7d">&nbsp;-</span>
+                          <a (click)="jumpToComment(res.postID, commentModal)" id="lbPostComment" href=""
+                             style=" font-weight: normal;">&nbsp;Reply</a>
+                        </span>
+                        <div id="#myContainer_1161"></div>
+                        <div id="tbRecentPostsDiv_1161">
+                          <table id="tbChildPosts_1161"
+                                 style="width:450px;text-align: left;  border-bottom-style: none; border-top: 1px solid #e7eadf; border-bottom-color: White; border-bottom-width: 3px">
+                            <tbody>
+                              <tr *ngFor='let chi of res.children'>
+                                <td style="width: 12px; text-align: left; padding-top: -100px; vertical-align: top; font-size: 8pt;">
+                                  <input type="image" [routerLink]="['/members/show-profile']"
+                                         [queryParams]="{memberID:chi.memberID}" name="imgChild" id="imgChild"
+                                         src="{{this.memberImageUrlpath}}{{(chi.picturePath==null || chi.picturePath=='') ? 'default.png' : chi.picturePath }}"
+                                         style="color:#596A7D;height:35px;width:35px; cursor:pointer;border-radius:50%" />
+                                </td>
+                                <td style="vertical-align: middle; text-align: left;padding-left:7px;">
+                                  <span id="lblResponseDesc" style="color:#36454f;font-size: 10pt;">
+                                    <a [routerLink]="['/members/show-profile']" [queryParams]="{memberID:res.memberID}"
+                                       id="lbMbrName" href=""
+                                       style="font-weight:bold; cursor:pointer">{{chi.memberName}}</a>
+                                    &nbsp;{{chi.description}}
+                                  </span>
+                                  <br />
+                                  <span id="lblResponseDate"
+                                        style="color:Gray;font-size:9pt">{{chi.dateResponded}}</span>
+                                  <span style="color: #596a7d">&nbsp;-</span>
+                                  <a (click)="jumpToComment(res.postID, commentModal)" id="lbPostComment" href=""
+                                     style=" font-weight:normal; font-size:9pt">&nbsp;Reply</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+
+              </table>
+              <div id="pageNavPosition"></div>
+            </div>
+            <div style="text-align:left !important;  font-size:12px" align="left">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <div class="col-sm-10 col-lg-4">
+      <div class="card-hover-shadow-2x mb-3 card">
+        <div class="card-header-tab card-header">
+          <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            <i class="header-icon lnr-lighter icon-gradient bg-amy-crisp"> </i>
+            Ads
+          </div>
+        </div>
+        <div class="scroll-area-lg">
+
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+            <ins class="adsbygoogle"
+             style="display:inline-block;width:180px;height:180px"
+             data-ad-client="ca-pub-4574582494573662"
+             data-adtest="off"
+             ></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+
+        </div>
+
+      </div>
+    </div> -->
+</div>
+
+
+
+
+<!-- <div class="container">
+
+    <div class="row">
+        <div class='col-md-offset-2 col-md-8 text-left'>
+            <h5><img src="../assets/images/newspapers.png" Width="15px" Height="15px" />&nbsp;Recent News</h5>
+        </div>
+    </div>
+
+    <div class='row' style="border-color:beige;border-width:2px; border-style:solid">
+        <div class='col-md-offset-2 col-md-9'>
+            <div class="carousel slide"  data-ride="carousel" id="quote-carousel">
+
+                <ol class="carousel-indicators">
+                    <li *ngFor='let res of recentNews | async; let i = index' data-target="#quote-carousel"
+                        data-slide-to="i" class="activate"></li>
+                </ol>
+
+                <div class="carousel-inner">
+                    <div *ngFor='let res of recentNews | async; let i = index' class="carousel-item {{ (i == 0) ? 'active' : ''}}">
+                        <blockquote>
+                            <div class="row">
+                                <div class="col-sm-3 text-center">
+                                    <a href="{{res.newsUrl}}" target='_blank'>
+                                        <img src="../../assets{{res.newsImgUrl}}" alt="" style="height:100px;width:120px;border-width:0px;" />
+                                    </a>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-size:11pt">
+                                        <a href="{{res.newsUrl}}" target='_blank'>{{res.newsTitle}}</a>
+                                    </span><br>
+                                    <small>Posted Date:&nbsp;{{res.newsDatePosted}}</small><br>
+                                    <p>
+                                        {{res.newsDetail}}&hellip;
+                                        <span style="font-size:8pt;">
+                                            <a href="{{res.newsUrl}}" target='_blank'>Details</a>
+                                        </span>
+                                        <a href="http://www.{{res.newsUrl}}" target='_blank'>
+                                            <span style="font-size:7pt;font-weight:bold">>></span>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </blockquote>
+                    </div>
+
+                    <span style="font-size: 0.5rem;">
+                        <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-circle-left"></i></a>
+                        <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-circle-right"></i></a>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+    <div class="row">
+        <div class='col-md-offset-2 col-md-8 text-left'>
+            <h5><img src="../assets/images/newspapers.png" Width="15px" Height="15px" />&nbsp;Recent Posts
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a (click)="refreshPosts()" id="lbRefresh" name="lbRefresh" title="Get latest posts" style="color:#484830;font-size:7pt;font-weight:normal;text-decoration:none;cursor:pointer"><i
+                        class="fa fa-refresh"></i>&nbsp;Refresh</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a (click)="jumpToComment('0', newPostModal)"  id="lbNewPost" name="lbNewPost" title="Create a new post" style="color:#484830;font-size:7pt;font-weight:normal;text-decoration:none;cursor:pointer"><i
+                        class="fa fa-plus"></i>&nbsp;Add New Post</a>
+            </h5>
+        </div>
+    </div>
+
+    <div class='row' style="border-color:beige;border-width:2px; border-style:solid; padding-bottom:35px">
+        <div class='col-md-offset-2 col-md-9'>
+
+            <div *ngIf="show" id="prgPost" style="padding-left:40px;padding-top:5px; font-size:8pt;display:block">
+                <i class="fa fa-spinner fa-spin"></i>&nbsp;Refreshing posts...
+            </div>
+
+            <div style="padding-left:6px;padding-top:10px">
+
+                <table id="tbRecentPosts" style=" border-bottom-color: #e7eadf; border-bottom-width: 2px" border="0">
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor='let res of recentPosts | paginate: { itemsPerPage: 5, currentPage: p }; let i = index'>
+                            <td style="vertical-align: top; width: 12px; text-align: left; padding-top: -100px;
+                                                font-family: tahoma,helvetica; font-size: 10pt">
+                                <input type="image" (click)="showMemberProfile(res.memberID)" name="imgMbr" id="imgMbr"
+                                    src="http://www.marcman.xyz/assets/images/members/{{res.picturePath}}" style="height:35px;width:35px;" />
+                            </td>
+                            <td style="vertical-align: top; text-align: left; font-family: 'Lucida Grande', tahoma, helvetica;
+                                                font-size: 10pt">
+                                <a id="lbMbrName" href="#" (click)="showMemberProfile(res.memberID)" style="font-weight:bold;">{{res.memberName}}</a>
+                                &nbsp;<span id="lblDesc" style="color:Black;">{{res.description}}</span>
+                                <br />
+                                <span style="font-size:8pt;">
+                                    <span id="lblPostDate" style="color:Gray;">{{res.datePosted}}</span>
+                                    <span style="color: #596a7d">-</span>
+                                    <a (click)="jumpToComment(res.postID, commentModal)" id="lbPostComment" href=""
+                                        style=" font-weight: normal;">&nbsp;Reply</a>
+                                </span>
+                                <div id="#myContainer_1161"></div>
+                                <div id="tbRecentPostsDiv_1161" >
+                                    <table id="tbChildPosts_1161" style=" text-align: left; background: #F0EDE5; border-bottom-style: none; border-top: 1px solid #e7eadf; border-bottom-color: White; border-bottom-width: 3px"
+                                        border="0">
+                                        <tbody>
+                                            <tr *ngFor='let chi of res.children'>
+                                                <td style="width: 12px; text-align: left; padding-top: -100px; vertical-align: top;font-family: tahoma; font-size: 8pt;">
+                                                    <input type="image" (click)="showMemberProfile(chi.memberID)" name="imgChild"
+                                                        id="imgChild" src="http://www.marcman.xyz/assets/images/members/{{chi.picturePath}}"
+                                                        style="color:#596A7D;height:35px;width:35px; cursor:pointer" />
+                                                </td>
+                                                <td style="vertical-align: middle; text-align: left; font-size: 8pt; font-family: tahoma;padding-right:10px">
+                                                    <a  (click)="showMemberProfile(chi.memberID)" id="lbMbrName" href=""
+                                                        style="font-weight:bold; cursor:pointer">{{chi.memberName}}</a>
+                                                    <span id="lblResponseDesc" style="color:Black;">&nbsp;{{chi.description}}</span>
+                                                    <br />
+                                                    <span id="lblResponseDate" style="color:Gray;">{{chi.dateResponded}}</span>
+                                                    <span style="color: #596a7d">&nbsp;-</span>
+                                                    <a (click)="jumpToComment(res.postID, commentModal)" id="lbPostComment"
+                                                        href="" style=" font-weight:normal;">&nbsp;Reply</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                </div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <div id="pageNavPosition"></div>
+
+            </div>
+
+            <div style="text-align:left !important;  font-size:12px" align="left">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+
+        </div>
+    </div>
+    <br>
+   -->
+
+<ng-template #newPostModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">New Post</h5>
+  </div>
+  <div class="modal-body">
+    <form #sendReplyForm='ngForm' (ngSubmit)="doPost()">
+      <textarea autofocus name="txtResponse" rows="2" cols="20" id="txtResponse" maxlength="150" required ngModel
+                [(ngModel)]="postModel.postText"
+                style="color:Gray;border-color:LightGrey;border-width:1px;border-style:solid;font-size:9pt;height:40px; text-align:left"
+                class="form-control"></textarea>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="doPost()"
+            [disabled]="!sendReplyForm.valid">
+      Post
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="d( 'Cross click') ">Close</button>
+  </div>
+</ng-template>
+
+
+<ng-template #commentModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">Reply to Post</h5>
+  </div>
+  <div class="modal-body">
+    <form #sendReplyForm='ngForm' (ngSubmit)="doPost()">
+      <textarea autofocus name="txtResponse" rows="2" cols="20" id="txtResponse" maxlength="150" required ngModel
+                [(ngModel)]="postModel.postText"
+                style="color:Gray;border-color:LightGrey;border-width:1px;border-style:solid;font-size:9pt;height:40px; text-align:left"
+                class="form-control"></textarea>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="doPostReply()"
+            [disabled]="!sendReplyForm.valid">
+      Post
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="d( 'Cross click') ">Close</button>
+  </div>
+</ng-template>

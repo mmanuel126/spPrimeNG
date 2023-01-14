@@ -1,6 +1,38 @@
-<body>
+<!--body>
   <app-nav-menu></app-nav-menu>
   <main class="container">
     <router-outlet></router-outlet>
   </main>
-</body>
+</body -->
+
+<!-- div to decide which body template content to show - logoff content or logon ontent -->
+<div *ngIf="(this.session.getSessionVal('isUserLogin')!='true');then logoff_content else other_content"></div>
+
+<!-- template to show logoff content -->
+<ng-template #logoff_content>
+  <router-outlet></router-outlet>
+</ng-template>
+
+<!-- template to show log on content - seperate into 2 parts (SP and Advertisement sections) -->
+<ng-template #other_content>
+  <div class="wrapper default-theme" [ngClass]="getClasses()">
+    <app-navbar></app-navbar>
+    <main>
+      <!-- <app-sidebar></app-sidebar> -->
+      <div class="container">
+        <div class="row" style="padding-top:80px">
+          <div class="col-sm-16 col-lg-8">
+            <router-outlet></router-outlet>
+          </div>
+          <div class="col-sm-10 col-lg-4">
+            <app-site-ads></app-site-ads>
+            <app-sponsored-ads></app-sponsored-ads>
+          </div>
+        </div>
+        <hr>
+        <app-footer></app-footer>
+      </div>
+    </main>
+  </div>
+</ng-template>
+

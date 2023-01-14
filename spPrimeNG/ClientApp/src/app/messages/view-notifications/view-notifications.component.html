@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-sm-14 col-md-12">
+    <div class="mb-3 card" style="padding:10px">
+      <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+          <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"> </i>
+          Notifications
+        </div>
+      </div>
+      <div class='col-sm-14 col-lg-25' style="padding:10px;">
+        <div class="container">
+          <div *ngIf="this.msgCnt==0;else showMsgList_Content">
+            There are no messages to display.
+          </div>
+        </div>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #showMsgList_Content>
+  <div id="tbMsgPartialDiv" style="background-color:white">
+    <table
+      style="width: 0px; text-align: left; border-left: 1px none #e7eadf; border-right:1px none #e7eadf; border-collapse: collapse; font-size:11pt">
+      <tbody>
+        <tr *ngFor="let res of messageInfoList" style="border-bottom: solid 1px;border-bottom-color:#DBDBDB;">
+          <td style="text-align: left; cursor:pointer;vertical-align:top; padding-top:6px;padding-right:4px"
+            class="textfonts8pt;">
+            {{res.subject}}<br>
+            <span style="font-size:10pt;">{{res.notification}}</span><br>
+            <span style="color:Gray;font-size:9pt;">{{res.sentDate | date: 'dd/MM/yyyy h:mm:ss a '}}</span><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+  </div>
+</ng-template>

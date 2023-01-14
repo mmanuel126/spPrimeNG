@@ -1,0 +1,184 @@
+<div class="row">
+    <div class="col-sm-14 col-md-12">
+        <div class="mb-3 card" style="padding:10px">
+
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-bold">
+                    <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"> </i>
+                    Finding Connections
+                </div>
+            </div>
+
+            <div class='col-sm-14 col-lg-25' style="padding:10px;">
+
+                <div class="container">
+                    <div class="row">
+                        <div class='col-md-offset-2 col-md-8 text-left' style='padding-top:15px;padding-bottom:10px'>
+
+                        </div>
+                    </div>
+
+                    <div style="padding-bottom:15px">
+                        You can find people that you know and request to add them to your connections list. You can
+                        <span *ngIf="cntSuggestCnt !=0">scroll
+                            the suggestions box below
+                            or</span> use the search box by typing in a person's name, an email address, college, or
+                        high school attended below.
+                    </div>
+
+                    <div style="padding-bottom:5px" *ngIf="cntSuggestCnt !=0">
+                        <b>Suggestions base on similar career or other interests:</b>
+                    </div>
+                    <div id="gallerycontainer" *ngIf="cntSuggestCnt !=0">
+
+                        <div id="tbMsgPartialDiv" style="background-color:white">
+                            <table
+                                style="width: 0px; text-align: left; border-left: 1px none #e7eadf; border-right:1px none #e7eadf; border-collapse: collapse; font-size:11pt">
+                                <tbody>
+                                    <tr style="border-bottom: solid 1px;border-bottom-color:#DBDBDB;">
+
+                                        <td *ngFor="let res of cntSuggestInfoList"
+                                            style="width: 4050px; text-align: center; cursor:pointer;vertical-align:top; padding: 4px 4px 4px 4px;border-width:1px;border-color:gray;border-style:solid"
+                                            class="textfonts8pt gallerycontainer">
+                                            <div style="width:160px">
+                                                <a [routerLink]="['/members/show-profile']"
+                                                    [queryParams]="{memberID:res.fromID}" style="border:none">
+                                                    <img src="http://www.marcman.xyz/assets/images/members/{{res.picturePath}}"
+                                                        style="color:#596A7D;border-color:LightGrey;border-width:1px;border-style:None;height:80px;width:80px;" />
+                                                </a>
+                                                <br>
+                                                <a id="lbSName" [routerLink]="['/members/show-profile']"
+                                                    [queryParams]="{memberID:res.contactID}" href=""
+                                                    style="width:400px;font-size:9pt">{{res.friendName}}</a>
+                                                <br />
+                                                <span *ngIf="res.titleDesc != ''" id="lblTitle"
+                                                    style="color:Gray;font-size:8pt;">{{res.titleDesc}} <br></span>
+                                                <a style="font-size:8pt" id="lblAccept" href=""
+                                                    (click)="addSearchContactPopup(addModal, res.contactID, res.friendName,'suggestion')"
+                                                    href="#" data-toggle="modal" data-target="#addModal">Add as
+                                                    Connection</a>
+                                                <br />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <b>Search connections:</b>
+                    </div>
+
+                    <div>
+                        <table style="width:0px;border-bottom: solid 2px #e7eadf;">
+                            <tr>
+                                <td style=" text-align:right; vertical-align: middle">
+
+                                    <div id="pnlInboxSearch" style="padding-bottom:15px">
+                                        <form class="form-horizontal" name="searchForm" #searchForm='ngForm'
+                                            (ngSubmit)="doSearch()" role="search" class="navbar-form navbar-left">
+                                            <div class="input-group"
+                                                style="font-size: 9pt;line-height: 0px;padding:3px 0px; width:390px">
+
+                                                <div class="input-group">
+                                                    <input id="txtConSearch" name="txtConSearch"
+                                                        [(ngModel)]="this.searchModel.key" required ngModel
+                                                        class="form-control py-2 rounded-pill mr-1 pr-5" type="search"
+                                                        autocomplete="off" style="background-color:#f7f9fa;"
+                                                        placeholder="Start typing a name and hit enter key...">
+                                                    <span class="input-group-append">
+                                                        <button class="btn rounded-pill border-0 ml-n5" type="button">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div *ngIf="spinner" style="padding-left:0px;padding-top:5px; font-size:8pt;display:block">
+                        <i class="fas fa-spinner fa-spin"></i>&nbsp;Working...
+                    </div>
+
+                    <div *ngIf="this.contactCnt==0 && searchModel.key!='';else showContactsList_Content">
+                        There are no contacts found to display.
+                    </div>
+
+                    <br>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- show contacts list poppup template -->
+<ng-template #showContactsList_Content>
+    <div *ngIf="this.contactCnt>0" style="padding-left:0px;padding-top:7px; padding-bottom:5px; display:block">
+        {{this.contactCnt}}&nbsp;connection(s) found.
+    </div>
+    <div id="tbMsgPartialDiv" style="background-color:white">
+        <table
+            style="width: 0px; text-align: left; border-left: 1px none #e7eadf; border-right:1px none #e7eadf; border-collapse: collapse; font-size:11pt">
+            <tbody>
+                <tr *ngFor="let res of contactInfoList" style="border-bottom: solid 1px;border-bottom-color:#DBDBDB;">
+
+                    <td style="width: 40px; text-align: left; cursor:pointer;vertical-align:top; padding-top:6px;padding-right:4px"
+                        class="textfonts8pt;">
+                        <a [routerLink]="['/members/show-profile']" [queryParams]="{memberID:res.connectionID}"
+                            style="border:none">
+                            <img src="{{this.memberImagesUrlPath}}{{res.picturePath}}"
+                                style="color:#596A7D;border-color:LightGrey;border-width:1px;border-style:None;height:40px;width:40px;border-radius:50%" />
+                        </a>
+                    </td>
+                    <td style="vertical-align: top; text-align: left;vertical-align:top;padding-top:10px; padding-bottom:10px"
+                        class="textfonts10pt">
+                        <a id="lbSName" [routerLink]="['/members/show-profile']"
+                            [queryParams]="{memberID:res.connectionID}" href="">{{res.friendName}}</a>
+                        <br />
+                        <span *ngIf="res.titleDesc != ''" id="lblTitle"
+                            style="color:Gray;font-size:10pt;">{{res.titleDesc}}
+                            <br></span>
+
+                        <a *ngIf="res.labelText == 'Add as Connection'" style="font-size:10pt" id="lblAccept" href=""
+                            (click)="addSearchContactPopup(addModal, res.connectionID, res.friendName, 'search')"
+                            href="#" data-toggle="modal" data-target="#addModal">Add as Connection</a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+    </div>
+</ng-template>
+
+<!-- template for add modal -->
+<ng-template #addModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h5 class="modal-title">Requesting to Add Connection</h5>
+    </div>
+    <div class="modal-body">
+        <form #addForm='ngForm' (ngSubmit)="addContact('1')">
+            <p>{{this.contactName}}&nbsp; will have to confirm your request. Are you sure you want to send this
+                connection request?
+            </p>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="sendRequest() ">
+            <i *ngIf="spinner" class='fas fa-spinner fa-spin'></i> {{spinner ? "Sending..." : "Send Request"}}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="d( 'Cross click') ">Cancel</button>
+    </div>
+</ng-template>

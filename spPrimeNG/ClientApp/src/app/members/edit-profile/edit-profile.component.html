@@ -1,0 +1,155 @@
+<div class="row">
+  <div class="col-sm-14 col-md-12">
+    <div class="mb-3 card" style="padding:10px">
+      <div class='col-sm-14 col-lg-25' style="padding:10px;">
+
+        <!-- member name and title -->
+        <div class="container">
+          <table style="width: 100%">
+            <tr>
+              <td style="text-align:left; width:50px;padding-top:5px">
+                <img id="memberImg" style="border-radius:50%" width="50px" height="50px" src="{{this.memImage}}">
+              </td>
+              <td height="25px" style="padding-top:5px;color: #484830; vertical-align: middle; text-align: left;padding-left:6px;
+                text-align: left;">
+                <b>{{this.memName}}</b><br>{{this.memTitle}}
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <mat-tab-group [selectedIndex]="this.defaultTab">
+
+            <mat-tab label="Basic Info.">
+              <br>
+              <user-info></user-info>
+            </mat-tab>
+
+            <mat-tab label="Contact Info.">
+              <br>
+              <contact-info></contact-info>
+            </mat-tab>
+
+            <mat-tab label="Education">
+              <br>
+              <education-info></education-info>
+            </mat-tab>
+
+            <mat-tab label="Photos">
+                <br />
+                <br>
+                SportProfiles uses a member's public instagram posts to show  their images.
+                In order for this feature to work, you will need to do the following:
+                <br><br>
+                
+                <p><b>Go to instagram.com and do:</b></p>
+                
+                <ol>
+                    <li>Create or use an existing instagram account.</li>
+                    <li>Log into the account.</li>
+                    <li>Add photos of yourself by creating public posts.</li>
+                    <li>Note your instagram username and your instagram URL <b><u>(i.e., www.instagram.com/username)</u></b></li>
+                </ol>
+                <p><b>Return here and do:</b></p>
+                <ol>
+                    <li>Enter or paste your instagram URL to the text box below.</li>
+                    <li>
+                        Click the save button to store it in our system. We will use it to redirect people who wants to view your
+                        photos to instagram.
+                    </li>
+                </ol>
+
+                <form class="form-horizontal" name="URLForm" #URLForm='ngForm'
+                      (ngSubmit)="saveChannelID()">
+                    <div class="form-group" style="padding-bottom:15px">
+                        <b>Instagram URL:</b>
+                        <br />
+                        <input name="txtURL" #txtURL="ngModel" type="text" id="txtURL"
+                               placeholder="Enter your instagram URL (i.e., www.instagram.com/username)" class="form-control" required ngModel
+                               [(ngModel)]="this.instagramURL"/>
+                        <div *ngIf="txtURL.errors && (txtURL.dirty || txtURL.touched)">
+                            <span class="help-bpx" style="color:red;" *ngIf="txtURL.errors.required">
+                                Instagram URL is
+                                required.
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        &nbsp;<button type="submit" id="saveInstagramURL" [disabled]="!URLForm.valid || isSaving"
+                                       class="btn btn-primary btn-md">
+                            <i *ngIf="isSaving" class='fa fa-spinner fa-spin'></i> {{isSaving ? "Saving..." : "Save"}}
+                        </button>
+                    </div>
+                    <div style="padding-bottom:60px">
+                        <span style="color:green">{{isSuccess ? "Saved sucessfully." : ""}}</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+
+            </mat-tab>
+
+            <mat-tab label="Videos">
+                    <br>
+                    SportProfiles uses a member's public youtube playlists to show and play their videos.
+                    In order for this feature to work, you will need to do the following:
+                    <br><br>
+                    
+                    <p> <b>Go to Youtube.com and do:</b></p>
+                    
+                    <ol>
+                        <li>Create or use an existing youtube account.</li>
+                        <li>Log into your account.</li>
+                        <li>Click on the top far right circle with your 1 or 2 letters of your initial.</li>
+                        <li>Select 'Channel' from the presented menu list.</li>
+                        <li>Click on 'Customized Channel'</li>
+                        <li>Use the 'Customize Channel' page to create and manage playlists and videos.</li>
+                        <li>Click on the top far right circle with your 1 or 2 letters of your initial again.</li>
+                        <li>Click on 'Settings' from the presented menu list.</li>
+                        <li>Click on 'View Advance Settings' next.</li>
+                        <li>Copy the 'Chanel ID' value string.</li>
+                    </ol>
+                    <p><b>Return here and do:</b></p>
+                    <ol>
+                        <li>Paste the 'Chanel ID' value string to the text box below.</li>
+                        <li>
+                            Click the save button to store the Chanel ID in our system. We will use it to pull your playlist to
+                            show to others.
+                        </li>
+                    </ol>
+
+                    <form class="form-horizontal" name="channelIDForm" #channelIDForm='ngForm'
+                          (ngSubmit)="saveChannelID()">
+                        <div class="form-group" style="padding-bottom:15px">
+                            <b>Youtube Channel ID:</b>
+                            <br />
+                            <input name="txtChannelID" #txtChannelID="ngModel" type="text" id="txtChannelID"
+                                   placeholder="Enter youtube channel ID" class="form-control" required ngModel
+                                   [(ngModel)]="this.channelID" />
+                            <div *ngIf="txtChannelID.errors && (txtChannelID.dirty || txtChannelID.touched)">
+                                <span class="help-bpx" style="color:red;" *ngIf="txtChannelID.errors.required">
+                                    Channel ID is
+                                    required.
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            &nbsp;<button type="submit" id="saveChannelID" [disabled]="!channelIDForm.valid || isSaving"
+                                          class="btn btn-default" class="btn btn-primary btn-md">
+                                <i *ngIf="isSaving" class='fa fa-spinner fa-spin'></i> {{
+isSaving
+                      ? "Saving..." : "Save"
+                                }}
+                            </button>
+                        </div>
+                        <div style="padding-bottom:60px">
+                            <span style="color:green">{{isSuccess ? "Saved sucessfully." : ""}}</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </mat-tab>
+</mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

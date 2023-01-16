@@ -13,6 +13,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { CommonModule, DatePipe, PathLocationStrategy } from '@angular/common';
 
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -176,6 +177,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgxPaginationModule,
     YouTubePlayerModule,
     PerfectScrollbarModule,
+    ModalModule,
 
     LoggerModule.forRoot({
       serverLoggingUrl: 'http://localhost:5005/services/common/logs',
@@ -226,7 +228,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SessionMgtService, AdsService, MembersService, CommonService,
     ConnectionsService, NetworksService, EventsService, CommonService,
     MessagesService, AuthService, StateService, AdsService,
-    ErrorLogService, AuthGuardService,
+    ErrorLogService, AuthGuardService, BsModalService,
     { provide: IAuthService, useClass: AuthService },
     { provide: IAdsService, useClass: AdsService },
     { provide: ICommonService, useClass: CommonService },

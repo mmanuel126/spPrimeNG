@@ -9,7 +9,6 @@ import { environment } from '../../environments/environment';
 import { MessagesService } from '../services/data/messages.service';
 import { StateService } from '../services/state.service';
 import { HttpClient } from '@angular/common/http';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +16,9 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+
+  public mdlNewPostIsOpen: boolean = false;
+  public mdlReplyPostIsOpen: boolean = false;
   public webSiteDomain = environment.webSiteDomain;
   recentNews: Promise<RecentNewsModel[]>;
   recentPosts: RecentPostsModel[];
@@ -28,8 +30,6 @@ export class HomeComponent {
   postID: string;
   public show: boolean = false;
 
-  modalRef: BsModalRef;
-
   msgBadgeCnt: string;
 
   postModel: PostModel = {
@@ -40,7 +40,7 @@ export class HomeComponent {
     labelText: "",
   }
 
-  public constructor(private modalService: BsModalService,public httpClient: HttpClient, public stateService: StateService, public msgSvc: MessagesService, public membersSvc: MembersService, private router: Router,
+  public constructor(public httpClient: HttpClient, public stateService: StateService, public msgSvc: MessagesService, public membersSvc: MembersService, private router: Router,
     public common: ICommonService, public session: SessionMgtService, public zone: NgZone) {
     this.memberID = this.session.getSessionVal('userID');
   }
@@ -58,7 +58,7 @@ export class HomeComponent {
 
   async doPost() {
     this.membersSvc.doPost(this.memberID, this.postModel.postText, "0");
-    this.modalRef.hide();
+    this.mdlNewPostIsOpen = false;
     this.show = true;
     this.recentPosts = await this.membersSvc.getRecentPosts(this.memberID);
     this.show = false;
@@ -66,9 +66,14 @@ export class HomeComponent {
     return false;
   }
 
+  doCancel() {
+    this.mdlNewPostIsOpen = false;
+    this.mdlReplyPostIsOpen = false;
+  }
+
   async doPostReply() {
     this.membersSvc.doPost(this.memberID, this.postModel.postText, this.postID);
-    this.modalRef.hide();
+    this.mdlReplyPostIsOpen = false;
     this.show = true;
     this.recentPosts = await this.membersSvc.getRecentPosts(this.memberID);
     this.show = false;
@@ -88,11 +93,18 @@ export class HomeComponent {
     return false;
   }
 
-  jumpToComment(postID: string, commentModal:TemplateRef<any>) {
+  jumpToComment(postID: string, open:boolean) {
     this.postID = postID;
-    this.modalRef = this.modalService.show(commentModal);
+    this.mdlNewPostIsOpen = open;
     return false;
   }
+
+  jumpToReply (postID: string, open: boolean) {
+    this.postID = postID;
+    this.mdlReplyPostIsOpen = open;
+    return false;
+  }
+
 }
 
 export class PostModel {

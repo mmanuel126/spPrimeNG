@@ -1,0 +1,2726 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ESapi</name>
+    </assembly>
+    <members>
+        <member name="M:ESapi.Controllers.AccountController.CreateToken(ESapi.Controllers.AccountController.LoginModel)">
+            <summary>
+            creates JWT token.
+            </summary>
+            <param name="loginModel">The login credentials data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Controllers.AccountController.LoginNewRegisteredUser(ESapi.Controllers.AccountController.NewRegisteredUser)">
+            <summary>
+            Login new registered user.
+            </summary>
+            <param name="body">The data model for the new registered user.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Controllers.AccountController.RefreshToken(System.String)">
+            <summary>
+            Refreshes a given token.
+            </summary>
+            <param name="accessToken">the old token that is to be refreshed.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Controllers.AccountController.GetPrincipalFromExpiredToken(System.String)">
+            <summary>
+            Get principal from expired token.
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Controllers.AccountController.RegisterUser(ESapi.Controllers.AccountController.RegisterModel)">
+            <summary>
+            Registers a user.
+            </summary>
+            <param name="body">The user's information to register.</param>
+            <returns></returns>
+        </member>
+        <member name="T:ESapi.Controllers.CommonController">
+            <summary>
+            a collection of common interfaces and shared functionalities used by the ES.
+            </summary>
+        </member>
+        <member name="M:ESapi.Controllers.CommonController.EncryptString(System.String)">
+            <summary>
+            Encrypts the given string.
+            </summary>
+            <param name="encrypt">The string to encrypt.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Controllers.CommonController.DecryptString(System.String)">
+            <summary>
+            Decrypt an encrypted string.
+            </summary>
+            <param name="encrypted">The encrypted string to be decrypted.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Controllers.CommonController.GetStates(System.String)">
+            <summary>
+            Gets the list of states.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <returns>The states.</returns>
+        </member>
+        <member name="M:ESapi.Controllers.CommonController.Logs(System.String,System.String)">
+            <summary>
+            Logs the specified obj log model to file including error msg and stack trace.
+            </summary>
+            <param name="message">the error message to log.</param>
+            <param name="stack">the errorstack to log.</param>
+        </member>
+        <member name="M:ESapi.Controllers.CommonController.GetGitHubJobs(System.String,ESapi.Controllers.jobParamsModel)">
+            <summary>
+            Returns git hub jobs for given criteria found in body obj.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="obj">Contains the search criteria data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Controllers.CommonController.GetSportsList(System.String)">
+            <summary>
+            returns sports lists.
+            </summary>
+            <param name="authorization"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Controllers.CommonController.GetSchoolByState(System.String,System.String,System.String)">
+            <summary>
+            Gets school by state.
+            </summary>
+            <returns>The school by state.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="state">State.</param>
+            <param name="institutionType">Institution type.</param>
+        </member>
+        <member name="M:ESapi.Controllers.CommonController.GetAds(System.String)">
+            <summary>
+            returns a list of ads depending on type.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Controllers.CommonController.LogText(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Logs the text.
+            </summary>
+            <returns>The text.</returns>
+            <param name="msg">Message.</param>
+            <param name="stack">Stack.</param>
+            <param name="level">Level.</param>
+            <param name="dateTime">Date time.</param>
+            <param name="fileName">File name.</param>
+            <param name="fileNumber">File number.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.GetMemberNameInfo(System.String,System.Int32)">
+            <summary>
+            Gets the member name information.
+            </summary>
+            <returns>The member name info.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.SaveMemberNameInfo(System.String,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Saves the member name info.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="fName">First name.</param>
+            <param name="mName">Middle name.</param>
+            <param name="lName">Last name.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.SaveMemberEmailInfo(System.String,System.Int32,System.String)">
+            <summary>
+            Saves the member email information.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="email">Email.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.SavePasswordInfo(System.String,ESapi.Controllers.PasswordData)">
+            <summary>
+            Saves the password information.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="pwd">Password.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.SaveSecurityQuestionInfo(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Saves the security question info.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="questionID">Question identifier.</param>
+            <param name="answer">Answer.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.DeactivateAccount(System.String,System.Int32,System.Int32,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Deactivates the account.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="reason">Reason.</param>
+            <param name="explanation">Explanation.</param>
+            <param name="futureEmail">Future email.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.GetMemberNotifications(System.String,System.Int32)">
+            <summary>
+            Gets the member notifications.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <returns>The member notifications.</returns>
+            <param name="memberId">Member identifier.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.SaveNotificationSettings(System.String,System.Int32,ESapi.Models.NotificationsSettingModel)">
+            <summary>
+            Saves the notification settings.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="body">Body.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.GetProfileSettings(System.String,System.Int32)">
+            <summary>
+            Gets the profile settings.
+            </summary>
+            <returns>The profile settings.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.SaveProfileSettings(System.String,System.Int32,ESapi.Models.Members.PrivacySearchSettingsModel)">
+            <summary>
+            Saves the profile settings.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="body">Body.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.GetPrivacySearchSettings(System.String,System.Int32)">
+            <summary>
+            Gets the privacy search settings.
+            </summary>
+            <returns>The privacy search settings.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:ESapi.Controllers.SettingController.SavePrivacySearchSettings(System.String,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Saves the privacy search settings.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="visibility">Visibility.</param>
+            <param name="viewProfilePicture">If set to <c>true</c> view profile picture.</param>
+            <param name="viewFriendsList">If set to <c>true</c> view friends list.</param>
+            <param name="viewLinkToRequestAddingYouAsFriend">If set to <c>true</c> view link to request adding you as friend.</param>
+            <param name="viewLinkToSendYouMsg">If set to <c>true</c> view link to send you message.</param>
+        </member>
+        <member name="T:ESapi.Repository.CommonRepository">
+            <summary>
+            describes the functionalities to manage the business and data requirements for Site Common usage needs
+            </summary>
+        </member>
+        <member name="M:ESapi.Repository.CommonRepository.GetRecentNews">
+            <summary>
+            Get Recent news 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.CommonRepository.GetStates">
+            <summary>
+            Get states
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.CommonRepository.SendGenEmailToUser(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Get public school Cities
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ESapi.Repository.ConnectionRepository">
+            <summary>
+            Describes the functionalities for accessing data for contacts
+            </summary>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.GetMemberConnections(System.Int32,System.String)">
+            <summary>
+            Get list of member contacts.
+            </summary>
+            <param name="memberID"></param>
+            <param name="show"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.SearchMemberConnections(System.Int32,System.String)">
+            <summary>
+            get search member contacts by search text wildcard
+            </summary>
+            <param name="memberID"></param>
+            <param name="searchText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.GetMemberNetworkInviteConnectionList(System.Int32,System.Int32)">
+            <summary>
+            Get member network invite contacts list
+            </summary>
+            <param name="memberID"></param>
+            <param name="networkID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.GetRequestsList(System.Int32)">
+            <summary>
+            Get the list of contact requests.
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.GetMembersBySearchType(System.Int32,System.String,System.String)">
+            <summary>
+            /Get the list of members by search type
+            </summary>
+            <param name="userID"></param>
+            <param name="searchType"></param>
+            <param name="searchText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.GetSearchConnections(System.Int32,System.String)">
+            <summary>
+            Gets the search contacts.
+            </summary>
+            <returns>The search contacts.</returns>
+            <param name="userID">User identifier.</param>
+            <param name="searchText">Search text.</param>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.GetMemberPhoneBook(System.Int32)">
+            <summary>
+            Get the list of members phone book.
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.GetMemberBrowsedConnections(System.Int32,System.Int32,System.String)">
+            <summary>
+            Get the list of members browsed contacts.
+            </summary>
+            <param name="memberID"></param>
+            <param name="categoryID"></param>
+            <param name="subCategory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.SearchMemberByType(System.Int32,System.Int32,System.String)">
+            <summary>
+            Search for member by type
+            </summary>
+            <param name="userID"></param>
+            <param name="searchType"></param>
+            <param name="searchString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.AcceptRequest(System.Int32,System.Int32)">
+            <summary>
+            Accept contact's request 
+            </summary>
+            <param name="memberID"></param>
+            <param name="contactID"></param>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.RejectRequest(System.Int32,System.Int32)">
+            <summary>
+            Reject contact's request
+            </summary>
+            <param name="memberID"></param>
+            <param name="contactID"></param>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.DeleteConnection(System.Int32,System.Int32)">
+            <summary>
+            Delete contact
+            </summary>
+            <param name="memberID"></param>
+            <param name="contactID"></param>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.GetEntityBySearchType(System.Int32,System.String,System.String)">
+            <summary>
+            Get entity by search type
+            </summary>
+            <param name="memberID"></param>
+            <param name="searchText"></param>
+            <param name="searchType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.ContactSearchResults(System.Int32,System.String)">
+            <summary>
+            Get contact search results 
+            </summary>
+            <param name="memberID"></param>
+            <param name="searchText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.PeopleSearchResults(System.Int32,System.String)">
+            <summary>
+            return people search result
+            </summary>
+            <param name="memberID"></param>
+            <param name="searchText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.NetworkSearchResults(System.Int32,System.String)">
+            <summary>
+            return network search result
+            </summary>
+            <param name="memberID"></param>
+            <param name="searchText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.ConnectionRepository.EventSearchResults(System.Int32,System.String)">
+            <summary>
+            return event search result
+            </summary>
+            <param name="memberID"></param>
+            <param name="searchText"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ESapi.Repository.LoggingRepository">
+            <summary>
+            Describes the functionalities for accessing data for security
+            </summary>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.ChangePassword(System.String,System.String)">
+            <summary>
+            Allows you to change user password.
+            </summary>
+            <param name="email"></param>
+            <param name="newPwd"></param>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.ValidateUser(System.String,System.String)">
+            <summary>
+            validates a user to see if he/she has an account on this site.
+            </summary>
+            <param name="strEmail"></param>
+            <param name="strPwd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.ValidateNewRegisteredUser(System.String,System.Int32)">
+            <summary>
+            validates a new registered user. returns a row of info about the validated user. 
+            </summary>
+            <param name="strEmail"></param>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.CreateNewUser(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates the new user.
+            </summary>
+            <returns>The new user.</returns>
+            <param name="firstName">First name.</param>
+            <param name="lastName">Last name.</param>
+            <param name="email">Email.</param>
+            <param name="password">Password.</param>
+            <param name="gender">Gender.</param>
+            <param name="month">Month.</param>
+            <param name="day">Day.</param>
+            <param name="year">Year.</param>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.CheckEmailExists(System.String)">
+            <summary>
+            check to see if email exists -- everyone on here has a unique email address
+            </summary>
+            <param name="email"></param>
+            <returns>return list if email exist</returns>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.GetCodeAndNameForgotPwd(System.String)">
+            <summary>
+            get code and name for forgot passwords
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.CheckCodeExpired(System.Int32)">
+            <summary>
+            checked code expired
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.SetCodeToExpire(System.Int32)">
+            <summary>
+            Set the code to expire 
+            </summary>
+            <param name="code"></param>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.RecordLogInUser(System.Int32)">
+            <summary>
+            record log in user
+            </summary>
+            <param name="memberID"></param>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.IsActiveUser(System.Int32)">
+            <summary>
+            check to see if user is active
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.LoggingRepository.SetMemberStatus(System.Int32,System.Int32)">
+            <summary>
+            Set status for member id - active, newregister, or inactive
+            </summary>
+            <param name="memberID"></param>
+            <param name="status"></param>
+        </member>
+        <member name="T:ESapi.Repository.MemberRepository">
+            <summary>
+            Describes the functionalities for accessing data for members
+            </summary>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.AuthenticateUser(System.String,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="email"></param>
+            <param name="pwd"></param>
+            <param name="rememberMe"></param>
+            <param name="screen"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberDates(System.Int32)">
+            <summary>
+            Get member dates
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberGeneralInfoV2(System.Int32)">
+            <summary>
+            Get member general information
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberGeneralInfo(System.Int32)">
+            <summary>
+            Get member general information
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetInterestDescription(System.Int32)">
+            <summary>
+            get interest description
+            </summary>
+            <param name="interestID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberPersonalInfo(System.Int32)">
+            <summary>
+            Get member personal information
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberConnectionInfo(System.Int32)">
+            <summary>
+            Get member contact information
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberEducationInfo(System.Int32)">
+            <summary>
+             Get member education information
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberEmploymentInfo(System.Int32)">
+            <summary>
+            Get member employment information
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberAlbums(System.Int32)">
+            <summary>
+            get the list of albums fro memberID
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberAlbumPhotos(System.Int32)">
+            <summary>
+            get album photos listing for albumid
+            </summary>
+            <param name="albumID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.SaveMemberGeneralInfo(System.Int32,ESapi.Models.Members.MemberProfileGenInfoModel)">
+            <summary>
+            save member general info
+            </summary>
+            <param name="memberID"></param>
+            <param name="firstName"></param>
+            <param name="middleName"></param>
+            <param name="lastName"></param>
+            <param name="title"></param>
+            <param name="sector"></param>
+            <param name="industry"></param>
+            <param name="interest"></param>
+            <param name="status"></param>
+            <param name="gender"></param>
+            <param name="showGender"></param>
+            <param name="DOBMonth"></param>
+            <param name="DOBDay"></param>
+            <param name="DOBYear"></param>
+            <param name="showDOB"></param>
+            <param name="lookingForPartnership"></param>
+            <param name="lookingForEmployment"></param>
+            <param name="lookingForRecruitment"></param>
+            <param name="lookingForNetworking"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.SaveMemberPersonalInfo(System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            Save member personal information
+            </summary>
+            <param name="memberID"></param>
+            <param name="activities"></param>
+            <param name="interests"></param>
+            <param name="specialSkills"></param>
+            <param name="aboutMe"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.SaveMemberEducationInfo(System.Int32,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Save member education information
+            </summary>
+            <param name="memberID"></param>
+            <param name="highSchool"></param>
+            <param name="highSchoolClassYear"></param>
+            <param name="college1"></param>
+            <param name="college1ClassYear"></param>
+            <param name="college1Major"></param>
+            <param name="college1DegreeType"></param>
+            <param name="college1Societies"></param>
+            <param name="college2"></param>
+            <param name="college2ClassYear"></param>
+            <param name="college2Major"></param>
+            <param name="college2DegreeType"></param>
+            <param name="college2Societies"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.SaveMemberEmploymentInfo(System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            save member employment information
+            </summary>
+            <param name="memberID"></param>
+            <param name="employer"></param>
+            <param name="emp1Position"></param>
+            <param name="emp1JobDesc"></param>
+            <param name="emp1City"></param>
+            <param name="emp1State"></param>
+            <param name="emp1StartMonth"></param>
+            <param name="emp1StartYear"></param>
+            <param name="emp1EndMonth"></param>
+            <param name="emp1EndYear"></param>
+            <param name="employer2"></param>
+            <param name="emp2Position"></param>
+            <param name="emp2JobDesc"></param>
+            <param name="emp2City"></param>
+            <param name="emp2State"></param>
+            <param name="emp2StartMonth"></param>
+            <param name="emp2StartYear"></param>
+            <param name="emp2EndMonth"></param>
+            <param name="emp2EndYear"></param>
+            <param name="employer3"></param>
+            <param name="emp3Position"></param>
+            <param name="emp3JobDesc"></param>
+            <param name="emp3City"></param>
+            <param name="emp3State"></param>
+            <param name="emp3StartMonth"></param>
+            <param name="emp3StartYear"></param>
+            <param name="emp3EndMonth"></param>
+            <param name="emp3EndYear"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.SendFriendRequest(System.Int32,System.String)">
+            <summary>
+            Save contact or friend request
+            </summary>
+            <param name="memberID"></param>
+            <param name="email"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.isContactRequestSent(System.Int32,System.Int32)">
+            <summary>
+            check to see if a contact request was sent for mebmer id
+            </summary>
+            <param name="memberID"></param>
+            <param name="toMemberiD"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.IsMember(System.String)">
+            <summary>
+            check to seem if email is alread a member of LG
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.IsFriend(System.Int32,System.String)">
+            <summary>
+            Check to see if membeid or email is friend.
+            </summary>
+            <param name="memberID"></param>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberEmail(System.Int32)">
+            <summary>
+            get member email and other info
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.IsFriend(System.Int32,System.Int32)">
+            <summary>
+            Check to see if membeid or email is friend.
+            </summary>
+            <param name="memberID"></param>
+            <param name="contactID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.SaveBasicProfileInfo(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Save member basic profile information
+            </summary>
+            <param name="email"></param>
+            <param name="highSchool"></param>
+            <param name="highSchoolYear"></param>
+            <param name="college"></param>
+            <param name="collegeYear"></param>
+            <param name="company"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberInfoByEmail(System.String)">
+            <summary>
+            Get member information by email
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetRecentActivities(System.Int32)">
+            <summary>
+            Get recent activites for member id
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.AddMemberActivity(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="memberID"></param>
+            <param name="activity"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.UpdateProfilePicture(System.Int32,System.String)">
+            <summary>
+            Update profile picture for member id
+            </summary>
+            <param name="memberID"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetAlbumPhotos(System.Int32)">
+            <summary>
+            get album photos
+            </summary>
+            <param name="albumID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.CreateAlbum(System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            Creates the album.
+            </summary>
+            <param name="memberID">Member identifier.</param>
+            <param name="albumName">Album name.</param>
+            <param name="desc">Desc.</param>
+            <param name="privacy">Privacy.</param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetAbumInfo(System.Int32)">
+            <summary>
+            get album information
+            </summary>
+            <param name="albumID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.UpdateAlbum(System.Int32,System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            Update album
+            </summary>
+            <param name="albumID"></param>
+            <param name="memberID"></param>
+            <param name="albumName"></param>
+            <param name="desc"></param>
+            <param name="privacy"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.CreateAlbumPhoto(System.Int32,System.String)">
+            <summary>
+            Create album photo
+            </summary>
+            <param name="albumID"></param>
+            <param name="ext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.RemoveAlbumID(System.Int32)">
+            <summary>
+            Remove album id
+            </summary>
+            <param name="albumID"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.RemovePhotoID(System.Int32)">
+            <summary>
+            Remove photo id
+            </summary>
+            <param name="photoID"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.UpdatePhoto(System.Int32,System.String,System.String)">
+            <summary>
+            Updates the photo.
+            </summary>
+            <param name="photoID">Photo identifier.</param>
+            <param name="title">Title.</param>
+            <param name="photoDesc">Photo desc.</param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetTotalAlbums(System.Int32)">
+            <summary>
+            Get total albums count for member id
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberWorkExperience(System.Int32)">
+            <summary>
+            Get member work experience
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberInterests">
+            <summary>
+            Get member's interests
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.AddMemberSchool(System.Int32,System.Int32,System.Int32,System.String,System.String,System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Add member school attended
+            </summary>
+            <param name="memberID"></param>
+            <param name="instID"></param>
+            <param name="instType"></param>
+            <param name="school"></param>
+            <param name="classYear"></param>
+            <param name="major"></param>
+            <param name="degree"></param>
+            <param name="societies"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.UpdateMemberSchool(System.Int32,System.Int32,System.Int32,System.String,System.String,System.Int32,System.String,System.String)">
+            <summary>
+            edit school attended.
+            </summary>
+            <param name="memberID"></param>
+            <param name="instID"></param>
+            <param name="instType"></param>
+            <param name="classYear"></param>
+            <param name="major"></param>
+            <param name="degree"></param>
+            <param name="societies"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.RemoveMemberSchool(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            remove school attended.
+            </summary>
+            <param name="memberID"></param>
+            <param name="instID"></param>
+            <param name="instType"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.UpdateMemberWorkExperience(System.Int32,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Updates the member work experience.
+            </summary>
+            <param name="empInfoID">Emp info identifier.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="compID">Comp identifier.</param>
+            <param name="title">Title.</param>
+            <param name="jobDesc">Job desc.</param>
+            <param name="city">City.</param>
+            <param name="state">State.</param>
+            <param name="startMonth">Start month.</param>
+            <param name="startYear">Start year.</param>
+            <param name="endMonth">End month.</param>
+            <param name="endYear">End year.</param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.RemoveMemberWorkExperience(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Removes the member work experience.
+            </summary>
+            <param name="empInfoID">Emp info identifier.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="compID">Comp identifier.</param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetResumeSettings(System.Int32)">
+            <summary>
+            Gets the resume settings.
+            </summary>
+            <returns>The resume settings.</returns>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.UpdateResumeSettings(System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            update resume settings
+            </summary>
+            <param name="memberID"></param>
+            <param name="showResume"></param>
+            <param name="ShowSpecialSkills"></param>
+            <param name="ShowAbout"></param>
+            <param name="ShowInterests"></param>
+            <param name="ShowActivities"></param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.IsMemberActive(System.Int32)">
+            <summary>
+            Checks to see if the member active.
+            </summary>
+            <returns><c>true</c>, if member active was ised, <c>false</c> otherwise.</returns>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberPhotoCount(System.Int32)">
+            <summary>
+            returns the count of all pictures or photos for the member id 
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetMemberProfilePictureCount(System.Int32)">
+            <summary>
+            returns the count of all profile pictures for the member id
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MemberRepository.GetRegisteredMembers(System.Int32)">
+            <summary>
+            Gets the registered members.
+            </summary>
+            <returns>The registered members.</returns>
+            <param name="status">Status.</param>
+        </member>
+        <member name="T:ESapi.Repository.MessageRepository">
+            <summary>
+            Describes the functionalities for member and network messages
+            </summary>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.GetMemberNotifications(System.Int32,System.String)">
+            <summary>
+            get a listo of member notifications
+            </summary>
+            <param name="memberID"></param>
+            <param name="showType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.GetMemberMessages(System.Int32,System.String,System.String)">
+            <summary>
+            Get member messages for member id
+            </summary>
+            <param name="memberID"></param>
+            <param name="type"></param>
+            <param name="showType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.GetTotalUnreadMessages(System.Int32)">
+            <summary>
+            Get total unread messages  for member id
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.CreateMessage(System.Int32,System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            create a message 
+            </summary>
+            <param name="to"></param>
+            <param name="from"></param>
+            <param name="subject"></param>
+            <param name="body"></param>
+            <param name="attachment"></param>
+            <param name="original"></param>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.CreateMessage(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            create a message 
+            </summary>
+            <param name="to"></param>
+            <param name="from"></param>
+            <param name="subject"></param>
+            <param name="body"></param>
+            <param name="attachment"></param>
+            <param name="source"></param>
+            <param name="original"></param>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.ToggleNotificationState(System.Boolean,System.Int32)">
+            <summary>
+            toggle notification state
+            </summary>
+            <param name="status"></param>
+            <param name="notificationID"></param>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.DeleteNotification(System.Int32,System.Int32)">
+            <summary>
+            Delete notification for member id
+            </summary>
+            <param name="notificationID"></param>
+            <param name="memberID"></param>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.ToggleMessageState(System.Int32,System.Int32,System.String)">
+            <summary>
+            Toggle message state 
+            </summary>
+            <param name="status"></param>
+            <param name="msgID"></param>
+            <param name="folder"></param>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.PerformMessageStatus(System.String,System.Int32,System.Int32,ESapi.DBContextModels.dbContexts)">
+            <summary>
+            Perform message status
+            </summary>
+            <param name="folder"></param>
+            <param name="status"></param>
+            <param name="msgID"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.GetNotificationByID(System.Int32)">
+            <summary>
+            Get notification by id 
+            </summary>
+            <param name="nid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.GetMessageInfoByID(System.Int32,System.String)">
+            <summary>
+            Get message info by message ID
+            </summary>
+            <param name="msgID"></param>
+            <param name="folder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.DeleteMoveMessage(System.Int32,System.Int32,System.String)">
+            <summary>
+            Delete moved message id
+            </summary>
+            <param name="msgID"></param>
+            <param name="mt"></param>
+            <param name="folder"></param>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.DeleteMessage(System.Int32)">
+            <summary>
+            Delete message id
+            </summary>
+            <param name="msgID"></param>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.SearchMessages(System.Int32,System.String,System.String)">
+            <summary>
+            Search for messages
+            </summary>
+            <param name="memberID"></param>
+            <param name="searchKey"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.MessageRepository.EmptyMessageFolders(System.Int32,System.String)">
+            <summary>
+            Empty messages folder
+            </summary>
+            <param name="mID"></param>
+            <param name="folder"></param>
+        </member>
+        <member name="T:ESapi.Repository.NetworkRepository">
+            <summary>
+            Describes the functionalities for accessing data for networks
+            </summary>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.CreateNetwork(System.Int32,System.String,System.String,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            creates a network
+            </summary>
+            <param name="memberID"></param>
+            <param name="networkName"></param>
+            <param name="desc"></param>
+            <param name="category"></param>
+            <param name="type"></param>
+            <param name="news"></param>
+            <param name="office"></param>
+            <param name="email"></param>
+            <param name="webSite"></param>
+            <param name="street"></param>
+            <param name="city"></param>
+            <param name="state"></param>
+            <param name="zip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.UpdateNetwork(System.Int32,System.String,System.String,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            update a network
+            </summary>
+            <param name="networkID"></param>
+            <param name="networkName"></param>
+            <param name="desc"></param>
+            <param name="category"></param>
+            <param name="type"></param>
+            <param name="news"></param>
+            <param name="office"></param>
+            <param name="email"></param>
+            <param name="webSite"></param>
+            <param name="street"></param>
+            <param name="city"></param>
+            <param name="state"></param>
+            <param name="zip"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetMemberNetworks(System.Int32)">
+            <summary>
+            get a list of member networks
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkCategories">
+            <summary>
+            get network categories
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkCategoryTypes(System.Int32)">
+            <summary>
+            get network category types
+            </summary>
+            <param name="categoryID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkBasicInfo(System.Int32)">
+            <summary>
+            get network basic information
+            </summary>
+            <param name="networkID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworksByCatType(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            get networks by category and subcategory
+            </summary>
+            <param name="memberID"></param>
+            <param name="category"></param>
+            <param name="subCategory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkSettings(System.Int32)">
+            <summary>
+            get network settings
+            </summary>
+            <param name="networkID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkAdmins(System.Int32)">
+            <summary>
+            get network admins
+            </summary>
+            <param name="networkID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkMembers(System.Int32,System.String)">
+            <summary>
+            get network members
+            </summary>
+            <param name="networkID"></param>
+            <param name="listType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetContactsNotInNetwork(System.Int32,System.Int32)">
+            <summary>
+            Gets the contacts not in network.
+            </summary>
+            <returns>The contacts not in network.</returns>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.AddNetworkMembers(System.Int32,System.Int32)">
+            <summary>
+            add a network member 
+            </summary>
+            <param name="memberID"></param>
+            <param name="networkID"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.IgnoreJoinNetwork(System.Int32,System.Int32)">
+            <summary>
+            Ingore a membe who wants to join network
+            </summary>
+            <param name="memberID"></param>
+            <param name="networkID"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.UpdateNetworkSettings(System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Update network settings
+            </summary>
+            <param name="networkID"></param>
+            <param name="access"></param>
+            <param name="nonAdminCanWrite"></param>
+            <param name="showNetworkEvents"></param>
+            <param name="enableDiscussionBoard"></param>
+            <param name="enablePhotos"></param>
+            <param name="enableVideos"></param>
+            <param name="enableLinks"></param>
+            <param name="onlyAllowAdminsToUploadPhotos"></param>
+            <param name="onlyAllowAdminsToUploadVideos"></param>
+            <param name="onlyAllowAdminsToPostLinks"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.InviteMemberToJoinNetwork(System.Int32,System.Int32)">
+            <summary>
+            Invite member to join network
+            </summary>
+            <param name="networkID"></param>
+            <param name="memberID"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.InviteEmailToJoinNetwork(System.Int32,System.String)">
+            <summary>
+            Invite email to join network
+            </summary>
+            <param name="NetworkID"></param>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.IsNetworkMember(System.Int32,System.String)">
+            <summary>
+            Check to see if email is a network member 
+            </summary>
+            <param name="NetworkID"></param>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.IsMemberNetWorkRequestor(System.Int32,System.Int32)">
+            <summary>
+            checks to see if the member has made a request to join the network
+            </summary>
+            <param name="networkID"></param>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetRecentNetworkActivities(System.Int32)">
+            <summary>
+            get the recent netwrok activity list
+            </summary>
+            <param name="networkID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkPostResponses(System.Int32)">
+            <summary>
+            Get the network post responses per post id
+            </summary>
+            <param name="postID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.UpdateProfilePicture(System.Int32,System.String)">
+            <summary>
+            Update profile picture
+            </summary>
+            <param name="networkID"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.CreateNetworkPost(System.Int32,System.Int32,System.String)">
+            <summary>
+            create a network post
+            </summary>
+            <param name="networkID"></param>
+            <param name="memberID"></param>
+            <param name="postMsg"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.CreatePostComment(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            create a post comment
+            </summary>
+            <param name="networkID"></param>
+            <param name="memberID"></param>
+            <param name="postID"></param>
+            <param name="postMsg"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkInfo(System.Int32)">
+            <summary>
+            get a network basic info
+            </summary>
+            <param name="networkID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.CreatePhoto(System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            creates a photo for network by a member
+            </summary>
+            <param name="networkID"></param>
+            <param name="memberID"></param>
+            <param name="title"></param>
+            <param name="desc"></param>
+            <param name="ext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkPhotos(System.Int32)">
+            <summary>
+            get network photos.
+            </summary>
+            <param name="networkID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.RemovePhoto(System.Int32)">
+            <summary>
+            remove photo by photo id
+            </summary>
+            <param name="photoID"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.UpdateNetworkPhoto(System.Int32,System.String,System.String)">
+            <summary>
+            Update network photo info
+            </summary>
+            <param name="photoID"></param>
+            <param name="title"></param>
+            <param name="desc"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkEvents(System.Int32,System.Int32)">
+            <summary>
+            get network events
+            </summary>
+            <param name="networkID"></param>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.CreateTopic(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Create a topic for network discussions
+            </summary>
+            <param name="networkID"></param>
+            <param name="memberID"></param>
+            <param name="topicName"></param>
+            <param name="post"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkDiscussionTopics(System.Int32)">
+            <summary>
+            Get network discussions topics for network
+            </summary>
+            <param name="networkID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetTopicPosts(System.Int32)">
+            <summary>
+            Get topic posts.
+            </summary>
+            <param name="topicID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.CreatePostComment(System.Int32,System.Int32,System.String)">
+            <summary>
+            Creata a comment for topic
+            </summary>
+            <param name="memberID"></param>
+            <param name="topicID"></param>
+            <param name="postMsg"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.UpdateNetworkImage(System.Int32,System.String)">
+            <summary>
+            Update network Image
+            </summary>
+            <param name="networkID"></param>
+            <param name="filename"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetTotalNetworkInvites(System.Int32)">
+            <summary>
+            Get total network invites
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetMemberNetworkInvites(System.Int32)">
+            <summary>
+            Get list of member network invites
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.DeleteNetworkTopic(System.Int32)">
+            <summary>
+            Delete network topics
+            </summary>
+            <param name="topicID"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.AddNetworkAdmin(System.Int32,System.Int32)">
+            <summary>
+            make a network member an admin
+            </summary>
+            <param name="networkID"></param>
+            <param name="memberID"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.PermanentlyRemoveRejectedRequest(System.Int32,System.Int32)">
+            <summary>
+            Permanentlies the remove rejected request.
+            </summary>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.SearchTop8NetworkResults(System.String)">
+            <summary>
+            Search top 8 of network search result
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworksByKeyName(System.Int32,System.String)">
+            <summary>
+            Gets the name of the networks by key.
+            </summary>
+            <returns>The networks by key name.</returns>
+            <param name="memberID">Member identifier.</param>
+            <param name="Value">Value.</param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.AddMemberToNetworkRequest(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            add a member who requested to join network
+            </summary>
+            <param name="networkID"></param>
+            <param name="memberID"></param>
+            <param name="status"></param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.DeleteInvite(System.Int32,System.Int32,System.String)">
+            <summary>
+            Deletes the invite.
+            </summary>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="email">Email.</param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.DemoteAdmin(System.Int32,System.Int32)">
+            <summary>
+            Demotes the admin.
+            </summary>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.DeleteNetworkInvite(System.String,System.Int32)">
+            <summary>
+            Deletes the network invite.
+            </summary>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:ESapi.Repository.NetworkRepository.GetNetworkTopicMemberCreator(System.Int32)">
+            <summary>
+            get network topic member creator
+            </summary>
+            <param name="topicID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ESapi.Repository.SettingRepository">
+            <summary>
+            Describes the functionalities for accessing data for Member settings
+            </summary>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.GetMemberNameInfo(System.Int32)">
+            <summary>
+            Get member id's name information
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.SaveMemberNameInfo(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Save member ID's name information
+            </summary>
+            <param name="memberID"></param>
+            <param name="fName"></param>
+            <param name="mName"></param>
+            <param name="lName"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.SaveMemberEmailInfo(System.Int32,System.String)">
+            <summary>
+            Saves member ID email information 
+            </summary>
+            <param name="memberID"></param>
+            <param name="email"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.SavePasswordInfo(System.String,System.String)">
+            <summary>
+            Save member iDs save password information
+            </summary>
+            <param name="memberID"></param>
+            <param name="pwd"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.SaveSecurityQuestionInfo(System.Int32,System.Int32,System.String)">
+            <summary>
+            Saves member IDs security question information
+            </summary>
+            <param name="memberID"></param>
+            <param name="questionID"></param>
+            <param name="answer"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.DeactivateAccount(System.Int32,System.Int32,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Deactivate account for member ID.
+            </summary>
+            <param name="memberID"></param>
+            <param name="reason"></param>
+            <param name="explanation"></param>
+            <param name="futureEmail"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.GetMemberNetworks(System.Int32)">
+            <summary>
+            Gets member IDs networks
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.ValidateNetworkID(System.Int32)">
+            <summary>
+            Validates network ID exist
+            </summary>
+            <param name="networkID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.ValidateMemberId(System.Int32)">
+            <summary>
+            Validates member ID exist
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.JoinNetwork(System.Int32,System.Int32)">
+            <summary>
+            Set member id to join a network
+            </summary>
+            <param name="memberID"></param>
+            <param name="networkID"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.JoinNetworkByEmail(System.String,System.Int32)">
+            <summary>
+            Join network by email
+            </summary>
+            <param name="email"></param>
+            <param name="networkID"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.isNetworkMember(System.Int32,System.Int32)">
+            <summary>
+            check to see if memberID is a member of network 
+            </summary>
+            <param name="memberID"></param>
+            <param name="networkID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.CreateNetworkRequest(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Creates network request
+            </summary>
+            <param name="memberID"></param>
+            <param name="networkName"></param>
+            <param name="type"></param>
+            <param name="purpose"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.GetProfileSettings(System.Int32)">
+            <summary>
+            Get profile privacy settings
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.SaveProfileSettings(System.Int32,ESapi.Models.Members.PrivacySearchSettingsModel)">
+            <summary>
+            Saves the profile settings.
+            </summary>
+            <param name="memberID">Member identifier.</param>
+            <param name="body">Body.</param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.GetPrivacySearchSettings(System.Int32)">
+            <summary>
+            Get privacy search settings
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.SavePrivacySearchSettings(System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            saves privacy search settings
+            </summary>
+            <param name="memberID"></param>
+            <param name="visibility"></param>
+            <param name="viewProfilePicture"></param>
+            <param name="viewFriendsList"></param>
+            <param name="viewLinkToRequestAddingYouAsFriend"></param>
+            <param name="viewLinkToSendYouMsg"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.GetAllMembers(System.String)">
+            <summary>
+            Get all members for search text
+            </summary>
+            <param name="searchText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.IsEmailExist(System.Int32,System.String)">
+            <summary>
+            return true if email exist for member id
+            </summary>
+            <param name="memberID"></param>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.GetMemberProfilePictures(System.Int32)">
+            <summary>
+            returns a list of members profile pictures.
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.GetMemberDefaultPicture(System.Int32)">
+            <summary>
+            returns members default profile picture.
+            </summary>
+            <param name="memberID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.RemoveProfilePicture(System.Int32,System.String)">
+            <summary>
+            remove profile picture from list
+            </summary>
+            <param name="memberID"></param>
+            <param name="noPhotoFilename"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.SetPictureAsDefault(System.Int32,System.Int32,System.String)">
+            <summary>
+            Set picture as default
+            </summary>
+            <param name="memberID"></param>
+            <param name="profileID"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:ESapi.Repository.SettingRepository.RemovePicture(System.Int32,System.String)">
+            <summary>
+            Remove picture as profile
+            </summary>
+            <param name="profileID"></param>
+            <param name="defaultFileName"></param>
+        </member>
+        <member name="T:ESapi.UnitTest.AccountControllerUnitTest">
+            <summary>
+            account controller unit test
+            </summary>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.GetMemberConnections(System.String,System.Int32,System.String)">
+            <summary>
+            Gets a list of member contacts by the given member ID and show type.
+            </summary>
+            <returns>The member contacts.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="show">Show could be "requests" or "RecentlyAdded".</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.GetMemberConnectionSuggestions(System.String,System.Int32)">
+            <summary>
+            Gets the list of member contact suggestions for a member ID.
+            </summary>
+            <returns>The member contact suggestions.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.SendRequestConnection(System.String,System.String,System.String)">
+            <summary>
+            Sends the request to contact.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="contactID">Contact identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.SearchMemberConnections(System.String,System.Int32,System.String)">
+            <summary>
+            Searchs and return list of contacts for a given member ID and search Text.
+            </summary>
+            <returns>The member contacts.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="searchText">Search text.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.GetMemberNetworkInviteConnectionList(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets the member network invite contact list.
+            </summary>
+            <returns>The member network invite contact list.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.GetRequestsList(System.String,System.Int32)">
+            <summary>
+            Gets the requests list.
+            </summary>
+            <returns>The requests list.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.GetMembersBySearchType(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Gets members list by search type.
+            </summary>
+            <returns>The members by search type.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="userID">User identifier.</param>
+            <param name="searchType">Search type.</param>
+            <param name="searchText">Search text.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.GetSearchConnections(System.String,System.Int32,System.String)">
+            <summary>
+            Gets the search contacts.
+            </summary>
+            <returns>The search contacts.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="userID">User identifier.</param>
+            <param name="searchText">Search text.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.GetMemberPhoneBook(System.String,System.Int32)">
+            <summary>
+            Gets the member phone book.
+            </summary>
+            <returns>The member phone book.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.GetMemberBrowsedContacts(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Gets the member browsed contacts.
+            </summary>
+            <returns>The member browsed contacts.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="categoryID">Category identifier.</param>
+            <param name="subCategory">Sub category.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.SearchMemberByType(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Searchs members by a gven type and member ID.
+            </summary>
+            <returns>The member by type.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="userID">User identifier.</param>
+            <param name="searchType">Search type.</param>
+            <param name="searchString">Search string.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.AcceptRequest(System.String,System.Int32,System.Int32)">
+            <summary>
+            member accepts request from contact 
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="contactID">Contact identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.RejectRequest(System.String,System.Int32,System.Int32)">
+            <summary>
+            Member rejects the request from contact.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="contactID">Contact identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.DeleteConnection(System.String,System.Int32,System.Int32)">
+            <summary>
+            Deletes the contact.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="contactID">Contact identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.GetEntityBySearchType(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Gets the entity list by search type.
+            </summary>
+            <returns>The entity by search type.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="searchText">Search text.</param>
+            <param name="searchType">Search type.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.ConnectionSearchResults(System.String,System.Int32,System.String)">
+            <summary>
+            Get the searched contacts by search criteria member id and search text.
+            </summary>
+            <returns>The search results.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="searchText">Search text.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.PeopleSearchResults(System.String,System.Int32,System.String)">
+            <summary>
+            /gets lsit of people by member id and searched text.
+            </summary>
+            <returns>The search results.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="searchText">Search text.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.NetworkSearchResults(System.String,System.Int32,System.String)">
+            <summary>
+            Search list of Networks by member ID and search text.
+            </summary>
+            <returns>The search results.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="searchText">Search text.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.EventSearchResults(System.String,System.Int32,System.String)">
+            <summary>
+            returns list of events by member ID and search text.
+            </summary>
+            <returns>The search results.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="searchText">Search text.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.ConnectionController.SearchResults(System.String,System.Int32,System.String)">
+            <summary>
+            reuturns the list of Contacts by search text.
+            </summary>
+            <returns>The results.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="searchText">Search text.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.GetMemberNotifications(System.String,System.Int32,System.String)">
+            <summary>
+            Gets the member notifications.
+            </summary>
+            <returns>The member notifications.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="showType">Show type.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.GetMemberMessages(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Gets the member messages.
+            </summary>
+            <returns>The member messages.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="type">Type.</param>
+            <param name="showType">Show type.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.GetTotalUnreadMessages(System.String,System.Int32)">
+            <summary>
+            Gets the total unread messages.
+            </summary>
+            <returns>The total unread messages.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.CreateMessage(System.String,System.Int32,System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a message.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="to">To.</param>
+            <param name="from">From.</param>
+            <param name="subject">Subject.</param>
+            <param name="body">Body.</param>
+            <param name="attachment">Attachment.</param>
+            <param name="original">Original.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.CreateMessageBySource(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates the message by source.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="to">To.</param>
+            <param name="from">From.</param>
+            <param name="subject">Subject.</param>
+            <param name="body">Body.</param>
+            <param name="attachment">Attachment.</param>
+            <param name="source">Source.</param>
+            <param name="original">Original.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.ToggleNotificationState(System.String,System.Boolean,System.Int32)">
+            <summary>
+            Toggles the state of the notification.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="status">If set to <c>true</c> status.</param>
+            <param name="notificationID">Notification identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.DeleteNotification(System.String,System.Int32,System.Int32)">
+            <summary>
+            Deletes the notification.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="notificationID">Notification identifier.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.ToggleMessageState(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Toggles the state of the message.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="status">Status.</param>
+            <param name="msgID">Message identifier.</param>
+            <param name="folder">Folder.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.GetNotificationByID(System.String,System.Int32)">
+            <summary>
+            Gets list of notifications by identifier.
+            </summary>
+            <returns>The notification by identifier.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="nid">Nid.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.GetMessageInfoByID(System.String,System.Int32,System.String)">
+            <summary>
+            Gets the message info by identifier.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <returns>The message info by identifier.</returns>
+            <param name="msgID">Message identifier.</param>
+            <param name="folder">Folder.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.DeleteMoveMessage(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Deletes the move message.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="msgID">Message identifier.</param>
+            <param name="mt">Mt.</param>
+            <param name="folder">Folder.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.DeleteMessage(System.String,System.Int32)">
+            <summary>
+            Deletes the message.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="msgID">Message identifier.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.SearchMessages(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Searchs messages given search key for member id.
+            </summary>
+            <returns>The messages.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="searchKey">Search key.</param>
+            <param name="type">Type.</param>
+        </member>
+        <member name="M:MM.DataServices.Controllers.MessageController.EmptyMessageFolders(System.String,System.Int32,System.String)">
+            <summary>
+            Empties the message folder (inbox, archive, etc).
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="mID">M identifier.</param>
+            <param name="folder">Folder.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.ValidateNewRegisteredUser(System.String,System.String,System.String)">
+            <summary>
+            Validates the new registered user.
+            </summary>
+            <returns>The new registered user.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="email">Email.</param>
+            <param name="code">Code.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberContacts(System.String,System.Int32,System.String)">
+            <summary>
+            Gets the list of member contacts.
+            </summary>
+            <returns>The member contacts.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="show">Show.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.SavePosts(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Saves the posts.
+            </summary>
+            <returns>The posts.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="body">Body.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetRecentPostResponses(System.String,System.Int32)">
+            <summary>
+            LGRs the recent post responses.
+            </summary>
+            <returns>The recent post responses.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="postID">Post identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.getRecentPosts(System.String,System.Int32)">
+            <summary>
+            LGRs the ecent posts.
+            </summary>
+            <returns>The ecent posts.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.getRecentNews(System.String)">
+            <summary>
+            LGRs the recent news.
+            </summary>
+            <returns>The recent news.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberGeneralInfoV2(System.String,System.Int32)">
+            <summary>
+            Gets the member general info v2.
+            </summary>
+            <returns>The member general info v2.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberDates(System.String,System.Int32)">
+            <summary>
+            Gets list of member dates.
+            </summary>
+            <returns>The member dates.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetInterestDescription(System.String,System.Int32)">
+            <summary>
+            Gets member interest description.
+            </summary>
+            <returns>The interest description.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="interestID">Interest identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberPersonalInfo(System.String,System.Int32)">
+            <summary>
+            Gets member personal information.
+            </summary>
+            <returns>The member personal info.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberContactInfo(System.String,System.Int32)">
+            <summary>
+            Gets member contact information.
+            </summary>
+            <returns>The member contact info.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberEducationInfo(System.String,System.Int32)">
+            <summary>
+            Gets member education information.
+            </summary>
+            <returns>The member education info.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberEmploymentInfo(System.String,System.Int32)">
+            <summary>
+            Gets the member employment info.
+            </summary>
+            <returns>The member employment info.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.SaveMemberGeneralInfo(System.String,System.Int32,ESapi.Models.Members.MemberProfileGenInfoModel)">
+            <summary>
+            Saves or update the member general info.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="body">input data of the MemberProfileGenInfo Model.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.SaveMemberPersonalInfo(System.String,System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            Saves or update the member personal info.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="activities">Activities.</param>
+            <param name="interests">Interests.</param>
+            <param name="specialSkills">Special skills.</param>
+            <param name="aboutMe">About me.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.SaveMemberContactInfo(System.String,System.Int32,ESapi.Models.Members.MemberProfileContactInfoModel)">
+            <summary>
+            Saves or update the member contact information.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="body">model input data.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.SendFriendRequest(System.String,System.Int32,System.String)">
+            <summary>
+            Sends the friend request.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="email">Email.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.IsContactRequestSent(System.String,System.Int32,System.Int32)">
+            <summary>
+            checks if contact request was sent to member id.
+            </summary>
+            <returns><c>true</c>, if contact request sent was ised, <c>false</c> otherwise.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="toMemberID">To member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.IsMember(System.String,System.String)">
+            <summary>
+            checks if member exists for an email".
+            </summary>
+            <returns><c>true</c>, if member was ised, <c>false</c> otherwise.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="email">Email.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.IsFriendByEmail(System.String,System.Int32,System.String)">
+            <summary>
+            checks if member is a contact by contact's email.
+            </summary>
+            <returns><c>true</c>, if friend by email was ised, <c>false</c> otherwise.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="email">Email.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.IsFriendByContactID(System.String,System.Int32,System.Int32)">
+            <summary>
+            checks if member is a contact by contact id
+            </summary>
+            <returns><c>true</c>, if friend by contact identifier was ised, <c>false</c> otherwise.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="contactID">Contact identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.SaveBasicProfileInfo(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Saves the member basic profile info.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="email">Email.</param>
+            <param name="highSchool">High school.</param>
+            <param name="highSchoolYear">High school year.</param>
+            <param name="college">College.</param>
+            <param name="collegeYear">College year.</param>
+            <param name="company">Company.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberInfoByEmail(System.String,System.String)">
+            <summary>
+            Gets the member info by email.
+            </summary>
+            <returns>The member info by email.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="email">Email.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetRecentActivities(System.String,System.Int32)">
+            <summary>
+            Gets the recent activities.
+            </summary>
+            <returns>The recent activities.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberPosts(System.String,System.Int32)">
+            <summary>
+            Gets the member posts.
+            </summary>
+            <returns>The member posts.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberPostResponses(System.String,System.Int32)">
+            <summary>
+            Gets the member post responses.
+            </summary>
+            <returns>The member post responses.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="postID">Post identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.CreateMemberPost(System.String,System.Int32,System.String)">
+            <summary>
+            Creates the member post.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="postMsg">Post message.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.CreatePostComment(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Creates the post comment.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="postID">Post identifier.</param>
+            <param name="postMsg">Post message.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberWorkExperience(System.String,System.Int32)">
+            <summary>
+            Gets the member work experience.
+            </summary>
+            <returns>The member work experience.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberInterests(System.String)">
+            <summary>
+            Gets the member interests.
+            </summary>
+            <returns>The member interests.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.AddMemberSchool(System.String,System.Int32,ESapi.Models.Members.MemberProfileEducationModel)">
+            <summary>
+            Adds the member school to db.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="body">Body.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.UpdateMemberSchool(System.String,System.Int32,ESapi.Models.Members.MemberProfileEducationModel)">
+            <summary>
+            Updates the member school.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="body">Body.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.RemoveMemberSchool(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Removes the member school.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="instID">Inst identifier.</param>
+            <param name="instType">Inst type.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.AddWorkExperience(System.String,System.Int32,ESapi.Models.Members.MemberProfileEmploymentModel)">
+            <summary>
+            Add member work experience.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="body">Body.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.UpdateMemberWorkExperience(System.String,System.Int32,ESapi.Models.Members.MemberProfileEmploymentModel)">
+            <summary>
+            Updates the member work experience.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberId">Member identifier.</param>
+            <param name="body">Body.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.RemoveMemberWorkExperience(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Removes the member work experience.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="empInfoID">Emp info identifier.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="compID">Comp identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.IsMemberActive(System.String,System.Int32)">
+            <summary>
+            checks to see if the member is active.
+            </summary>
+            <returns><c>true</c>, if member active was ised, <c>false</c> otherwise.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetMemberEmail(System.String,System.Int32)">
+            <summary>
+            Gets the member email.
+            </summary>
+            <returns>The member email.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.AddMemberActivity(System.String,System.Int32,System.String)">
+            <summary>
+            Adds the member acitivity.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="activity">Activity.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetRegisteredMembers(System.String,System.Int32)">
+            <summary>
+            Gets the registered members.
+            </summary>
+            <returns>The registered members.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="status">Status.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.SendAdvertisementInfo(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Sends the advertisement info.
+            </summary>
+            <returns>The advertisement info.</returns>
+            <param name="firstName">First name.</param>
+            <param name="lastName">Last name.</param>
+            <param name="company">Company.</param>
+            <param name="email">Email.</param>
+            <param name="phone">Phone.</param>
+            <param name="country">Country.</param>
+            <param name="title">Title.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.ResetPassword(System.String,System.String)">
+            <summary>
+            Resets the password.
+            </summary>
+            <returns>The password.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="email">Email.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.IsResetCodeExpired(System.String)">
+            <summary>
+            Is the reset code expired, yes or no.
+            </summary>
+            <returns>The reset code expired.</returns>
+            <param name="code">Code.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.ChangePassword(System.String,System.String,System.String)">
+            <summary>
+            Changes the password.
+            </summary>
+            <returns>The password.</returns>
+            <param name="pwd">Pwd.</param>
+            <param name="email">Email.</param>
+            <param name="code">Code.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.UploadProfilePhoto(System.String,System.String)">
+            <summary>
+            Uploads the profile photo.
+            </summary>
+            <returns>The profile photo.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberId">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.SetMemberStatus(System.Int32,System.Int32)">
+            <summary>
+            set member status
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberId">Member identifier.</param>
+            <param name="fileName">File name.</param>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetVideoPlayList(System.String,System.String)">
+            <summary>
+            Get utube video playlist
+            </summary>
+            <param name="authorization"></param>
+            <param name="memberId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LGApi.Controllers.MemberController.GetVideosList(System.String,System.String)">
+            <summary>
+            Get videos list for a player list.
+            </summary>
+            <param name="authorization"></param>
+            <param name="playerListID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.CreateNetwork(System.String,ESapi.DBContextModels.TbNetworks,System.Int32)">
+            <summary>
+            Creates the network.
+            </summary>
+            <returns>The network.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="body">Network data</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.UpdateNetwork(System.String,System.Int32,ESapi.DBContextModels.TbNetworks)">
+            <summary>
+            Updates the network.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="body">Network data.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetMemberNetworks(System.String,System.Int32)">
+            <summary>
+            Gets the list of networks for member.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <returns>The member networks.</returns>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkCategories(System.String)">
+            <summary>
+            Gets the network categories.
+            </summary>
+            <returns>The network categories.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkCategoryTypes(System.String,System.Int32)">
+            <summary>
+            Gets the network category types.
+            </summary>
+            <returns>The network category types.</returns>
+            /// <param name="authorization">JWT Bearer token.</param>
+            <param name="categoryID">Category identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkBasicInfo(System.String,System.Int32)">
+            <summary>
+            Gets the network basic info.
+            </summary>
+            <returns>The network basic info.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.UpdateNetworkInfo(System.String,ESapi.Models.NetworkInfoModel)">
+            <summary>
+            update network information
+            </summary>
+            <param name="authorization"></param>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworksByCatType(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Gets list networks by cat type.
+            </summary>
+            <returns>The networks by cat type.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="category">Category.</param>
+            <param name="subCategory">Sub category.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkSettings(System.String,System.Int32)">
+            <summary>
+            Gets the network settings.
+            </summary>
+            <returns>The network settings.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkAdmins(System.String,System.Int32)">
+            <summary>
+            Gets the network administrators.
+            </summary>
+            <returns>The network admins.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkMembers(System.String,System.Int32,System.String)">
+            <summary>
+            Gets the network members.
+            </summary>
+            <returns>The network members.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="listType">List type.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetContactsNotInNetwork(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets the contacts not in network.
+            </summary>
+            <returns>The contacts not in network.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.AddNetworkMembers(System.String,System.Int32,System.Int32)">
+            <summary>
+            Adds the network members.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.IgnoreJoinNetwork(System.String,System.Int32,System.Int32)">
+            <summary>
+            Ignores the join network.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.UpdateNetworkSettings(System.String,ESapi.DBContextModels.TbNetworkSettings)">
+            <summary>
+            Updates the network settings.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="body">Network settings data.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.InviteMemberToJoinNetwork(System.String,System.Int32,System.Int32)">
+            <summary>
+            Invite member to join network
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.InviteEmailToJoinNetwork(System.String,System.Int32,System.String)">
+            <summary>
+            Invites to join network using email.
+            </summary>
+            <returns>The email to join network.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="email">Email.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.IsNetworkMember(System.String,System.Int32,System.String)">
+            <summary>
+            checks if email is a network member
+            </summary>
+            <returns><c>true</c>, if network member was ised, <c>false</c> otherwise.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="email">Email.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.IsMemberNetWorkRequestor(System.String,System.Int32,System.Int32)">
+            <summary>
+            checks if member a network requestor to join
+            </summary>
+            <returns><c>true</c>, if member net work requestor was ised, <c>false</c> otherwise.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetRecentNetworkActivities(System.String,System.Int32)">
+            <summary>
+            Gets the recent network activities.
+            </summary>
+            <returns>The recent network activities.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkPosts(System.String,System.Int32)">
+            <summary>
+            Gets the network posts.
+            </summary>
+            <returns>The network posts.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkPostResponses(System.String,System.Int32)">
+            <summary>
+            Gets the network post responses.
+            </summary>
+            <returns>The network post responses.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="postID">Post identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.UpdateProfilePicture(System.String,System.Int32,System.String)">
+            <summary>
+            Updates the profile picture.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="fileName">File name.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.CreateNetworkPost(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Creates the network post.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="postMsg">Post message.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.CreatePostComment(System.String,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Creates the post comment.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="postID">Post identifier.</param>
+            <param name="postMsg">Post message.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.CreatePostCommentByTopicID(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Creates the post comment by topic identifier.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="topicID">Topic identifier.</param>
+            <param name="postMsg">Post message.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkInfo(System.String,System.Int32)">
+            <summary>
+            Gets the network info.
+            </summary>
+            <returns>The network info.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.CreatePhoto(System.String,ESapi.DBContextModels.TbNetworkPhotos)">
+            <summary>
+            Creates the photo.
+            </summary>
+            <returns>The photo.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="body">photo data.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkPhotos(System.String,System.Int32)">
+            <summary>
+            Gets the network photos.
+            </summary>
+            <returns>The network photos.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.RemovePhoto(System.String,System.Int32)">
+            <summary>
+            Removes the photo.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="photoID">Photo identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.UpdateNetworkPhoto(System.String,ESapi.Models.NetworkPhotosModel)">
+            <summary>
+            Updates the network photo.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="body">Photo data.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkEvents(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets the network events.
+            </summary>
+            <returns>The network events.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.CreateTopic(System.String,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Creates the topic.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="topicName">Topic name.</param>
+            <param name="post">Post.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkDiscussionTopics(System.String,System.Int32)">
+            <summary>
+            Gets the network discussion topics.
+            </summary>
+            <returns>The network discussion topics.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetTopicPosts(System.String,System.Int32)">
+            <summary>
+            Gets the list of posts for a topic.
+            </summary>
+            <returns>The topic posts.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="topicID">Topic identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.UpdateNetworkImage(System.String,System.Int32,System.String)">
+            <summary>
+            Updates the network image.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="filename">Filename.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetTotalNetworkInvites(System.String,System.Int32)">
+            <summary>
+            Gets the total network invites.
+            </summary>
+            <returns>The total network invites.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetMemberNetworkInvites(System.String,System.Int32)">
+            <summary>
+            Gets the member network invites.
+            </summary>
+            <returns>The member network invites.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.DeleteNetworkTopic(System.String,System.Int32)">
+            <summary>
+            Deletes the network topic.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="topicID">Topic identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.AddNetworkAdmin(System.String,System.Int32,System.Int32)">
+            <summary>
+            Adds the network admin.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.PermanentlyRemoveRejectedRequest(System.String,System.Int32,System.Int32)">
+            <summary>
+            Permanently  remove the rejected request.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.DeactivateMemberFromNetwork(System.String,System.Int32,System.Int32)">
+            <summary>
+            Deactivates the member from network.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.DeleteInvite(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Deletes a network invite.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="email">Email.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworkTopicMemberCreator(System.String,System.Int32)">
+            <summary>
+            Gets the network topic member creator.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <returns>The network topic member creator.</returns>
+            <param name="topicID">Topic identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.SearchTOPxNetworkResults(System.String,System.String)">
+            <summary>
+            Searchs the TOP x network results.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <returns>The TOP x network results.</returns>
+            <param name="tryValue">Try value.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.GetNetworksByKeyName(System.String,System.Int32,System.String)">
+            <summary>
+            Gets the list of networks by try value and member.
+            </summary>
+            <returns>The networks by key name.</returns>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="tryValue">Try value.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.AddMemberToNetworkRequest(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Adds the member to network request.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="status">Status.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.DemoteAdmin(System.String,System.Int32,System.Int32)">
+            <summary>
+            Demotes the admin of an admin.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="memberID">Member identifier.</param>
+            <param name="networkID">Network identifier.</param>
+        </member>
+        <member name="M:LGApi.Controllers.NetworkController.DeleteNetworkInvite(System.String,System.Int32,System.String)">
+            <summary>
+            Deletes the network invite.
+            </summary>
+            <param name="authorization">JWT Bearer token.</param>
+            <param name="networkID">Network identifier.</param>
+            <param name="memberID">Member identifier.</param>
+        </member>
+    </members>
+</doc>

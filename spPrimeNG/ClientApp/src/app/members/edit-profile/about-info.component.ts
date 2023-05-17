@@ -14,7 +14,8 @@ export class AboutInfoComponent implements OnInit {
 
     public show: boolean = false;
     public showErrMsg: boolean = false;
-    public isSaving = false;
+  public isSaving = false;
+  public isSuccess = false;
 
     aboutInfo: MemberProfileAboutInfoModel = {
         aboutMe: "",
@@ -46,9 +47,14 @@ export class AboutInfoComponent implements OnInit {
     }
 
     async saveAboutInfo() {
-        this.isSaving = true;
+      this.isSaving = true;
+      this.isSuccess = false;
+      this.aboutInfo.activities = "";
+      this.aboutInfo.hobbies = "";
+      this.aboutInfo.specialSkills = "";
         await this.membersSvc.SaveMemberAboutInfo(this.memberID, this.aboutInfo.aboutMe, this.aboutInfo.activities,
             this.aboutInfo.hobbies, this.aboutInfo.specialSkills);
-        this.isSaving = false;
+      this.isSaving = false;
+      this.isSuccess = true;
     }
 }

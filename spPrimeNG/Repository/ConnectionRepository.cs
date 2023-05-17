@@ -907,7 +907,7 @@ namespace sportprofiles.Repository
         public bool IsFollowingConnection(int memberID, int connectionID)
         {
             var result = _context.Set<ResultModel>().FromSqlRaw("exec IsFollowingConnection @MemberID, @FollowingMemberId ", new SqlParameter("@MemberID", memberID), new SqlParameter("@FollowingMemberId", connectionID));
-            List<ResultModel> res= new List<ResultModel>(result);
+            var  res= new List<ResultModel>(result);
 
            if (res.Count == 0)
                 return false;

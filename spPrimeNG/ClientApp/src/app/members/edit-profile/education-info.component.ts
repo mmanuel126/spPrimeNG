@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MembersService } from '../../services/data/members.service';
 import { ICommonService } from '../../services/common.service';
@@ -6,6 +6,7 @@ import { SessionMgtService } from '../../services/session-mgt.service';
 import { MemberProfileEducationModel } from 'src/app/models/members/profile-education.model';
 import { SchoolsByStateModel } from 'src/app/models/organization/schools-by-state.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'education-info',
@@ -13,6 +14,10 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
     styleUrls: ['./education-info.component.css']
 })
 export class EducationInfoComponent implements OnInit {
+
+    @ViewChild('closeEditButton') closeEditButton;
+
+    showEditModalBox: boolean = false;
 
     public show: boolean = false;
     public showErrMsg: boolean = false;
@@ -54,7 +59,8 @@ export class EducationInfoComponent implements OnInit {
 
     public constructor(public session: SessionMgtService, private route: ActivatedRoute, private router: Router,
         private membersSvc: MembersService, private comSvc: ICommonService,
-        public modalService: NgbModal) {
+        public modalService: NgbModal,
+        public dialogRef: MatDialogRef<EducationInfoComponent>,) {
     }
 
     memberID: string;
@@ -79,13 +85,13 @@ export class EducationInfoComponent implements OnInit {
         return false;
     }
 
-    jumpToEditSchool(editModal, id: string, name: string, major: string, degree: string, classYear: string) {
+    jumpToEditSchool(id: string, name: string, major: string, degree: string, classYear: string) {
         this.schoolName = name;
         this.eduInfoEdit.degree = degree;
         this.eduInfoEdit.major = major;
         this.eduInfoEdit.yearClass = classYear;
         this.eduInfoEdit.schoolID = id;
-        this.modHand = this.modalService.open(editModal);
+        this.showEditModalBox = true;
         return false;
     }
 
@@ -115,6 +121,7 @@ export class EducationInfoComponent implements OnInit {
         await this.membersSvc.UpdateSchool(this.memberID, this.eduInfoEdit);
         this.getEducationInfo();
         this.isSaving = false;
+        this.closeEditButton.nativeElement.click();
     }
 
     async doRemoveSchool() {
@@ -138,5 +145,6 @@ export class EducationInfoComponent implements OnInit {
     }
     return years
   }
+
 
 }

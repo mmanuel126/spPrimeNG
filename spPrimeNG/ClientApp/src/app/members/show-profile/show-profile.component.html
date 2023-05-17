@@ -55,7 +55,7 @@
                     </td>
                   </tr>
                 </table>
-                <div *ngIf="this.cStatus !='Agent'">
+                <div *ngIf="this.cStatus =='Athlete (Amateur)' || this.cStatus == 'Athlete (Professional)' ">
                   <table *ngIf="this.basicInfoModel?.leftRightHandFoot" style="border-bottom: solid 1px #e7eadf; ">
                     <tr>
                       <td class="textDataLabel" style="text-align: right;width:190px">
@@ -128,6 +128,19 @@
                     </td>
                   </tr>
                 </table>
+
+                <!-- table *ngIf="this.basicInfoModel?.interestedInType"
+                       style="border-bottom: solid 1px #e7eadf; ">
+                  <tr>
+                    <td class="textDataLabel" style="text-align: right;width:190px">
+                     Other Sporting Interest:&nbsp;
+                    </td>
+                    <td class="textDataValue" style="text-align: left">
+                      <span id="lblOtherInterest">{{(this.basicInfoModel.interestedInType}}</span>
+                    </td>
+                  </tr>
+                </table -->
+
                 <table *ngIf="this.memLookingFor!=''" style="border-bottom: solid 1px #e7eadf; ">
                   <tr>
                     <td class="textDataLabel" style="text-align: right;width:190px">
@@ -138,10 +151,11 @@
                     </td>
                   </tr>
                 </table>
+                <table><tr><td>&nbsp;</td></tr></table>
                 <table *ngIf="this.bio" style="border-bottom: solid 1px #e7eadf; ">
                   <tr>
                     <td class="textDataLabel" style="text-align: right;width:190px">
-                      Bio:&nbsp;
+                      Biography:&nbsp;
                     </td>
                     <td class="textDataValue" style="text-align: left; width: 400px">
                       <span id="lblInterestedIn">{{this.basicInfoModel.bio}}</span>
@@ -301,6 +315,7 @@
                             </td>
                           </tr>
                         </table>
+
                         <table *ngIf="this.contactInfoModel?.showAddress" style="border-bottom: solid 1px #e7eadf; ">
                           <tr>
                             <td class="textDataLabel" style="width:190px">
@@ -324,6 +339,7 @@
                             </td>
                           </tr>
                         </table>
+
                         <table *ngIf="this.contactInfoModel?.showAddress" style="border-bottom: none 1px #e7eadf; ">
                           <tr>
                             <td class="textDataLabel" style="width:190px">
@@ -345,7 +361,7 @@
 
             <mat-tab label="Education">
               <br>
-              <div id="EducationContentPanel" style="padding-top:10px">
+              <div id="EducationContentPanel" style="padding-top:10px; overflow-x: auto; height: 450px">
                 <table>
                   <tr *ngFor='let res of educationInfoModel'>
                     <td style="padding-left:10px">
@@ -434,17 +450,18 @@
                   <div class="row">
                     <div *ngFor="let item of playList" class="column"
                          style="padding-right:10px; font-size:9pt; color:white; text-align:left">
-                      <img (click)="onPlayListChange(item.Id)" src="{{item.DefaultThumbnail}}"
-                           title="{{item.Description}}" alt="" style="width:100%;cursor:hand">
-                      <br>{{item.Title}}
+                      <img (click)="onPlayListChange(item.id)" src="{{item.defaultThumbnail}}"
+                           title="{{item.description}}" alt="" style="width:100%;cursor:hand">
+                      <br>{{item.title}}
+                      
                     </div>
 
                   </div>
                 </div>
                 <hr style="background-color: lightgray;">
               </span>
-              <span *ngIf="!this.playList" class="textDataLabel" style="width:250px">
-                No youtube playlist were found.
+              <span *ngIf="!playList?.length" class="textDataLabel" style="width:250px">
+                No youtube playlist were found for this member.
               </span>
 
               <div id="VideosContentPanel" style="padding-top:10px">
@@ -455,22 +472,22 @@
                         <tr>
                           <td style="width: 50px; text-align: left; cursor:pointer;vertical-align:top" class="">
                             <a href="#" data-toggle="modal" data-target="#videoModal"
-                               (click)="showOpenPopup(videoModal,vid.Id)" style="border:none">
-                              <img src="{{vid.DefaultThumbnail}}"
-                                   style="color:#596A7D;border-color:LightGrey;border-width:1px;border-style:None;height:'{{vid.DefaultThumbnailHeight}}px';width:'{{vid.DefaultThumbnailWidth}}px';" />
+                               (click)="showOpenPopup(vid.id)" style="border:none">
+                              <img src="{{vid.defaultThumbnail}}"
+                                   style="color:#596A7D;border-color:LightGrey;border-width:1px;border-style:None;height:'{{vid.defaultThumbnailHeight}}px';width:'{{vid.defaultThumbnailWidth}}px';" />
                             </a>
                           </td>
                           <td><span style="width:5px"></span></td>
                           <td style="vertical-align: top; text-align: left; width: 100%;vertical-align:top;"
                               class="textDataLabel">
                             <a id="lblTitle" href="#" data-toggle="modal" data-target="#videoModal"
-                               (click)="showOpenPopup(videoModal,vid.Id)"
-                               style="font-weight:normal;padding-right:20px;">{{vid.Title}}</a>
+                               (click)="showOpenPopup(vid.id)"
+                               style="font-weight:normal;padding-right:20px;">{{vid.title}}</a>
                             <br />
-                            <span id="lblDesc" style="color:gray;">{{vid.Description}}</span>
+                            <span id="lblDesc" style="color:gray;">{{vid.description}}</span>
                             <br />
                             <span id="lblDate" class="" style="color:#596A7D;">
-                              Published date:&nbsp;{{vid.PublishedAt}}
+                              Published date:&nbsp;{{vid.publishedAt}}
                             </span>
                             <br />
                           </td>
@@ -532,7 +549,7 @@
 </ng-template>
 
 <!-- template for information popup box -->
-<ng-template #videoModal let-c="close" let-d="dismiss">
+<!-- ng-template #videoModal let-c="close" let-d="dismiss">
   <div class="modal-body">
     <span class="logo_popup_text">View Video</span>
     <br><br>
@@ -542,4 +559,26 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="d( 'Cross click') ">Close</button>
   </div>
-</ng-template>
+</ng-template -->
+
+<div *ngIf="showVideoModalBox" class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="videoModalLabel">View Video</h5>
+        <button type="button" #closeVideoButton class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span class="logo_popup_text"></span>
+        <youtube-player videoId="{{this.videoId}}" (ready)="savePlayer($event)" PlayerVars="playerVars"
+                        suggestedQuality="highres" [height]="300" [width]="465">
+        </youtube-player>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click) ="doClose()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

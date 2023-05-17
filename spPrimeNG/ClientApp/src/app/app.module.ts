@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -20,10 +21,11 @@ import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfi
 import { GlobalErrorHandler } from './services/global-error.handler';
 
 import { LoggerModule, NgxLoggerLevel, NGXLogger, NGXLoggerMapperService } from 'ngx-logger';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 //* main or app component */
 import { AppComponent } from './app.component';
-import {  } from './nav-components';
+import { } from './nav-components';
 
 /* custom nav components */
 import { NavbarComponent } from './nav-components/navbar.component'
@@ -79,6 +81,7 @@ import { AccountSettingChangePhotoComponent } from "./settings/account-setting-c
 import { PrivacySettingComponent } from "./settings/privacy-setting.component";
 import { PrivacySettingProfileComponent } from "./settings/privacy-setting-profile.component";
 import { PrivacySettingSearchComponent } from "./settings/privacy-setting-search.component";
+import { ReactivateComponent } from "./account/reactivate.component";
 
 /* error component */
 import { ErrorComponent } from './errors/error.component';
@@ -153,6 +156,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PrivacySettingComponent,
     PrivacySettingProfileComponent,
     PrivacySettingSearchComponent,
+    ReactivateComponent,
 
     /* errors */
     ErrorComponent,
@@ -171,12 +175,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatTabsModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
     CarouselModule,
     PaginationModule,
     NgxPaginationModule,
     YouTubePlayerModule,
     PerfectScrollbarModule,
-    //ModalModule,
+    NgxPageScrollCoreModule.forRoot({ duration: 1600 }),
 
     LoggerModule.forRoot({
       serverLoggingUrl: 'http://localhost:5005/services/common/logs',
@@ -190,11 +195,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       //account route
       { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'register', component: RegisterComponent },
+      { path: 'complete-register', component: CompleteRegisterComponent },
       { path: 'forgotpwd', component: ForgotPasswordComponent },
       { path: 'confirm-register', component: ConfirmRegisterComponent },
       { path: 'resetpwd', component: ResetpwdComponent },
       { path: 'changepwd', component: ChangepwdComponent },
       { path: 'resetpwd-confirm', component: ResetpwdConfirmComponent },
+      { path: 'reactivate', component: ReactivateComponent },
 
       //home route
       { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
@@ -251,6 +258,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         PathLocationStrategy
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditProfileComponent],
 })
 export class AppModule { }

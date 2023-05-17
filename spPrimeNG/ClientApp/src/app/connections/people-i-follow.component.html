@@ -17,7 +17,6 @@
     </div>
   </div>
 </div>
-<!-- </div> -->
 
 <ng-template #showConnectionList_Content>
   <div *ngIf="this.contactCnt>0" style="padding-left:0px;padding-top:7px; padding-bottom:5px;display:block">
@@ -25,33 +24,32 @@
   </div>
 
   <div id="tbMsgPartialDiv" style="background-color:white">
-    <table 
-      style="width: 600px; text-align: left; border-left: 1px none #e7eadf; border-right:1px none #e7eadf; border-collapse: collapse; font-size:11pt">
+    <table style="width: 350px; text-align: left; border-left: 1px none #e7eadf; border-right:1px none #e7eadf; border-collapse: collapse; font-size:11pt">
       <tbody>
         <tr *ngFor="let res of contactInfoList" style="border-bottom: solid 1px;border-bottom-color:#DBDBDB;">
 
-          <td
-            style="width: 40px; text-align: left; cursor:pointer;vertical-align:top; padding-top:6px;padding-right:4px"
-            class="textfonts8pt;">
+          <td style="width: 40px; text-align: left; cursor:pointer;vertical-align:top; padding-top:6px;padding-right:4px"
+              class="textfonts8pt;">
             <a href="" [routerLink]="['/members/show-profile']" [queryParams]="{memberID:res.connectionID}"
-              style="border:none">
+               style="border:none">
               <img src="{{this.memberImagesUrlPath}}{{res.picturePath}}"
-                style="color:#596A7D;border-color:LightGrey;border-width:1px;border-style:None;height:40px;width:40px;border-radius:50%" />
+                   style="color:#596A7D;border-color:LightGrey;border-width:1px;border-style:None;height:40px;width:40px;border-radius:50%" />
             </a>
           </td>
-          <td style="vertical-align: top; text-align: left;vertical-align:top; padding-bottom:10px;"
-            >
+          <td style="vertical-align: top; text-align: left;vertical-align:top; padding-bottom:10px;">
             <a id="lbSName" href="#" [routerLink]="['/members/show-profile']" style="width:400px"
-              [queryParams]="{memberID:res.connectionID}">
-                        {{res.friendName}}</a>
+               [queryParams]="{memberID:res.connectionID}">
+              {{res.friendName}}
+            </a>
             <br />
             <span id="lblTitle"
-              style="color:Gray;font-size:10pt;">{{(res.titleDesc=="") ? "Unknown Title" : res.titleDesc  }}</span>
+                  style="color:Gray;font-size:10pt;">{{(res.titleDesc=="") ? "Unknown Title" : res.titleDesc  }}</span>
             <br>
             <a style="font-size:10pt" id="lblUnfollow" title="Unfollow this member" href="#"
-              data-toggle="modal" data-target="#unfollowModal"
-              (click)="showUnfollowPopup(unfollowModal,res.connectionID);">Unfollow
-              </a>
+               data-toggle="modal" data-target="#unfollowModal"
+               (click)="showUnfollowPopup(res.connectionID);">
+              Unfollow
+            </a>
             <br />
           </td>
         </tr>
@@ -61,21 +59,29 @@
   </div>
 </ng-template>
 
+<!-- Unfollow Modal -->
+<div *ngIf="showModalBox" class="modal fade" id="unfollowModal" tabindex="-1" role="dialog" aria-labelledby="unfollowModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Unfollow Member</h5>
+        <button type="button" #closebutton class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label>Are you sure you want to unfollow this member?</label>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="doUnfollowMember()">
+          <i *ngIf="spinner" class='fas fa-spinner fa-spin'></i> {{spinner ? "Unfollwing..." : "Yes"}}
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- Unfolow  modal-->
-<ng-template #unfollowModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h5 class="modal-title">Unfollow Member</h5>
-  </div>
-  <div class="modal-body">
-    <form>
-      <label>Are you sure you want to unfollow this member?</label>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="doUnfollowMember()">
-      <i *ngIf="spinner" class='fas fa-spinner fa-spin'></i> {{spinner ? "Unfollwing..." : "Yes"}}
-    </button>
-    <button type="button" class="btn btn-secondary" (click)="d( 'Cross click') ">No</button>
-  </div>
-</ng-template>
+

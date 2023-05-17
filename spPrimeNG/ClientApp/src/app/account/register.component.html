@@ -1,424 +1,428 @@
 <body class="image-bg spscroll">
   <form #registerForm='ngForm' (ngSubmit)="registerUser()">
-    <div class="h-50  bg-animation">
-      <div class="d-flex h-50 justify-content-center align-items-center">
-        <div class="mx-auto app-login-box col-md-8">
-          
-          <div class="mx-auto mb-3 logo_text logo_popup_text"><img src="{{this.webSiteDomain}}/assets/images/logo3.jpg" width="320" height="50"> </div>
-          <div class="modal-dialog w-100 mx-auto">
-            <div class="modal-content">
-              <div class="modal-body">
-                <div class="h5 modal-title text-center">
-                  <h6 class="mt-2">
-                    <span>It only takes a <span class="text-success">few seconds</span> to create your account</span>
-                  </h6>
-                  <div class="divider"></div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div id="firstName" role="group" class="form-group" aria-describedby="firstName__BV_description_">
-                        <div style=" text-align:left">
-                          <input autocomplete="off" name="txtFirstName" id="txtFirstName" type="text"
-                                 placeholder="Enter first name..." required="required" ngModel #txtFirstName="ngModel"
-                                 aria-required="true" [(ngModel)]="register.firstName" class="form-control"
-                                 aria-describedby="firstName__BV_description_">
+        <div class="h-50  bg-animation">
+          <div class="d-flex h-50 justify-content-center align-items-center">
+            <div class="mx-auto app-login-box col-md-8">
+
+              <div class="mx-auto mb-3 logo_text logo_popup_text"><img src="{{this.webSiteDomain}}/assets/images/logo3.jpg" width="250" height="50"> </div>
+              <div class="modal-dialog w-100 mx-auto">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="h5 modal-title text-center">
+                      <h6 class="mt-2">
+                        <span>It only takes a <span class="text-success">few seconds</span> to create your account</span>
+                      </h6>
+                      <div class="divider"></div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div id="firstName" role="group" class="form-group" aria-describedby="firstName__BV_description_">
+                            <div style=" text-align:left">
+                              <input autocomplete="off" name="txtFirstName" id="txtFirstName" type="text"
+                                     placeholder="Enter first name..." required="required" ngModel #txtFirstName="ngModel"
+                                     aria-required="true" [(ngModel)]="register.firstName" class="form-control"
+                                     aria-describedby="firstName__BV_description_">
+                              <span style="font-size:10pt;" class="errorMessage msg_color"
+                                    *ngIf="txtFirstName.touched && !txtFirstName.valid">
+                                First name is
+                                required.
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div id="lastName" role="group" class="form-group" aria-describedby="lastName__BV_description_">
+                            <div style="text-align:left;">
+                              <input autocomplete="off" name="txtLastName" id="txtLastName" type="text"
+                                     placeholder="Enter last name..." required="required" ngModel #txtLastName="ngModel"
+                                     aria-required="true" [(ngModel)]="register.lastName" class="form-control"
+                                     aria-describedby="lastName__BV_description_">
+                              <span style="font-size:10pt;" class="errorMessage msg_color"
+                                    *ngIf="txtLastName.touched && !txtLastName.valid">
+                                Last name is
+                                required.
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="email" role="group" aria-describedby="email__BV_description_" class="form-group">
+                        <div style="text-align: left;">
+                          <input id="txtEmail" autocomplete="off" name="txtEmail" type="email"
+                                 placeholder="Enter email..." required="required" ngModel #txtEmail="ngModel"
+                                 [(ngModel)]="register.email" aria-required="true" class="form-control"
+                                 aria-describedby="email__BV_description_">
                           <span style="font-size:10pt;" class="errorMessage msg_color"
-                                *ngIf="txtFirstName.touched && !txtFirstName.valid">
-                            First name is
+                                *ngIf="txtEmail.touched && !txtEmail.valid">
+                            Valid email is
                             required.
                           </span>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div id="lastName" role="group" class="form-group" aria-describedby="lastName__BV_description_">
-                        <div style="text-align:left;">
-                          <input autocomplete="off" name="txtLastName" id="txtLastName" type="text"
-                                 placeholder="Enter last name..." required="required" ngModel #txtLastName="ngModel"
-                                 aria-required="true" [(ngModel)]="register.lastName" class="form-control"
-                                 aria-describedby="lastName__BV_description_">
-                          <span style="font-size:10pt;" class="errorMessage msg_color"
-                                *ngIf="txtLastName.touched && !txtLastName.valid">
-                            Last name is
-                            required.
-                          </span>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div id="password" role="group" class="form-group" aria-describedby="password__BV_description_">
+                            <div style=" text-align:left">
+                              <input autocomplete="off" name="txtPassword" id="txtPassword" type="password"
+                                     placeholder="Enter password..." required="required" ngModel #txtPassword="ngModel"
+                                     aria-required="true" minlength="5" validateEqual="txtRepPassword" reverse="true"
+                                     [(ngModel)]="register.password" class="form-control"
+                                     aria-describedby="password__BV_description_">
+                              <div *ngIf="txtPassword.errors && (txtPassword.dirty || txtPassword.touched)">
+                                <span style="font-size:10pt;" class="errorMessage msg_color"
+                                      *ngIf="txtPassword.errors.required">
+                                  Password is
+                                  required.
+                                </span>
+                                <span style="font-size:10pt;" class="errorMessage msg_color"
+                                      *ngIf="txtPassword.errors.minlength">
+                                  Password
+                                  must at least be 5 characters.
+                                </span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="email" role="group" aria-describedby="email__BV_description_" class="form-group">
-                    <div style="text-align: left;">
-                      <input id="txtEmail" autocomplete="off" name="txtEmail" type="email"
-                             placeholder="Enter email..." required="required" ngModel #txtEmail="ngModel"
-                             [(ngModel)]="register.email" aria-required="true" class="form-control"
-                             aria-describedby="email__BV_description_">
-                      <span style="font-size:10pt;" class="errorMessage msg_color"
-                            *ngIf="txtEmail.touched && !txtEmail.valid">
-                        Valid email is
-                        required.
-                      </span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div id="password" role="group" class="form-group" aria-describedby="password__BV_description_">
-                        <div style=" text-align:left">
-                          <input autocomplete="off" name="txtPassword" id="txtPassword" type="password"
-                                 placeholder="Enter password..." required="required" ngModel #txtPassword="ngModel"
-                                 aria-required="true" minlength="5" validateEqual="txtRepPassword" reverse="true"
-                                 [(ngModel)]="register.password" class="form-control"
-                                 aria-describedby="password__BV_description_">
-                          <div *ngIf="txtPassword.errors && (txtPassword.dirty || txtPassword.touched)">
-                            <span style="font-size:10pt;" class="errorMessage msg_color"
-                                  *ngIf="txtPassword.errors.required">
-                              Password is
-                              required.
-                            </span>
-                            <span style="font-size:10pt;" class="errorMessage msg_color"
-                                  *ngIf="txtPassword.errors.minlength">
-                              Password
-                              must at least be 5 characters.
-                            </span>
+                        <div class="col-md-6">
+                          <div id="repPassword" role="group" class="form-group"
+                               aria-describedby="repPassword__BV_description_">
+                            <div style=" text-align:left">
+                              <input autocomplete="off" name="txtRepPassword" id="txtRepPassword" type="password"
+                                     placeholder="Re-enter password..." required="required" ngModel #txtRepPassword="ngModel"
+                                     aria-required="true" validateEqual="txtPassword" [(ngModel)]="register.confirmPwd"
+                                     class="form-control" aria-describedby="repPassword__BV_description_">
+                              <div style="text-align:left"
+                                   *ngIf="txtRepPassword.errors && (txtRepPassword.dirty || txtRepPassword.touched)">
+                                <span style="font-size:10pt;" class="errorMessage msg_color"
+                                      *ngIf="txtRepPassword.errors.required">
+                                  Re-enter Password is
+                                  required.
+                                </span>
+                                <span style="font-size:10pt;" class="errorMessage msg_color"
+                                      *ngIf="txtRepPassword.errors && !txtRepPassword.errors.required">
+                                  Re-enter
+                                  password
+                                  must match password.
+                                </span>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div id="repPassword" role="group" class="form-group"
-                           aria-describedby="repPassword__BV_description_">
-                        <div style=" text-align:left">
-                          <input autocomplete="off" name="txtRepPassword" id="txtRepPassword" type="password"
-                                 placeholder="Re-enter password..." required="required" ngModel #txtRepPassword="ngModel"
-                                 aria-required="true" validateEqual="txtPassword" [(ngModel)]="register.confirmPwd"
-                                 class="form-control" aria-describedby="repPassword__BV_description_">
-                          <div style="text-align:left"
-                               *ngIf="txtRepPassword.errors && (txtRepPassword.dirty || txtRepPassword.touched)">
-                            <span style="font-size:10pt;" class="errorMessage msg_color"
-                                  *ngIf="txtRepPassword.errors.required">
-                              Re-enter Password is
-                              required.
-                            </span>
-                            <span style="font-size:10pt;" class="errorMessage msg_color"
-                                  *ngIf="txtRepPassword.errors && !txtRepPassword.errors.required">
-                              Re-enter
-                              password
-                              must match password.
-                            </span>
+
+                      <div class="row" style="top:0px">
+                        <div class="col-md-5">
+                          <div id="gender" role="group" class="form-group"
+                               [class.has-error]="optGender.touched && optGender.invalid"
+                               aria-describedby="gender__BV_description_">
+                            <div style="text-align:left">
+                              <span style="text-align:left">
+                                <h6>Gender:</h6>
+                              </span>
+                              <select name="optGender" id="optGender" class="form-control" required="required"
+                                      [(ngModel)]="register.gender" #optGender="ngModel" ngModel appSelectValidator="select"
+                                      style="width:auto;padding-top:1px" aria-describedby="gender__BV_description_">
+                                <option value="select">Select</option>
+                                <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
+                              </select>
+                              <span *ngIf="optGender.touched && optGender.invalid" class="errorMessage msg_color"
+                                    style="font-size:10pt;">
+                                Gender
+                                is required.
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div id="dob" role="group" class="form-group">
+                            <div>
+                              <span style="text-align:left">
+                                <h6>Birth Date:</h6>
+                              </span>
+                              <table>
+                                <tr>
+                                  <td>
+                                    <div class="form-group" id="ddlmonth"
+                                         [class.has-error]="ddlMonth.touched && ddlMonth.invalid"
+                                         aria-describedby="ddlmonth__BV_description_">
+                                      <select name="ddlMonth" id="ddlMonth" class="form-control"
+                                              [(ngModel)]="register.month" required="required" #ddlMonth="ngModel" ngModel
+                                              appSelectValidator="Month" style="width:auto;padding-top:1px">
+                                        <option value="Month">Month</option>
+                                        <option value="1">Jan</option>
+                                        <option value="2">Feb</option>
+                                        <option value="3">Mar</option>
+                                        <option value="4">Apr</option>
+                                        <option value="5">May</option>
+                                        <option value="6">Jun</option>
+                                        <option value="7">Jul</option>
+                                        <option value="8">Aug</option>
+                                        <option value="9">Sep</option>
+                                        <option value="10">Oct</option>
+                                        <option value="11">Nov</option>
+                                        <option value="12">Dec</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="form-group" id="ddlday" [class.has-error]="ddlDay.touched && ddlDay.invalid"
+                                         aria-describedby="ddlday__BV_description_">
+
+                                      <select name="ddlDay" id="ddlDay" [(ngModel)]="register.day" class="form-control"
+                                              required="required" #ddlDay="ngModel" ngModel appSelectValidator="Day"
+                                              style="width:auto;padding-top:1px">
+                                        <option value="Day">Day</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="form-group" id="ddlyear"
+                                         [class.has-error]="ddlYear.touched && ddlYear.invalid"
+                                         aria-describedby="ddlyear__BV_description_">
+                                      <select name="ddlYear" id="ddlYear" [(ngModel)]="register.year" class="form-control"
+                                              required="required" #ddlYear="ngModel" ngModel appSelectValidator="Year"
+                                              style="width:auto;padding-top:1px">
+                                        <option value="Year">Year</option>
+                                        <option *ngFor="let year of years" [value]="year">
+                                          {{year}}
+                                        </option>
+
+
+                                        <!-- option value="Year">Year</!--option>
+                                      <option value="2009">2019</option>
+                                      <option value="2009">2018</option>
+                                      <option value="2009">2017</option>
+                                      <option value="2009">2016</option>
+                                      <option value="2009">2015</option>
+                                      <option value="2009">2014</option>
+                                      <option value="2009">2013</option>
+                                      <option value="2009">2012</option>
+                                      <option value="2009">2011</option>
+                                      <option value="2009">2010</option>
+                                      <option value="2009">2009</option>
+                                      <option value="2008">2008</option>
+                                      <option value="2007">2007</option>
+                                      <option value="2006">2006</option>
+                                      <option value="2005">2005</option>
+                                      <option value="2004">2004</option>
+                                      <option value="2003">2003</option>
+                                      <option value="2002">2002</option>
+                                      <option value="2001">2001</option>
+                                      <option value="2000">2000</option>
+                                      <option value="1999">1999</option>
+                                      <option value="1998">1998</option>
+                                      <option value="1997">1997</option>
+                                      <option value="1996">1996</option>
+                                      <option value="1995">1995</option>
+                                      <option value="1994">1994</option>
+                                      <option value="1993">1993</option>
+                                      <option value="1992">1992</option>
+                                      <option value="1991">1991</option>
+                                      <option value="1990">1990</option>
+                                      <option value="1989">1989</option>
+                                      <option value="1988">1988</option>
+                                      <option value="1987">1987</option>
+                                      <option value="1986">1986</option>
+                                      <option value="1985">1985</option>
+                                      <option value="1984">1984</option>
+                                      <option value="1983">1983</option>
+                                      <option value="1982">1982</option>
+                                      <option value="1981">1981</option>
+                                      <option value="1980">1980</option>
+                                      <option value="1979">1979</option>
+                                      <option value="1978">1978</option>
+                                      <option value="1977">1977</option>
+                                      <option value="1976">1976</option>
+                                      <option value="1975">1975</option>
+                                      <option value="1974">1974</option>
+                                      <option value="1973">1973</option>
+                                      <option value="1972">1972</option>
+                                      <option value="1971">1971</option>
+                                      <option value="1970">1970</option>
+                                      <option value="1969">1969</option>
+                                      <option value="1968">1968</option>
+                                      <option value="1967">1967</option>
+                                      <option value="1966">1966</option>
+                                      <option value="1965">1965</option>
+                                      <option value="1964">1964</option>
+                                      <option value="1963">1963</option>
+                                      <option value="1962">1962</option>
+                                      <option value="1961">1961</option>
+                                      <option value="1960">1960</option>
+                                      <option value="1959">1959</option>
+                                      <option value="1958">1958</option>
+                                      <option value="1957">1957</option>
+                                      <option value="1956">1956</option>
+                                      <option value="1955">1955</option>
+                                      <option value="1954">1954</option>
+                                      <option value="1953">1953</option>
+                                      <option value="1952">1952</option>
+                                      <option value="1951">1951</option>
+                                      <option value="1950">1950</option>
+                                      <option value="1949">1949</option>
+                                      <option value="1948">1948</option>
+                                      <option value="1947">1947</option>
+                                      <option value="1946">1946</option>
+                                      <option value="1945">1945</option>
+                                      <option value="1944">1944</option>
+                                      <option value="1943">1943</option>
+                                      <option value="1942">1942</option>
+                                      <option value="1941">1941</option>
+                                      <option value="1940">1940</option>
+                                      <option value="1939">1939</option>
+                                      <option value="1938">1938</option>
+                                      <option value="1937">1937</option>
+                                      <option value="1936">1936</option>
+                                      <option value="1935">1935</option>
+                                      <option value="1934">1934</option>
+                                      <option value="1933">1933</option>
+                                      <option value="1932">1932</option>
+                                      <option value="1931">1931</option>
+                                      <option value="1930">1930</option>
+                                      <option value="1929">1929</option>
+                                      <option value="1928">1928</option>
+                                      <option value="1927">1927</option>
+                                      <option value="1926">1926</option>
+                                      <option value="1925">1925</option>
+                                      <option value="1924">1924</option>
+                                      <option value="1923">1923</option>
+                                      <option value="1922">1922</option>
+                                      <option value="1921">1921</option>
+                                      <option value="1920">1920</option>
+                                      <option value="1919">1919</option>
+                                      <option value="1918">1918</option>
+                                      <option value="1917">1917</option>
+                                      <option value="1916">1916</option>
+                                      <option value="1915">1915</option>
+                                      <option value="1914">1914</option>
+                                      <option value="1913">1913</option>
+                                      <option value="1912">1912</option>
+                                      <option value="1911">1911</option>
+                                      <option value="1910">1910</option>
+                                      <option value="1909">1909</option>
+                                      <option value="1908">1908</option>
+                                      <option value="1907">1907</option>
+                                      <option value="1906">1906</option>
+                                      <option value="1905">1905</option>
+                                      <option value="1904">1904</option>
+                                      <option value="1903">1903</option>
+                                      <option value="1902">1902</option>
+                                      <option value="1901">1901</option>
+                                      <option value="1900">1900</option -->
+
+                                      </select>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table>
+                              <span style="font-size:10pt;" class="errorMessage msg_color"
+                                    *ngIf="(ddlMonth.touched && ddlMonth.invalid) || (ddlDay.touched && ddlDay.invalid) || (ddlYear.touched && ddlYear.invalid)">
+                                Month,
+                                day, and year is required.
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-5">
+                          <div id="profileType" role="group" class="form-group"
+                               [class.has-error]="optPT.touched && optPT.invalid" aria-describedby="profile__BV_description_">
+                            <div style="text-align:left">
+                              <span style="text-align:left; ">
+                                <h6>Profile Type:</h6>
+                              </span>
+                              <select name="optPT" id="optPT" class="form-control" required="required"
+                                      [(ngModel)]="register.profileType" #optPT="ngModel" ngModel appSelectValidator="select"
+                                      style="width:auto;padding-top:1px" aria-describedby="profile__BV_description_">
+                                <option value="select">Select</option>
+                                <option *ngFor="let profile of profileTypes" [value]="profile">{{profile}}</option>
+                              </select>
+                              <span *ngIf="optPT.touched && optPT.invalid" class="errorMessage msg_color"
+                                    style="font-size:10pt;">Profile type is required.</span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <div class="row" style="top:0px">
-                    <div class="col-md-5">
-                      <div id="gender" role="group" class="form-group"
-                           [class.has-error]="optGender.touched && optGender.invalid"
-                           aria-describedby="gender__BV_description_">
-                        <div style="text-align:left">
-                          <span style="text-align:left">
-                            <h6>Gender:</h6>
-                          </span>
-                          <select name="optGender" id="optGender" class="form-control" required="required"
-                                  [(ngModel)]="register.gender" #optGender="ngModel" ngModel appSelectValidator="select"
-                                  style="width:auto;padding-top:1px" aria-describedby="gender__BV_description_">
-                            <option value="select">Select</option>
-                            <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
-                          </select>
-                          <span *ngIf="optGender.touched && optGender.invalid" class="errorMessage msg_color"
-                                style="font-size:10pt;">
-                            Gender
-                            is required.
-                          </span>
-                        </div>
+                      <div class="custom-control custom-checkbox">
+                        <h6 style="padding-bottom:5px">
+                          <input id="termsCheck" name="termsCheck" type="checkbox" (change)="terms =! terms"
+                                 autocomplete="off" class="custom-control-input" value="true"><label for="termsCheck"
+                                                                                                     class="custom-control-label">
+                            Accept our <a href="#" data-toggle="modal" data-target="#lgTermsModal">Terms and Conditions</a>.
+                          </label>
+                        </h6>
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div id="dob" role="group" class="form-group">
-                        <div>
-                          <span style="text-align:left">
-                            <h6>Birth Date:</h6>
-                          </span>
-                          <table>
-                            <tr>
-                              <td>
-                                <div class="form-group" id="ddlmonth"
-                                     [class.has-error]="ddlMonth.touched && ddlMonth.invalid"
-                                     aria-describedby="ddlmonth__BV_description_">
-                                  <select name="ddlMonth" id="ddlMonth" class="form-control"
-                                          [(ngModel)]="register.month" required="required" #ddlMonth="ngModel" ngModel
-                                          appSelectValidator="Month" style="width:auto;padding-top:1px">
-                                    <option value="Month">Month</option>
-                                    <option value="1">Jan</option>
-                                    <option value="2">Feb</option>
-                                    <option value="3">Mar</option>
-                                    <option value="4">Apr</option>
-                                    <option value="5">May</option>
-                                    <option value="6">Jun</option>
-                                    <option value="7">Jul</option>
-                                    <option value="8">Aug</option>
-                                    <option value="9">Sep</option>
-                                    <option value="10">Oct</option>
-                                    <option value="11">Nov</option>
-                                    <option value="12">Dec</option>
-                                  </select>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="form-group" id="ddlday" [class.has-error]="ddlDay.touched && ddlDay.invalid"
-                                     aria-describedby="ddlday__BV_description_">
-
-                                  <select name="ddlDay" id="ddlDay" [(ngModel)]="register.day" class="form-control"
-                                          required="required" #ddlDay="ngModel" ngModel appSelectValidator="Day"
-                                          style="width:auto;padding-top:1px">
-                                    <option value="Day">Day</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
-                                    <option value="25">25</option>
-                                    <option value="26">26</option>
-                                    <option value="27">27</option>
-                                    <option value="28">28</option>
-                                    <option value="29">29</option>
-                                    <option value="30">30</option>
-                                    <option value="31">31</option>
-                                  </select>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="form-group" id="ddlyear"
-                                     [class.has-error]="ddlYear.touched && ddlYear.invalid"
-                                     aria-describedby="ddlyear__BV_description_">
-                                  <select name="ddlYear" id="ddlYear" [(ngModel)]="register.year" class="form-control"
-                                          required="required" #ddlYear="ngModel" ngModel appSelectValidator="Year"
-                                          style="width:auto;padding-top:1px">
-                                    <option value="Year">Year</option>
-                                    <option *ngFor="let year of years" [value]="year">
-                                      {{year}}
-                                    </option>
-
-
-                                    <!-- option value="Year">Year</!--option>
-                                    <option value="2009">2019</option>
-                                    <option value="2009">2018</option>
-                                    <option value="2009">2017</option>
-                                    <option value="2009">2016</option>
-                                    <option value="2009">2015</option>
-                                    <option value="2009">2014</option>
-                                    <option value="2009">2013</option>
-                                    <option value="2009">2012</option>
-                                    <option value="2009">2011</option>
-                                    <option value="2009">2010</option>
-                                    <option value="2009">2009</option>
-                                    <option value="2008">2008</option>
-                                    <option value="2007">2007</option>
-                                    <option value="2006">2006</option>
-                                    <option value="2005">2005</option>
-                                    <option value="2004">2004</option>
-                                    <option value="2003">2003</option>
-                                    <option value="2002">2002</option>
-                                    <option value="2001">2001</option>
-                                    <option value="2000">2000</option>
-                                    <option value="1999">1999</option>
-                                    <option value="1998">1998</option>
-                                    <option value="1997">1997</option>
-                                    <option value="1996">1996</option>
-                                    <option value="1995">1995</option>
-                                    <option value="1994">1994</option>
-                                    <option value="1993">1993</option>
-                                    <option value="1992">1992</option>
-                                    <option value="1991">1991</option>
-                                    <option value="1990">1990</option>
-                                    <option value="1989">1989</option>
-                                    <option value="1988">1988</option>
-                                    <option value="1987">1987</option>
-                                    <option value="1986">1986</option>
-                                    <option value="1985">1985</option>
-                                    <option value="1984">1984</option>
-                                    <option value="1983">1983</option>
-                                    <option value="1982">1982</option>
-                                    <option value="1981">1981</option>
-                                    <option value="1980">1980</option>
-                                    <option value="1979">1979</option>
-                                    <option value="1978">1978</option>
-                                    <option value="1977">1977</option>
-                                    <option value="1976">1976</option>
-                                    <option value="1975">1975</option>
-                                    <option value="1974">1974</option>
-                                    <option value="1973">1973</option>
-                                    <option value="1972">1972</option>
-                                    <option value="1971">1971</option>
-                                    <option value="1970">1970</option>
-                                    <option value="1969">1969</option>
-                                    <option value="1968">1968</option>
-                                    <option value="1967">1967</option>
-                                    <option value="1966">1966</option>
-                                    <option value="1965">1965</option>
-                                    <option value="1964">1964</option>
-                                    <option value="1963">1963</option>
-                                    <option value="1962">1962</option>
-                                    <option value="1961">1961</option>
-                                    <option value="1960">1960</option>
-                                    <option value="1959">1959</option>
-                                    <option value="1958">1958</option>
-                                    <option value="1957">1957</option>
-                                    <option value="1956">1956</option>
-                                    <option value="1955">1955</option>
-                                    <option value="1954">1954</option>
-                                    <option value="1953">1953</option>
-                                    <option value="1952">1952</option>
-                                    <option value="1951">1951</option>
-                                    <option value="1950">1950</option>
-                                    <option value="1949">1949</option>
-                                    <option value="1948">1948</option>
-                                    <option value="1947">1947</option>
-                                    <option value="1946">1946</option>
-                                    <option value="1945">1945</option>
-                                    <option value="1944">1944</option>
-                                    <option value="1943">1943</option>
-                                    <option value="1942">1942</option>
-                                    <option value="1941">1941</option>
-                                    <option value="1940">1940</option>
-                                    <option value="1939">1939</option>
-                                    <option value="1938">1938</option>
-                                    <option value="1937">1937</option>
-                                    <option value="1936">1936</option>
-                                    <option value="1935">1935</option>
-                                    <option value="1934">1934</option>
-                                    <option value="1933">1933</option>
-                                    <option value="1932">1932</option>
-                                    <option value="1931">1931</option>
-                                    <option value="1930">1930</option>
-                                    <option value="1929">1929</option>
-                                    <option value="1928">1928</option>
-                                    <option value="1927">1927</option>
-                                    <option value="1926">1926</option>
-                                    <option value="1925">1925</option>
-                                    <option value="1924">1924</option>
-                                    <option value="1923">1923</option>
-                                    <option value="1922">1922</option>
-                                    <option value="1921">1921</option>
-                                    <option value="1920">1920</option>
-                                    <option value="1919">1919</option>
-                                    <option value="1918">1918</option>
-                                    <option value="1917">1917</option>
-                                    <option value="1916">1916</option>
-                                    <option value="1915">1915</option>
-                                    <option value="1914">1914</option>
-                                    <option value="1913">1913</option>
-                                    <option value="1912">1912</option>
-                                    <option value="1911">1911</option>
-                                    <option value="1910">1910</option>
-                                    <option value="1909">1909</option>
-                                    <option value="1908">1908</option>
-                                    <option value="1907">1907</option>
-                                    <option value="1906">1906</option>
-                                    <option value="1905">1905</option>
-                                    <option value="1904">1904</option>
-                                    <option value="1903">1903</option>
-                                    <option value="1902">1902</option>
-                                    <option value="1901">1901</option>
-                                    <option value="1900">1900</option -->
-
-                                  </select>
-                                </div>
-                              </td>
-                            </tr>
-                          </table>
-                          <span style="font-size:10pt;" class="errorMessage msg_color"
-                                *ngIf="(ddlMonth.touched && ddlMonth.invalid) || (ddlDay.touched && ddlDay.invalid) || (ddlYear.touched && ddlYear.invalid)">
-                            Month,
-                            day, and year is required.
-                          </span>
-                        </div>
-                      </div>
+                      <div class="divider"></div>
+                      <h6 class="mb-0" style="padding-bottom:5px">
+                        Already have an account?
+                        <a [routerLink]="['/']" class="text-primary">Sign in</a>
+                        |
+                        <a [routerLink]="['/forgotpwd']" class="text-primary">
+                          Recover
+                          Password
+                        </a>
+                      </h6>
                     </div>
 
-                    <div class="col-md-5">
-                      <div id="profileType" role="group" class="form-group"
-                           [class.has-error]="optPT.touched && optPT.invalid" aria-describedby="profile__BV_description_">
-                        <div style="text-align:left">
-                          <span style="text-align:left; ">
-                            <h6>Profile Type:</h6>
-                          </span>
-                          <select name="optPT" id="optPT" class="form-control" required="required"
-                                  [(ngModel)]="register.profileType" #optPT="ngModel" ngModel appSelectValidator="select"
-                                  style="width:auto;padding-top:1px" aria-describedby="profile__BV_description_">
-                            <option value="select">Select</option>
-                            <option *ngFor="let profile of profileTypes" [value]="profile">{{profile}}</option>
-                          </select>
-                          <span *ngIf="optPT.touched && optPT.invalid" class="errorMessage msg_color"
-                                style="font-size:10pt;">Profile type is required.</span>
-                        </div>
-                      </div>
+                    <div>
+                      <table style="width:400px;" align="center" border="0">
+                        <tr *ngIf="showErrMsg">
+                          <td style="color:red">
+                            The email you entered already exists on {{this.appLogoText}}. You may have already created an account. Try to recover the password or use a different email!
+                          </td>
+                        </tr>
+                      </table>
                     </div>
+
+                    <div class="modal-footer d-block text-center">
+                      <button type="submit" id="register" [disabled]="!registerForm.valid || show || !terms"
+                              class="btn btn-wide btn-pill btn-shadow btn-hover-shine btn-primary btn-md">
+                        <i *ngIf="show" class='fa fa-spinner fa-spin'></i> {{
+                        (show==true) ? "Creating Account. Please wait..." : "Create Account"
+                        }}
+                      </button>
+                    </div>
+
                   </div>
-
-                  <div class="custom-control custom-checkbox">
-                    <h6 style="padding-bottom:5px">
-                      <input id="termsCheck" name="termsCheck" type="checkbox" (change)="terms =! terms"
-                             autocomplete="off" class="custom-control-input" value="true"><label for="termsCheck"
-                                                                                                 class="custom-control-label">
-                        Accept our <a href="#" data-toggle="modal" data-target="#lgTermsModal">Terms and Conditions</a>.
-                      </label>
-                    </h6>
-                  </div>
-                  <div class="divider"></div>
-                  <h6 class="mb-0" style="padding-bottom:5px">
-                    Already have an account?
-                    <a [routerLink]="['/']" class="text-primary">Sign in</a>
-                    |
-                    <a [routerLink]="['/forgotpwd']" class="text-primary">
-                      Recover
-                      Password
-                    </a>
-                  </h6>
                 </div>
-                <div class="modal-footer d-block text-center">
-                  <button type="submit" id="register" [disabled]="!registerForm.valid || show || !terms"
-                          class="btn btn-wide btn-pill btn-shadow btn-hover-shine btn-secondary btn-lg">
-                    <i *ngIf="show" class='fa fa-spinner fa-spin'></i> {{(show==true) ? "Creating Account. Please wait..." : "Create Account"
-                    }}
-                  </button>
-                </div>
-                <div>
-                  <table style="width:300px;" align="center" border="0">
-                    <tr *ngIf="showErrMsg">
-                      <td style="color:red">
-                        The email you entered already exists on {{this.appLogoText}}.
-                      </td>
-                    </tr>
-                  </table>
+                <div class="text-center text-black opacity-8 mt-3">
+                  <app-nologin-footer></app-nologin-footer>
                 </div>
               </div>
             </div>
-            <div class="text-center text-black opacity-8 mt-3">
-              <app-nologin-footer></app-nologin-footer>
-            </div>
           </div>
         </div>
-      </div>
-    </div>
   </form>
 </body>
 

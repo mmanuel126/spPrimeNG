@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ngx-page-scroll-core": "^10.0.0"
+  }
+}

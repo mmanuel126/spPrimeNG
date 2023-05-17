@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionMgtService } from '../services/session-mgt.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +9,11 @@ import { ISettingsService } from '../services/data/settings.service';
     templateUrl: './account-setting-deactivate.component.html',
     styleUrls: ['./account-setting-deactivate.component.css']
 })
+
 export class AccountSettingDeactivateComponent implements OnInit {
+
+    @ViewChild('closeDeactivateButton') closeDeactivateButton;
+    showConfirmModalBox: boolean = false;
 
     public show: boolean = false;
     public showErrMsg: boolean = false;
@@ -28,23 +32,25 @@ export class AccountSettingDeactivateComponent implements OnInit {
         this.asModel.reason = "select"
     }
 
-    jumpToConfirmModal(mod) {
-        this.modHand = this.modalService.open(mod);
+    jumpToConfirmModal() {
+        //this.modHand = this.modalService.open(mod);
+      this.showConfirmModalBox = true;
         return false;
     }
 
-    async doDeactivate(modal) {
-        this.isSaving = true;
-        await this.setSvc.DeactivateAccount(this.memberID, this.asModel.reason, this.asModel.explanation);
-        this.isSaving = false;
-        this.modalService.dismissAll(modal);
-        this.session.setSessionVar('isUserLogin', null);
-        this.session.setSessionVar('userID', null);
-        this.session.setSessionVar('userEmail', null);
-        this.session.setSessionVar('userImage', null);
-        this.session.setSessionVar('pwd', null);
-        this.router.navigate(['/']);
-    }
+  async doDeactivate() {
+    this.isSaving = true;
+    await this.setSvc.DeactivateAccount(this.memberID, this.asModel.reason, this.asModel.explanation);
+    this.isSaving = false;
+    //this.modalService.dismissAll(modal);
+    this.closeDeactivateButton.nativeElement.click();
+    this.session.setSessionVar('isUserLogin', null);
+    this.session.setSessionVar('userID', null);
+    this.session.setSessionVar('userEmail', null);
+    this.session.setSessionVar('userImage', null);
+    this.session.setSessionVar('pwd', null);
+    this.router.navigate(['/']);
+  }
 }
 
 export class DeactivateModel {

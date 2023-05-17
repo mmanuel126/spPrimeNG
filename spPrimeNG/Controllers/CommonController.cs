@@ -11,10 +11,10 @@ using sportprofiles.Models.Organizations;
 namespace sportprofiles.Controllers
 {
     /// <summary>
-    /// a collection of common interfaces and shared functionalities used by the ES.
+    /// a collection of common interfaces and shared functionalities used by the SP.
     /// </summary>
     [Route("services/[controller]")]
-    [SwaggerTag("a collection of common interfaces and shared functionalities used by the ES.")]
+    [SwaggerTag("a collection of common interfaces and shared functionalities used by the SP.")]
     public class CommonController : Controller
     {
         

@@ -485,7 +485,7 @@ namespace sportprofiles.Controllers
         [Route("AddMemberSchool/{memberID}")]
         public void AddMemberSchool([FromRoute] int memberID, [FromBody] MemberProfileEducationModel body)
         {
-            _mbrRepo.AddMemberSchool(memberID, int.Parse(body.SchoolID), int.Parse(body.SchoolType), body.SchoolName, body.YearClass, body.Major, int.Parse(body.Degree), body.Societies, body.SportLevelType);
+            _mbrRepo.AddMemberSchool(memberID, long.Parse(body.SchoolID), int.Parse(body.SchoolType), body.SchoolName, body.YearClass, body.Major, int.Parse(body.Degree), body.Societies, body.SportLevelType);
         }
 
         /// <summary>
@@ -648,7 +648,6 @@ namespace sportprofiles.Controllers
         /// <returns>The password.</returns>
         /// <param name="email">Email.</param>
         [HttpGet]
-        [Authorize]
         [Route("ResetPassword")]
         public string ResetPassword([FromQuery] string email)
         {
@@ -844,7 +843,7 @@ namespace sportprofiles.Controllers
         /// <param name="memberId">Member identifier.</param>
         /// <param name="fileName">File name.</param>
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("SetMemberStatus")]
         public void SetMemberStatus([FromQuery] int memberId,[FromQuery] int status)
         {

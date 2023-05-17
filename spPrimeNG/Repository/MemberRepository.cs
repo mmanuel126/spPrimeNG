@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.Common;
 using Google.Apis.YouTube.v3;
 using Google.Apis.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace sportprofiles.Repository
 {
@@ -53,7 +54,7 @@ namespace sportprofiles.Repository
         {
             List<ValidateNewRegisteredUserModel> memberList = _loggingRepo.ValidateNewRegisteredUser(email, Convert.ToInt32(code));
             if (memberList.Count != 0)
-                return memberList[0].MemberId.ToString() + "~" + memberList[0].Email.ToString() + "~" + memberList[0].UserImage + "~" + memberList[0].FirstName + " " + memberList[0].LastName + "~" + memberList[0].Title;
+                return memberList[0].MemberId.ToString() + "~" + memberList[0].Email.ToString() + "~" + memberList[0].UserImage + "~" + memberList[0].FirstName + " " + memberList[0].LastName + "~" + memberList[0].Title + "~2";
             else
                 return "";
         }
@@ -113,7 +114,7 @@ namespace sportprofiles.Repository
             str = str + "</tr>";
             str = str + "<tr>";
             str = str + "<td style='font-size: 12px; text-align: left; width: 100%; font-family: Trebuchet MS,Trebuchet,Verdana,Helvetica,Arial,sans-seri'>";
-            str = str + "<p>You recently registered for " + appName + ". To complete your registration, click this link:<br/>";
+            str = str + "<p>You recently registered for " + appName + ". To complete your registration, click the link below (or copy/paste the link to a browser):<br/>";
             str = str + "<p />";
             str = str + "<p><a href ='" + webSiteLink + "?code=" + code.ToString() + "&email=" + email + "&fname=" + firstName + "'>" + webSiteLink + "?code=" + code.ToString() + "&email=" + email + "&device=" + device + "</a></p>";
             str = str + "<p/>";
@@ -208,7 +209,7 @@ namespace sportprofiles.Repository
             List<MemberPostsModel> lst;
             lst = (from mn in _context.TbMemberPosts
                    join mnn in _context.TbMemberProfile on mn.MemberId equals mnn.MemberId
-                   where l.Contains((int)mn.MemberId!)
+                  // where l.Contains((int)mn.MemberId!)
                    orderby mn.PostDate descending
                    select new MemberPostsModel()
                    {
@@ -262,6 +263,7 @@ namespace sportprofiles.Repository
         /// <returns></returns>
         public MemberProfileGenInfoModel GetMemberGeneralInfoV2(int memberID)
         {
+
             var mp = (from m in _context.TbMemberProfile
                       join r in _context.TbInterests on m.InterestedInType equals r.InterestId into grp
                       from r in grp.DefaultIfEmpty()
@@ -271,34 +273,34 @@ namespace sportprofiles.Repository
                       {
 
                           MemberID = m.MemberId.ToString(),
-                          FirstName = m.FirstName,
-                          MiddleName = m.MiddleName,
-                          LastName = m.LastName,
-                          Sex = m.Sex,
-                          ShowSexInProfile = (bool)m.ShowSexInProfile!,
-                          DOBMonth = m.Dobmonth,
-                          DOBDay = m.Dobday,
-                          DOBYear = m.Dobyear,
-                          ShowDOBType = (bool)m.ShowDobtype!,
-                          Hometown = m.Hometown,
-                          HomeNeighborhood = m.HomeNeighborhood,
-                          CurrentStatus = m.CurrentStatus.ToString(),
+                          FirstName = m.FirstName ?? "",
+                          MiddleName = m.MiddleName ?? "",
+                          LastName = m.LastName ?? "",
+                          Sex = m.Sex ?? "",
+                          ShowSexInProfile = m.ShowSexInProfile ?? false,
+                          DOBMonth = m.Dobmonth ?? "",
+                          DOBDay = m.Dobday ?? "",
+                          DOBYear = m.Dobyear ?? "",
+                          ShowDOBType = m.ShowDobtype ?? false,
+                          Hometown = m.Hometown ?? "",
+                          HomeNeighborhood = m.HomeNeighborhood ?? "",
+                          CurrentStatus = m.CurrentStatus.ToString() ?? "",
                           InterestedInType = m.InterestedInType.ToString() ?? "",
                           LookingForEmployment = m.LookingForEmployment ?? false,
                           LookingForRecruitment = m.LookingForRecruitment ?? false,
                           LookingForPartnership = m.LookingForPartnership ?? false,
                           LookingForNetworking = m.LookingForNetworking ?? false,
-                          Sport = m.Sport,
-                          Bio = m.Bio,
-                          Height = m.Height,
-                          Weight = m.Weight,
-                          LeftRightHandFoot = m.LeftRightHandFoot,
-                          PreferredPosition = m.PreferredPosition,
-                          SecondaryPosition = m.SecondaryPosition,
-                          PicturePath = m.PicturePath,
+                          Sport = m.Sport ?? "",
+                          Bio = m.Bio ?? "",
+                          Height = m.Height ?? "",
+                          Weight = m.Weight ?? "",
+                          LeftRightHandFoot = m.LeftRightHandFoot ?? "",
+                          PreferredPosition = m.PreferredPosition ?? "",
+                          SecondaryPosition = m.SecondaryPosition ?? "",
+                          PicturePath = m.PicturePath ?? "",
                           JoinedDate = m.JoinedDate.ToString() ?? "",
-                          CurrentCity = m.CurrentCity,
-                          TitleDesc = m.TitleDesc,
+                          CurrentCity = m.CurrentCity ?? "",
+                          TitleDesc = m.TitleDesc ?? "",
                           InterestedDesc = r == null ? String.Empty : r.InterestDesc
                       }).ToList();
 
@@ -575,12 +577,17 @@ namespace sportprofiles.Repository
                      string specialSkills,
                      string aboutMe)
         {
+            if (String.IsNullOrEmpty(activities)) activities = "";
+            if (String.IsNullOrEmpty(interests)) interests = "";
+            if (String.IsNullOrEmpty(specialSkills)) specialSkills = "";
+            if (String.IsNullOrEmpty(aboutMe)) aboutMe = "";
+
             var mID = new SqlParameter("@MemberID", memberID);
             var pActivities = new SqlParameter("@Activities", activities);
             var pInterests = new SqlParameter("@Interests", interests);
             var pSpecialSkills = new SqlParameter("@SpecialSkills", specialSkills);
             var pAboutMe = new SqlParameter("@AboutMe", aboutMe);
-
+ 
             _context.Database.ExecuteSqlRaw("EXEC spSaveMemberPersonalInfo @MemberID, @Activities, @Interests, @SpecialSkills, @AboutMe",
                                                mID, pActivities, pInterests, pSpecialSkills, pAboutMe);
         }
@@ -1157,13 +1164,13 @@ namespace sportprofiles.Repository
         /// <param name="major"></param>
         /// <param name="degree"></param>
         /// <param name="societies"></param>
-        public void AddMemberSchool(int memberID, int instID, int instType, string school, string classYear, string major, int degree, string societies, string sportLevelType)
+        public void AddMemberSchool(int memberID, long instID, int instType, string school, string classYear, string major, int degree, string societies, string sportLevelType)
         {
             TbMemberProfileEducationV2 mp = new TbMemberProfileEducationV2();
             mp.MemberId = memberID;
-            mp.SchoolId = instID;
+            mp.SchoolId = (Int32) instID;
             mp.SchoolType = instType;
-            mp.SchoolName = "";
+            mp.SchoolName = school;
             mp.ClassYear = classYear;
             mp.Major = major;
             mp.DegreeType = degree;
@@ -1186,13 +1193,18 @@ namespace sportprofiles.Repository
         public void UpdateMemberSchool(int memberID, int instID, int instType, string classYear, string major, int degree, string societies, string sportLevelType)
         {
             //update tb meber profile with new profile picture
-            var mbr = (from m in _context.TbMemberProfileEducationV2 where m.MemberId == memberID && m.SchoolId == instID && m.SchoolType == instType select m).First();
-            mbr.ClassYear = classYear;
-            mbr.Major = major;
-            mbr.DegreeType = degree;
-            mbr.Societies = societies;
-            mbr.SportLevelType = sportLevelType;
-            _context.SaveChanges();
+            var lst = (from m in _context.TbMemberProfileEducationV2 where m.MemberId == memberID && m.SchoolId == instID && m.SchoolType == instType select m).ToList();
+
+            if (lst.Count != 0)
+            {
+                var mbr = lst.First();
+                mbr.ClassYear = classYear;
+                mbr.Major = major;
+                mbr.DegreeType = degree;
+                mbr.Societies = societies;
+                mbr.SportLevelType = sportLevelType;
+                _context.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -1528,7 +1540,7 @@ namespace sportprofiles.Repository
         void CreatePostComment(int memberID, int postID, string postMsg);
         List<TbMemberProfileEmploymentInfo> GetMemberWorkExperience(int memberID);
         List<TbInterests> GetMemberInterests();
-        void AddMemberSchool(int memberID, int instID, int instType, string school, string classYear, string major, int degree, string societies, string sportLevelType);
+        void AddMemberSchool(int memberID, long instID, int instType, string school, string classYear, string major, int degree, string societies, string sportLevelType);
         void UpdateMemberSchool(int memberID, int instID, int instType, string classYear, string major, int degree, string societies, string sportLevelType);
         void RemoveMemberSchool(int memberID, int instID, int instType);
         void AddWorkExperience(int memberID, int companyID, string companyName, string title, string jobDesc, string jobCity, string state, string startMonth, string startYear, string endMonth, string endYear);

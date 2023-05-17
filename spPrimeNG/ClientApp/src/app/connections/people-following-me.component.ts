@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ViewChild, OnInit } from '@angular/core';
 import { SessionMgtService } from '../services/session-mgt.service';
 import { ConnectionsService } from '../services/data/connections.service';
 import { ContactModel } from '../models/contacts/contact-model';
@@ -13,11 +13,15 @@ import { environment } from '../../environments/environment';
 })
 export class PeopleFollowingMeComponent implements OnInit {
 
+  @ViewChild('closebutton') closebutton;
+
   public memberId: string;
   public contactCnt: number = 0;
   public contactInfoList: ContactModel[];
   public spinner: boolean = false;
   public contactId = "";
+
+  showModalBox: boolean = false;
 
   showErrMsg: boolean = false;
   errMsg: string;
@@ -42,29 +46,37 @@ export class PeopleFollowingMeComponent implements OnInit {
   }
 
   async getPeopleFollowingMe(memberId: string) {
-
     this.contactInfoList = await this.contactSvc.getPeopleFollowingMe(memberId);
     if (this.contactInfoList != null) {
-      this.contactCnt = this.contactInfoList.length;
+      this.contactCnt = this.contactInfoList.length; console.log(this.contactInfoList);
     }
   }
 
-  addSearchContactPopup(mod, id) {
+  addSearchContactPopup(id) {
     this.connectionID = id;
-    this.modHand = this.ngbMod.open(mod);
+    this.showModalBox = true;
   }
 
   sendRequest() {
     this.sendTheRequest();
-    this.modHand.close();
+    this.closebutton.nativeElement.click();
     return false;
   }
 
   async sendTheRequest() {
+    this.spinner = true;
     let loggedUserID = this.session.getSessionVal('userID');
     await this.contactSvc.addConnection(loggedUserID,this.connectionID);
     this.getPeopleFollowingMe(loggedUserID);
+    this.spinner = false;
   }
+
+  /*
+  async addContact(contactId: string) {
+    this.spinner = true;
+    await this.contactSvc.addConnection(this.memberId, contactId);
+    this.spinner = false;
+  } */
 
 }
 

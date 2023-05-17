@@ -140,6 +140,6 @@ namespace sportprofiles.Models.Connections
 
 	public class ResultModel
 	{
-		public string MemberID { get; set; } = string.Empty;
+		public int MemberID { get; set; } = 0;
     }
 }

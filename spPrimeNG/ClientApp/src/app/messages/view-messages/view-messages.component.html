@@ -14,7 +14,7 @@
           <table style=" width:0px; padding-top:25px">
             <tr>
               <td style="vertical-align: top">
-                <table *ngIf="this.msgCnt!=0" style="width:0px;border-bottom: solid 2px white;">
+                <table style="width:0px;border-bottom: solid 2px white;">
                   <tr>
                     <td style=" text-align:right; vertical-align: middle">
                       <div id="pnlInboxSearch" style="padding-bottom:15px">
@@ -40,7 +40,8 @@
                 </table>
 
                 <div  class="btn-group" role="group" aria-label="Message Menu" style="font-size: 8pt; border-bottom: solid 2px #e7eadf;">
-                  <button (click)="showNewMessagePopup(newMsgModal)" title="Create new message" type="button" class="btn">
+                  <button (click)="showNewMessagePopup()"  data-toggle="modal" data-target="#newMsgModal"
+                          title="Create new message" type="button" class="btn">
                     <i class="fa fa-edit"></i>&nbsp;
                   </button>
                   <span *ngIf="this.msgCnt!=0">
@@ -62,24 +63,24 @@
                   <i class="fa fa-spinner fa-spin"></i>&nbsp;Loading...
                 </div>
 
-                <table *ngIf="this.msgCnt!=0" style=" width:0px; background-color:white;">
+                <table  style=" width:0px; background-color:white;">
                   <!-- middle part -->
                   <tr>
                     <td>
-                      <table style="width:400px;border-color: #e8e8e8; border-style: none; border-bottom: solid 2px #e7eadf;
+                      <table style="width:350px;border-color: #e8e8e8; border-style: none; border-bottom: solid 2px #e7eadf;
                                              text-align: left; border-width: 1px">
                         <tr>
                           <td style="width: 0px;padding-top:10px">
                             <table>
                               <tr>
-                                <td style="width: 200px; text-align: left; ">
+                                <td style="width: 140px; text-align: left; ">
                                   <span style="color: Gray; font-weight: bold;">Select:&nbsp;</span>
                                   <a href="" [ngClass]="this.textWeightVal == 'all' ? 'boldClass': 'normalClass'"
                                     (click)="selectAll();" id="lbSelectAll">All</a>,
                                   <a href="" [ngClass]="this.textWeightVal == 'none' ? 'boldClass': 'normalClass'"
                                     (click)="selectNone();" id="lbSelectNone">None</a>
                                 </td>
-                                <td style="width: 200px; text-align: right; ">
+                                <td style="width: 210px; text-align: right; ">
                                   <span style="color: Gray; font-weight: bold;">Show:&nbsp;</span>
                                   <a href="" [ngClass]="this.textWeightShowVal == 'all' ? 'boldClass': 'normalClass'"
                                     (click)="getMessages(this.memberId, 'Inbox', 'All');" id="lbShowAll">All</a>,
@@ -114,9 +115,9 @@
     {{this.msgCnt}}&nbsp;message(s) found.
   </div>
 
-  <div id="tbMsgPartialDiv" style="background-color:white">
+  <div id="tbMsgPartialDiv" style="background-color:white; overflow-x:auto; height:400px">
     <table
-      style="width: 500px; text-align: left; border-left: 1px none #e7eadf; border-right:1px none #e7eadf; border-collapse: collapse; font-size:11pt">
+      style="width: 350px; text-align: left; border-left: 1px none #e7eadf; border-right:1px none #e7eadf; border-collapse: collapse; font-size:11pt">
       <tbody>
         <tr *ngFor="let res of messageInfoList" style="border-bottom: solid 1px;border-bottom-color:#DBDBDB;">
 
@@ -151,7 +152,7 @@
             <a id="lbSName" [routerLink]="['/members/show-profile']" [queryParams]="{memberID:res.fromID}" href=""
               [ngClass]="res.messageState == '0' ? 'boldClass': 'normalClass'">{{res.senderID}}</a>
             <br />
-            <a href="#" data-toggle="modal" data-target="#openMsgModal" (click)="showOpenMessagePopup(openMsgModal,
+            <a href="#" data-toggle="modal" data-target="#openMsgModal" (click)="showOpenMessagePopup(
                   res.fromID, res.senderImage,
                   res.senderID,
                   res.subject,
@@ -171,38 +172,141 @@
 </ng-template>
 
 <!-- template for reply message -->
-<ng-template #openMsgModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h5 class="modal-title">
-      <img src="{{this.memImageUrlPath}}{{this.senderImage}}"
-        style="color:#596A7D;border-color:LightGrey;border-width:1px;border-style:None;height:40px;width:40px;border-radius:50%" />
-      &nbsp; {{this.senderName}}
-    </h5>
+<div *ngIf="showModalBox" class="modal fade" id="openMsgModal" tabindex="-1" role="dialog" aria-labelledby="#openMsgModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="openMsgModalTitle">
+            <img src="{{this.memImageUrlPath}}{{this.senderImage}}"
+               style="color:#596A7D;border-color:LightGrey;border-width:1px;border-style:None;height:40px;width:40px;border-radius:50%" />
+            &nbsp; {{this.senderName}}
+        </h5>
+        <button type="button" #closebutton class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #openMsgForm='ngForm'>
+          {{this.subject}}<br>
+          {{this.dateTime}}
+          <hr />
+          {{this.body}}
+          <hr />
+          Reply:<br>
+          <textarea autofocus="autofocus" [(ngModel)]="msgModel.message" required ngModel name="txtMsg"
+                    placeholder="Type message..." style="height:50px;width:350px"></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="SendMessage() "
+                [disabled]="!openMsgForm.valid || spinner">
+          <i *ngIf="spinner" class='fas fa-spinner fa-spin'></i> {{spinner ? "Sending message..." : "Send Message"}}
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
-  <div class="modal-body">
-    <form #openMsgForm='ngForm'>
-      {{this.subject}}<br>
-      {{this.dateTime}}
-      <hr />
-      {{this.body}}
-      <hr />
-      Reply:<br>
-      <textarea autofocus="autofocus" [(ngModel)]="msgModel.message" required ngModel name="txtMsg"
-        placeholder="Type message..." style="height:50px;width:350px"></textarea>
-    </form>
-  </div>
-  <div class="modal-footer">
+</div>
 
-    <button type="button" class="btn btn-primary" (click)="SendMessage() "
-      [disabled]="!openMsgForm.valid || spinner">
-      <i *ngIf="spinner" class='fas fa-spinner fa-spin'></i> {{spinner ? "Sending message..." : "Send Message"}}
-    </button>
-    <button type="button" class="btn btn-secondary" (click)="d( 'Cross click') ">Close</button>
-  </div>
-</ng-template>
+<!-- template for compose new message -->
+<div *ngIf="showNewModalBox" class="modal fade" id="newMsgModal" tabindex="-1" role="dialog" aria-labelledby="#newMsgModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newMsgModalTitleLabel">Compose New Message</h5>
+        <button type="button" #closeNewButton class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #newMsgForm='ngForm' name="newMsgForm" autocomplete="off">
+          <div class="Row">
+            <div class="Cell">
+              To:
+            </div>
+            <Div class="Cell">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" md-maxlength="30" autocomplete="off" ng-model="txtKey" name="txtKey" #txtKey="ngModel" type="search" required
+                         ngModel [(ngModel)]="autoCompleteModel.name" (keyup)="searchContact(autoCompleteModel.name)"
+                         placeholder="Start typing a name..." style="width:297px; height:29px; padding-top:10px;" />
+                  <div *ngIf="txtKey.errors && (txtKey.dirty || txtKey.touched)  && !txtKey.valid">
+                    <span class="help-bpx" style="color:red; font-size:11pt">&nbsp;Required.</span>
+                  </div>
+                </div>
 
-<!-- template for compose  new  message -->
-<ng-template #newMsgModal let-c="close" let-d="dismiss">
+                <div class="search-result" *ngIf="flag">
+                  <ul>
+                    <li *ngFor="let contact of contacts | async">
+                      <a (click)="onselectContact(contact.friendName, contact.connectionID)">
+                        <table>
+                          <tr>
+                            <td>
+                              <a (click)="onselectContact(contact.friendName, contact.connectionID)">
+                                <img src="{{this.memImageUrlPath}}{{contact.picturePath}}"
+                                     style="color:#596A7D;border-color:LightGrey;border-width:1px;border-style:None;height:40px;width:40px;border-radius:50%" />
+                              </a>
+                            </td>
+                            <td style="font-size:10pt">
+                              <a (click)="onselectContact(contact.friendName, contact.contactID)">
+                                &nbsp;{{contact.friendName}}<br>
+                              </a>
+                              &nbsp;{{contact.titleDesc}}
+                            </td>
+                          </tr>
+                        </table>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </Div>
+          </div>
+
+          <div class="Row">
+            <div class="Cell">
+              Subject:&nbsp;
+            </div>
+            <Div class="Cell">
+              <input type="text" [(ngModel)]="msgModel.subject" required ngModel #txtSubject="ngModel" name="txtSubject"
+                     class="form-control" style="width:297px; height:29px;padding-left:10px" autocomplete="off">
+              <div *ngIf="txtSubject.errors && (txtSubject.dirty || txtSubject.touched)  && !txtSubject.valid">
+                <span class="help-bpx" style="color:red;font-size:11pt" *ngIf="txtSubject.errors.required">
+                  Message subject
+                  is required.
+                </span>
+              </div>
+            </Div>
+          </div>
+          <hr />
+          <textarea [(ngModel)]="msgModel.message" autofocus="autofocus" required ngModel #txtMsg="ngModel" name="txtMsg"
+                    placeholder="Type message..." autocomplete="off" class="form-control"
+                    style="height:50px;width:360px"></textarea>
+          <div *ngIf="txtMsg.errors && (txtMsg.dirty || txtMsg.touched)  && !txtMsg.valid">
+            <span class="help-bpx" style="color:red;font-size:11pt" *ngIf="txtMsg.errors.required">
+              Message text is
+              required.
+            </span>
+          </div>
+          <div *ngIf="showErrMsg">
+            <span class="help-bpx" style="color:red;">{{this.errMsg}}</span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="sendNewMsg() "
+                [disabled]="!newMsgForm.valid || spinner">
+          <i *ngIf="spinner" class='fas fa-spinner fa-spin'></i> {{spinner ? "Sending message..." : "Send Message"}}
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ng-template #newMsgModal let-c="close" let-d="dismiss">
 
   <div class="modal-header">
     <h5 class="modal-title">
@@ -288,4 +392,4 @@
     </button>
     <button type="button" class="btn btn-secondary" (click)="d( 'Cross click') ">Cancel</button>
   </div>
-</ng-template>
+</ng-template -->

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { MembersService } from '../../services/data/members.service';
 import { ConnectionsService } from '../../services/data/connections.service';
@@ -27,6 +27,14 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./show-profile.component.css'],
 })
 export class ShowProfileComponent implements OnInit {
+
+  @ViewChild('closeVideoButton') closeVideoButton;
+  showVideoModalBox: boolean = false;
+  player: any;
+
+  playerVars = {
+    cc_lang_pref: 'en'
+  }
 
   code: string = "";
   spinner: boolean;
@@ -92,6 +100,7 @@ export class ShowProfileComponent implements OnInit {
   myEventsList: MemberEventsModel[];
   aboutInfoModel: MemberProfileAboutModel[];
   playList: YoutubePlayListModel[];
+
   videosList: YoutubeVideosListModel[];
 
   eduCount: number;
@@ -107,7 +116,6 @@ export class ShowProfileComponent implements OnInit {
   showAddAsContact: boolean = false;
   showFollowMember: boolean =false;
 
- // private tabs: NgbTabset;
   public activeId: string;
 
   modHand: NgbModalRef;
@@ -193,9 +201,9 @@ export class ShowProfileComponent implements OnInit {
     this.vidCount = this.videosList.length;
   }
 
-  async showOpenPopup(openModal, videoID: string) {
+  async showOpenPopup(videoID: string) {
     this.videoId = videoID;
-    this.modHand = this.ngbMod.open(openModal);
+    this.showVideoModalBox = true;
     return false;
   }
 
@@ -205,17 +213,17 @@ export class ShowProfileComponent implements OnInit {
     if (this.basicInfoModel.currentStatus != null)
       this.cStatus = this.basicInfoModel.currentStatus;
 
-    if (this.basicInfoModel.bio != null)
+    if (this.basicInfoModel.bio.length != 0)
       this.bio = this.basicInfoModel.bio;
 
-    if (this.basicInfoModel.picturePath == null)
+    if (this.basicInfoModel.picturePath.length == 0)
       this.memImage = environment.memberImagesUrlPath + "default.png";
     else
       this.memImage = environment.memberImagesUrlPath + this.basicInfoModel.picturePath;
-
+    
     this.memTitle = this.basicInfoModel.titleDesc;
     this.memName = this.basicInfoModel.firstName + " " + this.basicInfoModel.lastName;
-    if (this.basicInfoModel.sport == null)
+    if (this.basicInfoModel.sport == null || this.basicInfoModel.sport.length==0)
       this.sport = "";
     else
       this.sport = this.basicInfoModel.sport;
@@ -240,7 +248,6 @@ export class ShowProfileComponent implements OnInit {
     this.contactInfoModel = await this.membersSvc.getMemberContactInfo(this.memberID.toString());
     this.memOtherEmail = this.contactInfoModel.otherEmail;
     this.showEmail = this.contactInfoModel.showEmailToMembers;
-
   }
 
   async getAboutInfo() {
@@ -348,6 +355,18 @@ export class ShowProfileComponent implements OnInit {
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['members/show-profile'], { queryParams: { memberID: memberId } });
     return false;
+  }
+
+  savePlayer(player: any) {
+    this.player = player;
+  }
+
+  doClose() {
+   
+    console.log(this.player);
+    if (this.player.target.stopVideo)
+       this.player.target.stopVideo();
+    this.closeVideoButton.nativeElement.click();
   }
 
 }

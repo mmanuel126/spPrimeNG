@@ -45,7 +45,8 @@
             &nbsp;
             <button (click)="refreshPosts()" class="mr-2 btn btn-link" style="font-size:10pt">
               <i class="fa fa-refresh"></i>&nbsp;Refresh
-            </button><span style="color:gray">|</span>&nbsp;<button (click)="jumpToComment('0',true)" class="mr-2 btn btn-link btn-sm" style="font-size:10pt">
+            </button><span style="color:gray">|</span>&nbsp;
+            <button (click)="jumpToComment('0',true)" data-toggle="modal" data-target="#mdlNewPost" class="mr-2 btn btn-link btn-sm" style="font-size:10pt">
               <i class="fa fa-plus"></i>&nbsp;Add New Post
             </button>
 
@@ -87,6 +88,7 @@
                           <span id="lblPostDate" style="color:Gray;">{{res.datePosted}}</span>
                           <span style="color: #596a7d">&nbsp;-</span>
                           <a (click)="jumpToReply(res.postID,true)" id="lbPostComment" href=""
+                             data-toggle="modal" data-target="#mdlReplyPost"
                              style=" font-weight: normal;">&nbsp;Reply</a>
                         </span>
 
@@ -112,6 +114,7 @@
                                       style="color:Gray;font-size:9pt">{{chi.dateResponded}}</span>
                                 <span style="color: #596a7d">&nbsp;-</span>
                                 <a (click)="jumpToReply(res.postID, true)" id="lbPostComment" href=""
+                                   data-toggle="modal" data-target="#mdlReplyPost"
                                    style=" font-weight:normal; font-size:9pt">&nbsp;Reply</a>
                               </td>
                             </tr>
@@ -136,13 +139,42 @@
   </div>
 </div>
 
+<!-- hidden control to trigger button in case  -->
+<button #hiddenButton [hidden]="true" data-toggle="modal" data-target="#reactivateSP"></button>
 
-<!-- template for new post modal-->
-
-<div id="mdlNewPost" class="modal fade" role="dialog" [ngStyle]="{'display': mdlNewPostIsOpen ? 'block' : 'none', 'opacity': 1}">
-  <div class="modal-dialog">
+<!-- template for new post modal -->
+<div *ngIf="showNewModalBox" class="modal fade" id="mdlNewPost" tabindex="-1" role="dialog" aria-labelledby="mdlNewPostLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        <h5 class="modal-title" id="mdlNewPostModalLabel">New Post</h5>
+        <button type="button" #closeNewButton class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #sendReplyForm='ngForm'>
+          <textarea autofocus name="txtResponse" rows="2" cols="20" id="txtResponse" maxlength="150" required ngModel
+                    [(ngModel)]="postModel.postText"
+                    style="color:Gray;border-color:LightGrey;border-width:1px;border-style:solid;font-size:9pt;height:40px; text-align:left"
+                    class="form-control"></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="doPost()"
+                [disabled]="!sendReplyForm.valid">
+          Post
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- div id="mdlNewPost" class="modal fade" role="dialog" [ngStyle]="{'display': mdlNewPostIsOpen ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#3E8EED">
         <h5 class="modal-title">New Post</h5>
       </div>
       <div class="modal-body">
@@ -163,14 +195,40 @@
       </div>
     </div>
   </div>
-</div>
-
+</!--div -->
 <!-- template for reply post modal-->
-
-<div id="mdlNewPost" class="modal fade" role="dialog" [ngStyle]="{'display': mdlReplyPostIsOpen ? 'block' : 'none', 'opacity': 1}">
-  <div class="modal-dialog">
+<div *ngIf="showReplyModalBox" class="modal fade" id="mdlReplyPost" tabindex="-1" role="dialog" aria-labelledby="mdlReplyPostLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reply to Post</h5>
+        <button type="button" #closeReplyButton class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #sendReplyForm='ngForm' (ngSubmit)="doPost()">
+          <textarea autofocus name="txtResponse" rows="2" cols="20" id="txtResponse" maxlength="150" required ngModel
+                    [(ngModel)]="postModel.postText"
+                    style="color:Gray;border-color:LightGrey;border-width:1px;border-style:solid;font-size:9pt;height:40px; text-align:left"
+                    class="form-control"></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="doPostReply()"
+                [disabled]="!sendReplyForm.valid">
+          Post
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- div id="mdlNewPost" class="modal fade" role="dialog" [ngStyle]="{'display': mdlReplyPostIsOpen ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#3E8EED">
         <h5 class="modal-title">Reply to Post</h5>
       </div>
       <div class="modal-body">
@@ -188,6 +246,29 @@
         </button>
         <button type="button" class="btn btn-secondary" (click)="doCancel()">Close</button>
 
+      </div>
+    </div>
+  </div>
+</div -->
+
+<!-- template for reactivate popup -->
+<div *ngIf="showModalBox" class="modal fade" id="reactivateSP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Account Reactivation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Welcome back! Your account was successfully reactivated. You may now continue to use the site as you were before you deactivated your account.   
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

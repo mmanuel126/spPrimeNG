@@ -1,6 +1,6 @@
 import { of as observableOf, Subject, Observable } from 'rxjs';
 import { catchError, switchMap, distinctUntilChanged, debounceTime } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { SessionMgtService } from '../../services/session-mgt.service';
 import { MessagesService } from '../../services/data/messages.service';
 import { SearchMessageInfoModel } from '../../models/messages/search-message-info.model';
@@ -15,6 +15,9 @@ import { environment } from '../../../environments/environment';
 })
 export class ViewMessagesComponent implements OnInit {
 
+  @ViewChild('closebutton') closebutton;
+  @ViewChild('closeNewButton') closeNewButton;
+
   public memberId: string;
   public msgCnt: number = 0;
   public messageInfoList: SearchMessageInfoModel[];
@@ -28,6 +31,9 @@ export class ViewMessagesComponent implements OnInit {
   public senderImage: string;
   public senderName: string;
   public messageId: string;
+
+  showModalBox: boolean = false;
+  showNewModalBox: boolean = false;
 
   showErrMsg: boolean = false;
   errMsg: string;
@@ -167,7 +173,7 @@ export class ViewMessagesComponent implements OnInit {
     location.reload();
   }
 
-  async showNewMessagePopup(newMsgModal) {
+  async showNewMessagePopup() {
     this.autoCompleteModel = new AutoCompleteModel();
     let contacts = this.searchContacts.pipe(
       debounceTime(300),        // wait for 300ms pause in events  
@@ -182,7 +188,7 @@ export class ViewMessagesComponent implements OnInit {
         console.log(error);
         return observableOf<any[]>([]);
       })); this.contacts = contacts;
-    this.modHand = this.ngbMod.open(newMsgModal);
+    this.showNewModalBox = true;
     return false;
   }
 
@@ -199,10 +205,8 @@ export class ViewMessagesComponent implements OnInit {
     return false;
   }
 
-  async showOpenMessagePopup(openMsgModal,
-    fromID, fromImage,
-    fromName, subject, dateTime, body, msgID
-  ) {
+  async showOpenMessagePopup(fromID, fromImage,
+    fromName, subject, dateTime, body, msgID) {
     this.senderId = fromID;
     this.senderImage = fromImage;
     this.senderName = fromName;
@@ -210,9 +214,7 @@ export class ViewMessagesComponent implements OnInit {
     this.dateTime = dateTime;
     this.body = body
     this.messageId = msgID;
-
-    this.modHand = this.ngbMod.open(openMsgModal);
-
+    this.showModalBox = true;
     this.toggleMsgStatus("1", msgID, "Inbox");
     await this.getMessageItems(this.memberId, "Inbox", "All");
     return false;
@@ -230,7 +232,7 @@ export class ViewMessagesComponent implements OnInit {
       this.autoCompleteModel.id = ""; this.autoCompleteModel.name = "";
       this.msgModel.message = ""; this.msgModel.subject = ""; this.msgModel.toId = "";
       this.spinner = false;
-      this.modHand.close();
+      this.closeNewButton.nativeElement.click();
       await this.getMessageItems(this.memberId, "Inbox", "All");
     }
   }
@@ -239,7 +241,7 @@ export class ViewMessagesComponent implements OnInit {
     this.spinner = true;
     let msg = this.msgModel.message;
     await this.msgSvc.sendMessage(this.memberId, this.senderId, this.subject, msg);
-    this.modHand.close();
+    this.closebutton.nativeElement.click();
     this.msgModel.message = "";
     await this.getMessageItems(this.memberId, "Inbox", "All");
     this.spinner = false;

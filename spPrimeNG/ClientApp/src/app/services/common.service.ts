@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { StatesModel } from 'src/app/models/states.model';
 import { SportsListModel } from 'src/app/models/members/profile-member.model';
 import { SchoolsByStateModel } from 'src/app/models/organization/schools-by-state.model';
 import { firstValueFrom, lastValueFrom } from 'rxjs'
@@ -49,6 +50,19 @@ export class CommonService implements ICommonService {
     return responseData;
   }
 
+  async getStates() {
+    this.requestQuery = `${this.COMMON_SERVICE_URI}GetStates`;
+    let responseData = await lastValueFrom(this.http.get<Array<StatesModel>>(this.requestQuery,
+      {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'authorization': 'Bearer ' + localStorage.getItem("access_token")
+        }
+      }
+    ));
+    return responseData;
+  }
+
   async getSchoolsByState(state: string, instType: string) {
     this.requestQuery = `${this.COMMON_SERVICE_URI}GetSchoolByState?state=${state}&institutionType=${instType}`;
     let responseData = await lastValueFrom(this.http.get<Array<SchoolsByStateModel>>(this.requestQuery,
@@ -82,11 +96,12 @@ export class CommonService implements ICommonService {
 }
 
 export abstract class ICommonService {
-    abstract encryptString(str: string): Promise<string>;
-    abstract decryptString(str: string): Promise<string>;
-    abstract getSportsList(): Promise<Array<SportsListModel>>;
-    abstract getSchoolsByState(state: string, instType: string);
-    abstract logError(message: string, stack: string);
-    abstract getYears(maxYear:number, baseYear:number);
+  abstract encryptString(str: string): Promise<string>;
+  abstract decryptString(str: string): Promise<string>;
+  abstract getSportsList(): Promise<Array<SportsListModel>>;
+  abstract getSchoolsByState(state: string, instType: string);
+  abstract logError(message: string, stack: string);
+  abstract getYears(maxYear: number, baseYear: number);
+  abstract getStates(): Promise<Array<StatesModel>>;
 }
 

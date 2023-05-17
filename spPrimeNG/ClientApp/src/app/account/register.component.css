@@ -6,6 +6,7 @@
   background-size: 100%;
   background-position: center;
   background-size: cover;
+  overflow:auto;
 }
 
 .msg_color {

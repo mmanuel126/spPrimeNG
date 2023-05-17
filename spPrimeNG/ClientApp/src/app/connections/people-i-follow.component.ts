@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { SessionMgtService } from '../services/session-mgt.service';
 import { ConnectionsService } from '../services/data/connections.service';
 import { ContactModel } from '../models/contacts/contact-model';
-import { Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../environments/environment';
 
@@ -22,12 +22,14 @@ export class PeopleIFollowComponent implements OnInit {
   showErrMsg: boolean = false;
   errMsg: string;
 
+  showModalBox: boolean = false;
+
+  @ViewChild('closebutton') closebutton;
   modHand: NgbModalRef;
 
   searchModel = new SearchModel();
 
   public connections: Observable<any[]>;
-  //private searchContacts = new Subject<string>();
   public contactName = '';
   public flag: boolean = true;
   public memberImagesUrlPath: string;
@@ -42,28 +44,26 @@ export class PeopleIFollowComponent implements OnInit {
   }
 
   async getPeopleIFollow(memberId: string) {
-
     this.contactInfoList = await this.contactSvc.getPeopleIFollow(memberId);
     if (this.contactInfoList != null) {
       this.contactCnt = this.contactInfoList.length;
     }
   }
 
-  showUnfollowPopup(modal, id) {
+  showUnfollowPopup(id) {
     this.contactId = id;
-    this.modHand = this.ngbMod.open(modal);
+    this.showModalBox = true;
     return false;
   }
 
   async doUnfollowMember() {
     this.spinner = true;
-    this.modHand.close();
     await this.contactSvc.unFollowMember(this.memberId, this.contactId);
     this.getPeopleIFollow(this.memberId);
+    this.closebutton.nativeElement.click();
     this.spinner = false;
     return false;
   }
-
 }
 
 export class SearchModel {

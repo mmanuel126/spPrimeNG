@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { SessionMgtService } from '../services/session-mgt.service';
 import { ConnectionsService } from '../services/data/connections.service';
 import { ContactModel } from '../models/contacts/contact-model';
@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 })
 export class FindConnectionsComponent implements OnInit {
 
+  @ViewChild('closebutton') closebutton;
+
   public memberId: string;
   public contactCnt: number = -1;
   public contactInfoList: ContactModel[];
@@ -24,6 +26,8 @@ export class FindConnectionsComponent implements OnInit {
 
   public spinner: boolean = false;
   public contactId = "";
+
+  showModalBox: boolean = false;
 
   showErrMsg: boolean = false;
   errMsg: string;
@@ -60,13 +64,13 @@ export class FindConnectionsComponent implements OnInit {
     this.getContactSuggestions(this.memberId);
     return false;
   }
-
+  
   async addContact(contactId: string) {
     this.spinner = true;
     await this.contactSvc.addConnection(this.memberId, contactId);
     this.spinner = false;
   }
-
+  
   addSearchedItem(contactId: string) {
     this.addContact(contactId);
     this.getSearchContacts(this.memberId, this.searchModel.key);
@@ -99,16 +103,17 @@ export class FindConnectionsComponent implements OnInit {
     this.spinner = false;
   }
 
-  addSearchContactPopup(mod, contactId, name, type) {
+  addSearchContactPopup(contactId, name, type) {
     this.contactId = contactId;
     this.contactName = name;
     this.searchType = type;
-    this.modHand = this.ngbMod.open(mod);
+    this.showModalBox = true;
+    return false;
   }
 
   sendRequest() {
     this.sendTheRequest();
-    this.modHand.close();
+    this.closebutton.nativeElement.click();
     return false;
   }
 

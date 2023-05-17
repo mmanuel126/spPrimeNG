@@ -18,6 +18,7 @@ namespace sportprofiles.Models.Messages
         public string FromID  {get; set; } = string.Empty;
         public string FirstName  {get; set; } = string.Empty;
         public string FullBody  {get; set; } = string.Empty;
+        public string SenderTitle { get; set; } = string.Empty;
     }
 
     public class MessageInfoModel {

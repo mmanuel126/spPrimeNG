@@ -116,7 +116,7 @@ namespace sportprofiles.Repository
 
                       select new SchoolByStateModel()
                       {
-                          SchoolId = s.SchoolId,
+                          SchoolId = s.Lgid.ToString(),
                           SchoolName = s.SchoolName
                       }
                         ).Distinct().ToList();
@@ -214,7 +214,7 @@ namespace sportprofiles.Repository
             //(3) Create the SmtpClient object
             string smtpHost = _configuration.GetValue<string>("AppStrings:AppSMTPHost");
 
-            int smtpPort = 25;
+            int smtpPort = 8889;
             if (String.IsNullOrEmpty(_configuration.GetValue<string>("AppStrings:AppSMTPPort")))
             {
                 smtpPort = Convert.ToInt32(_configuration.GetValue<string>("AppStrings:AppSMTPPort"));

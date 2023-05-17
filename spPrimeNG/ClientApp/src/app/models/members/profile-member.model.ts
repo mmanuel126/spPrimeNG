@@ -84,24 +84,24 @@ export class MemberProfileAboutInfoModel {
 }
 
 export class YoutubePlayListModel {
-    Etag: string;
-    Id: string;
-    Title: string;
-    Description: string;
-    DefaultThumbnail: string;
-    DefaultThumbnailHeight: string;
-    DefaultThumbnailWidth: string;
+    etag: string;
+    id: string;
+    title: string;
+    description: string;
+    defaultThumbnail: string;
+    defaultThumbnailHeight: string;
+    defaultThumbnailWidth: string;
 }
 
 export class YoutubeVideosListModel {
-    Etag: string;
-    Id: string;
-    Title: string;
-    Description: string;
-    DefaultThumbnail: string;
-    DefaultThumbnailHeight: string;
-    DefaultThumbnailWidth: string;
-    PublishedAt: string;
+    etag: string;
+    id: string;
+    title: string;
+    description: string;
+    defaultThumbnail: string;
+    defaultThumbnailHeight: string;
+    defaultThumbnailWidth: string;
+    publishedAt: string;
 }
 
 export class SportsListModel {

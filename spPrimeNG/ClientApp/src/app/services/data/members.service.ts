@@ -744,10 +744,10 @@ export class MembersService {
         ));
         return response.toString();
     }
-
+    
     async getVideoPlayList(memberID: string) {
         this.requestQuery = `${this.MEMBERS_SERVICE_URI}GetVideoPlayList/${memberID}`;
-        let response = await lastValueFrom(this.httpClient.get<Array<YoutubePlayListModel>>(this.requestQuery
+        let response = lastValueFrom(this.httpClient.get<Array<YoutubePlayListModel>>(this.requestQuery
             ,
             {
                 headers: {
@@ -756,7 +756,20 @@ export class MembersService {
                 }
             }));
         return response;
-    }
+    } /*
+  async getVideoPlayList(memberID: string) {
+    this.requestQuery = `${this.MEMBERS_SERVICE_URI}GetVideoPlayList/${memberID}`;
+    let response = await this.httpClient.get<Array<YoutubePlayListModel>>(this.requestQuery
+      ,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': 'Bearer ' + localStorage.getItem("access_token")
+        }
+      }).toPromise();
+    return response;
+  }*/
+
 
     async getVideosList(playerListID: string) {
         this.requestQuery = `${this.MEMBERS_SERVICE_URI}GetVideosList/${playerListID}`;
@@ -827,10 +840,11 @@ export class MembersService {
     async saveInstagramURL(memberID: string, instagramURL: string) {
       let postBody = {
         memberID: memberID,
-        channelID: instagramURL
+        instagramURL: instagramURL
       }
       let requestData = JSON.stringify(postBody);
       this.requestQuery = `${this.MEMBERS_SERVICE_URI}SetInstagramURL`;
+     
       await firstValueFrom(this.httpClient.put(this.requestQuery, requestData
         ,
         {

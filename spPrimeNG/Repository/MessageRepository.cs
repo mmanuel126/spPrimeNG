@@ -98,7 +98,8 @@ namespace sportprofiles.Repository
                                    MsgDate = msg.MsgDate.ToString(),
                                    FromID = msg.SenderId.ToString(),
                                    FirstName = nt.FirstName,
-                                   FullBody = msg.Body
+                                   FullBody = msg.Body,
+                                   SenderTitle = nt.TitleDesc
                                }).ToList();
                 }
                 else if (showType == "All")

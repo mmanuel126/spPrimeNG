@@ -110,7 +110,7 @@
         placeholder="Enter City" class="form-control" style="width:250px" ngModel />
     </div>
 
-    <div class="form-group" style="padding-bottom:15px" *ngIf="this.contactInfoModel?.state">
+    <div class="form-group" style="padding-bottom:15px">
       <b>State:</b>
       <br />
       <input name="txtState" #txtState="ngModel" type="text" id="txtState" [(ngModel)]=" this.contactInfoModel.state"

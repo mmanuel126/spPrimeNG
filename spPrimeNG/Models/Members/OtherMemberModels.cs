@@ -82,19 +82,19 @@ namespace sportprofiles.Models.Members
         public string MiddleName  {get; set; } = string.Empty;
         public string LastName  {get; set; } = string.Empty;
         public string Sex  {get; set; } = string.Empty;
-        public bool ShowSexInProfile  {get; set; }
+        public bool ShowSexInProfile { get; set; } = false;
         public string DOBMonth  {get; set; } = string.Empty;
         public string DOBDay  {get; set; } = string.Empty;
         public string DOBYear  {get; set; } = string.Empty;
-        public bool ShowDOBType  {get; set; } 
+        public bool ShowDOBType { get; set; } = false;
         public string Hometown  {get; set; } = string.Empty;
         public string HomeNeighborhood  {get; set; } = string.Empty;
         public string CurrentStatus  {get; set; } = string.Empty;
         public string InterestedInType  {get; set; } = string.Empty;
-        public bool LookingForEmployment  {get; set; }
-        public bool LookingForRecruitment  {get; set; }
-        public bool LookingForPartnership  {get; set; } 
-        public bool LookingForNetworking  {get; set; } 
+        public bool LookingForEmployment { get; set; } = false;
+        public bool LookingForRecruitment { get; set; } = false;
+        public bool LookingForPartnership { get; set; } = false;
+        public bool LookingForNetworking { get; set; } = false;
         public string PicturePath  {get; set; } = string.Empty;
         public string JoinedDate  {get; set; } = string.Empty;
         public string CurrentCity  {get; set; } = string.Empty;

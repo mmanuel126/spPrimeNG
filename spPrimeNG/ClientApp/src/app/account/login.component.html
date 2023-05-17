@@ -3,8 +3,8 @@
     <div class="h-50  bg-animation">
       <div class="d-flex h-50 justify-content-center align-items-center">
         <div class="mx-auto app-login-box col-md-8">
-          <br><br>
-          <div class="mx-auto mb-3 logo_text logo_popup_text"><img src="{{this.webSiteDomain}}/assets/images/logo3.jpg" width="350" height="70"> </div>
+          <br>
+          <div class="mx-auto mb-3 logo_text logo_popup_text"><img src="{{this.webSiteDomain}}/assets/images/logo3.jpg" width="300" height="50"> </div>
           <div class="modal-dialog w-100 mx-auto">
             <div class="modal-content">
               <div class="modal-body">
@@ -24,6 +24,20 @@
                         <span class='incorrect_cred_msg'>
                           The password and email address you entered don't
                           match. Passwords are case sensitive, so remember to check your CAPS lock key.
+                        </span>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div class="h6 text-center" *ngIf="(this.result =='deactivated')">
+                  <table>
+                    <tr>
+                      <td id="errMsgTD" class="incorrect_cred_header">
+                        <b>Deactivated Account</b>
+                        <br />
+                        <span class='incorrect_cred_msg'>
+                          Your account was deactivated recently or sometime ago. To re-activate your account, please click<a [routerLink]="['/reactivate']">&nbsp;here</a>.
                         </span>
                       </td>
                     </tr>
@@ -62,7 +76,7 @@
               <div class="modal-footer clearfix">
                 <div class="float-left">
                   <a href="#" data-toggle="modal" data-target="#aboutSP"
-                    title="What about&nbsp;{{this.appLogoText}}?">
+                     title="What about&nbsp;{{this.appLogoText}}?">
                     <i class='fa fa-info-circle text-success'></i>&nbsp;<span class="text-success">About</span>
                   </a>
                 </div>
@@ -81,6 +95,15 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <div style="font-size:10pt;" class="text-center">
+            iPhone and Android apps available soon.
+            <a href="#" data-toggle="modal" data-target="#previewVideo"
+                (click)="showPreviewPopup();"
+               title="">
+              <i class=''></i>&nbsp;<span class="text-primary">See preview...</span>
+            </a>
           </div>
 
           <div class="text-center text-black opacity-8 mt-3">
@@ -124,6 +147,33 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- template for previewVideo popup -->
+<div *ngIf="showModalBox" class="modal fade" id="previewVideo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">iPhone App Preview</h5>
+        <button type="button" class="close" #closebutton data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="video" style="align-content:flex-start">
+          <video id="myVid" preload="none" (click)="toggleVideo()" #videoPlayer loop autoplay="autoplay" width="430px" height="467px" >
+            <source src="../../assets/images/mobilepreview.mov" type="video/mp4" />
+            Browser not supported
+          </video>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()" >Close</button>
       </div>
     </div>
   </div>

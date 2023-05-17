@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { SessionMgtService } from '../services/session-mgt.service';
 import { ConnectionsService } from '../services/data/connections.service';
 import { ContactModel } from '../models/contacts/contact-model';
-import { Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../environments/environment';
 
@@ -14,11 +14,16 @@ import { environment } from '../../environments/environment';
 })
 export class MyConnectionsComponent implements OnInit {
 
+  @ViewChild('closebutton') closebutton;
+  public mdlDropContactIsOpen: boolean = false;
+
   public memberId: string;
   public contactCnt: number = 0;
   public contactInfoList: ContactModel[];
   public spinner: boolean = false;
   public contactId = "";
+
+  showModalBox: boolean = false;
 
   showErrMsg: boolean = false;
   errMsg: string;
@@ -29,7 +34,6 @@ export class MyConnectionsComponent implements OnInit {
   autoCompleteModel = new AutoCompleteModel();
 
   public connections: Observable<any[]>;
-  //private searchContacts = new Subject<string>();
   public contactName = '';
   public flag: boolean = true;
   public memberImagesUrlPath: string;
@@ -69,9 +73,9 @@ export class MyConnectionsComponent implements OnInit {
     this.spinner = false;
   }
 
-  showDropContactPopup(modal, contactID: string, name: string) {
+  showDropContactPopup(contactID: string) {
     this.contactId = contactID;
-    this.modHand = this.ngbMod.open(modal);
+    this.showModalBox = true;
     return false;
   }
 
@@ -79,11 +83,14 @@ export class MyConnectionsComponent implements OnInit {
     this.spinner = true;
     await this.contactSvc.deleteConnection(this.memberId, this.contactId);
     this.getMyConnections(this.memberId);
+    this.closebutton.nativeElement.click();
     this.spinner = false;
-    this.modHand.close();
     return false;
   }
 
+  doCancel() {
+    this.mdlDropContactIsOpen = false;
+  }
 }
 
 export class SearchModel {

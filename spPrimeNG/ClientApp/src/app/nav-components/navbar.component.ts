@@ -14,6 +14,7 @@ import { StateService } from '../services/state.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
+
 export class NavbarComponent implements OnInit {
 
   public webSiteDomain = environment.webSiteDomain;
@@ -40,13 +41,11 @@ export class NavbarComponent implements OnInit {
     }
     this.userId = this.session.getSessionVal('userID');
     this.logoImage = environment.appLogo;
-
     this.getUnReadMessagesCount(this.userId);
-
   }
+
   isCollapsed = true;
   isCollapsedPin = false;
-
 
   ngOnInit() {
     this.autoCompleteModel = new AutoCompleteModel();
@@ -63,7 +62,6 @@ export class NavbarComponent implements OnInit {
         console.log(error);
         return observableOf<any[]>([]);
       })); this.entities = entities;
-
   }
 
   async getUnReadMessagesCount(id: string) {
@@ -119,10 +117,7 @@ export class NavbarComponent implements OnInit {
     this.flag = false;
     this.session.setSessionVar('memID', id);
     this.autoCompleteModel.name = "";
-    if (type == "people") {
-      this.router.navigate(['members/show-profile'], { queryParams: { memberID: id } });
-    }
-
+    this.router.navigate(['members/show-profile'], { queryParams: { memberID: id } });
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     }
@@ -143,7 +138,6 @@ export class NavbarComponent implements OnInit {
     let sTxt = this.autoCompleteModel.name;
     this.autoCompleteModel.name = "";
     this.router.navigate(['members/show-profile'], { queryParams: { searchText: sTxt } });
-
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
        return false;
     }
